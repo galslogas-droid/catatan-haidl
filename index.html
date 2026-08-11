@@ -174,21 +174,22 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
       <div class="mono"><img src="icon-192.png" alt="Logo Catatan Haidl"></div>
       <div class="htitle">
         <h1>Catatan Pribadi Haidl</h1>
-        <p>Haidl · Nifas · Istichadloh — Mazhab Syafi'i</p>
+        <p data-i18n="subtitle">Haidl · Nifas · Istichadloh — Mazhab Syafi'i</p>
       </div>
+      <button class="iconbtn" id="langBtn" title="Basa Jawa / Bahasa Indonesia">JW</button>
       <button class="iconbtn" id="themeBtn" title="Mode padhang/peteng">🌙</button>
     </div>
   </header>
 
   <main>
-    <div class="banner">📔 Pencet dinten ing kalender kagem nyathet metu/mandhege getih. Sedaya kesimpen ing HP niki (mboten mbetahaken internet), lan bakal dipun-golongaken otomatis miturut <em>Risalatul Mahaidl 2025</em>.</div>
+    <div class="banner" data-i18n-html="banner"></div>
 
     <div id="hukumSaknikiCard"></div>
 
     <div id="istihadhohPrompts"></div>
 
     <div class="panel" id="panelKalender">
-      <div class="panel-head" id="kalHead"><span class="chev" id="kalChev">▾</span><span class="ptitle">📅 Kalender</span></div>
+      <div class="panel-head" id="kalHead"><span class="chev" id="kalChev">▾</span><span class="ptitle" data-i18n="pKalender">📅 Kalender</span></div>
       <div class="panel-body" id="kalBody">
         <div class="cal-nav">
           <button type="button" id="calPrev">‹</button>
@@ -204,109 +205,108 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
         <div class="cal-legend">
           <span><i style="background:var(--haidl)"></i>Haidl</span>
           <span><i style="background:var(--nifas)"></i>Nifas</span>
-          <span><i style="background:var(--accent)"></i>Suci</span>
+          <span><i style="background:var(--accent)"></i><span data-i18n="legSuci">Suci</span></span>
           <span><i style="background:var(--isti)"></i>Istichadloh</span>
-          <span><i style="background:var(--fasad)"></i>Fasad</span>
+          <span><i style="background:var(--fasad)"></i><span data-i18n="legFasad">Fasad</span></span>
         </div>
         <div class="cal-grid" id="calGrid"></div>
-        <p class="tiny muted" style="margin-top:8px">Pencet dinten kagem nyathet/ngewahi. Tandha ⚠️ = perlu jawaban tambahan (istichadloh).</p>
+        <p class="tiny muted" style="margin-top:8px" data-i18n="calHint">Pencet dinten kagem nyathet/ngewahi. Tandha ⚠️ = perlu jawaban tambahan (istichadloh).</p>
       </div>
     </div>
 
     <div class="panel" id="panelRiwayat">
-      <div class="panel-head" id="riwHead"><span class="chev" id="riwChev">▾</span><span class="ptitle">🗂️ Riwayat &amp; Status</span></div>
-      <div class="panel-body" id="timelineBody"><div class="empty">Dèrèng wonten catetan. Pencet dinten ing kalender ndhuwur.</div></div>
+      <div class="panel-head" id="riwHead"><span class="chev" id="riwChev">▾</span><span class="ptitle" data-i18n="pRiwayat">🗂️ Riwayat &amp; Status</span></div>
+      <div class="panel-body" id="timelineBody"><div class="empty" data-i18n="riwEmpty">Dèrèng wonten catetan. Pencet dinten ing kalender ndhuwur.</div></div>
     </div>
 
     <div class="panel" id="panelQadha">
-      <div class="panel-head" id="qadhaHead"><span class="chev" id="qadhaChev">▸</span><span class="ptitle">🕌 Qadha Sholat &amp; Puasa</span></div>
-      <div class="panel-body closed" id="qadhaBody">Durung wonten data.</div>
+      <div class="panel-head" id="qadhaHead"><span class="chev" id="qadhaChev">▸</span><span class="ptitle" data-i18n="pQadha">🕌 Qadha Sholat &amp; Puasa</span></div>
+      <div class="panel-body closed" id="qadhaBody" data-i18n="qadhaEmpty">Durung wonten data.</div>
     </div>
 
     <div class="panel" id="panelProfil">
-      <div class="panel-head" id="profHead"><span class="chev" id="profChev">▸</span><span class="ptitle">⚙️ Profil &amp; Adat</span><span class="pmeta">opsional</span></div>
+      <div class="panel-head" id="profHead"><span class="chev" id="profChev">▸</span><span class="ptitle" data-i18n="pProfil">⚙️ Profil &amp; Adat</span><span class="pmeta" data-i18n="optional">opsional</span></div>
       <div class="panel-body closed" id="profBody">
-        <p class="tiny muted">Mboten wajib diisi ing wiwitan — adat bakal dipun-sinaoni piyambak dening app saking siklus ingkang jelas (mboten istichadloh). Kosongaken mawon menawi taksih bingung / dereng tertib.</p>
+        <p class="tiny muted" data-i18n="profIntro">Mboten wajib diisi ing wiwitan — adat bakal dipun-sinaoni piyambak dening app saking siklus ingkang jelas (mboten istichadloh). Kosongaken mawon menawi taksih bingung / dereng tertib.</p>
         <div class="adat-grid">
-          <div class="box"><b id="adatHaidlView">–</b><span>dinten haidl</span></div>
-          <div class="box"><b id="adatSuciView">–</b><span>dinten suci</span></div>
-          <div class="box"><b id="adatNifasView">–</b><span>dinten nifas</span></div>
+          <div class="box"><b id="adatHaidlView">–</b><span data-i18n="unitDinHaidl">dinten haidl</span></div>
+          <div class="box"><b id="adatSuciView">–</b><span data-i18n="unitDinSuci">dinten suci</span></div>
+          <div class="box"><b id="adatNifasView">–</b><span data-i18n="unitDinNifas">dinten nifas</span></div>
         </div>
         <div class="row">
-          <label class="field"><span>Sampun nate haidl?</span>
+          <label class="field"><span data-i18n="qEverHaidl">Sampun nate haidl?</span>
             <div class="pill-group" id="pgEverHaidl">
-              <button class="pill" data-v="true">Sampun</button>
-              <button class="pill" data-v="false">Dèrèng</button>
+              <button class="pill" data-v="true" data-i18n="yaSampun">Sampun</button>
+              <button class="pill" data-v="false" data-i18n="dereng">Dèrèng</button>
             </div>
           </label>
-          <label class="field"><span>Sampun nate nifas?</span>
+          <label class="field"><span data-i18n="qEverNifas">Sampun nate nifas?</span>
             <div class="pill-group" id="pgEverNifas">
-              <button class="pill" data-v="true">Sampun</button>
-              <button class="pill" data-v="false">Dèrèng</button>
+              <button class="pill" data-v="true" data-i18n="yaSampun">Sampun</button>
+              <button class="pill" data-v="false" data-i18n="dereng">Dèrèng</button>
             </div>
           </label>
         </div>
         <div class="row">
-          <label class="field"><span>Adat haidl (dinten)</span><input type="number" id="inAdatHaidl" min="1" max="15" placeholder="cth. 6"></label>
-          <label class="field"><span>Adat suci (dinten)</span><input type="number" id="inAdatSuci" min="1" placeholder="cth. 24"></label>
-          <label class="field"><span>Adat nifas (dinten)</span><input type="number" id="inAdatNifas" min="1" max="60" placeholder="cth. 40"></label>
+          <label class="field"><span data-i18n="lblAdatHaidl">Adat haidl (dinten)</span><input type="number" id="inAdatHaidl" min="1" max="15" placeholder="cth. 6"></label>
+          <label class="field"><span data-i18n="lblAdatSuci">Adat suci (dinten)</span><input type="number" id="inAdatSuci" min="1" placeholder="cth. 24"></label>
+          <label class="field"><span data-i18n="lblAdatNifas">Adat nifas (dinten)</span><input type="number" id="inAdatNifas" min="1" max="60" placeholder="cth. 40"></label>
         </div>
-        <label class="field"><span>Tanggal lahir (Masehi) — opsional</span><input type="date" id="inBirthdate"></label>
-        <p class="tiny muted" style="margin-top:10px">Lokasi kagem itungan jam sholat (kagem fitur Qadha Sholat ing ngandhap).</p>
+        <label class="field"><span data-i18n="lblBirthdate">Tanggal lahir (Masehi) — opsional</span><input type="date" id="inBirthdate"></label>
+        <p class="tiny muted" style="margin-top:10px" data-i18n="lokasiIntro">Lokasi kagem itungan jam sholat (kagem fitur Qadha Sholat ing ngandhap).</p>
         <div class="row">
-          <button type="button" class="btn ghost wide" id="gpsBtn">📍 Deteksi lokasi otomatis (GPS)</button>
+          <button type="button" class="btn ghost wide" id="gpsBtn" data-i18n="gpsBtn">📍 Deteksi lokasi otomatis (GPS)</button>
         </div>
         <p class="tiny muted" id="gpsStatus" style="margin:-4px 0 8px"></p>
-        <label class="field"><span>Utawi ketik kutha/kabupaten</span>
+        <label class="field"><span data-i18n="lblCity">Utawi ketik kutha/kabupaten</span>
           <input type="text" id="inCity" list="cityListDL" placeholder="cth. Kediri" autocomplete="off">
           <datalist id="cityListDL"></datalist>
         </label>
-        <p class="tiny muted" id="cityNotFound" style="display:none;color:var(--danger);margin:-4px 0 8px">Kutha mboten kepanggih ing dhaptar — mangga isi koordinat manual ing ngandhap, utawi pilih kutha caket saking dhaptar.</p>
+        <p class="tiny muted" id="cityNotFound" style="display:none;color:var(--danger);margin:-4px 0 8px" data-i18n="cityNotFound">Kutha mboten kepanggih ing dhaptar — mangga isi koordinat manual ing ngandhap, utawi pilih kutha caket saking dhaptar.</p>
         <div class="row">
-          <label class="field"><span>Lintang (latitude)</span><input type="number" step="0.0001" id="inLat" placeholder="cth. -7.7956"></label>
-          <label class="field"><span>Bujur (longitude)</span><input type="number" step="0.0001" id="inLon" placeholder="cth. 110.3695"></label>
-          <label class="field"><span>Zona (UTC+)</span><input type="number" step="0.5" id="inTz" placeholder="cth. 7"></label>
+          <label class="field"><span data-i18n="lblLat">Lintang (latitude)</span><input type="number" step="0.0001" id="inLat" placeholder="cth. -7.7956"></label>
+          <label class="field"><span data-i18n="lblLon">Bujur (longitude)</span><input type="number" step="0.0001" id="inLon" placeholder="cth. 110.3695"></label>
+          <label class="field"><span data-i18n="lblTz">Zona (UTC+)</span><input type="number" step="0.5" id="inTz" placeholder="cth. 7"></label>
         </div>
       </div>
     </div>
 
     <div class="panel" id="panelRinci">
-      <div class="panel-head" id="rinciHead"><span class="chev" id="rinciChev">▸</span><span class="ptitle">📋 Sedaya Cathetan</span><span class="pmeta">priksa/ewahi</span></div>
+      <div class="panel-head" id="rinciHead"><span class="chev" id="rinciChev">▸</span><span class="ptitle" data-i18n="pRinci">📋 Sedaya Cathetan</span><span class="pmeta" data-i18n="periksaEwahi">priksa/ewahi</span></div>
       <div class="panel-body closed" id="rinciBody">
-        <p class="tiny muted">Sedaya cathetan wekdal (saking kalender) kasebat runtut ing ngriki, saged diewahi utawi dibusak langsung.</p>
+        <p class="tiny muted" data-i18n="rinciIntro">Sedaya cathetan wekdal (saking kalender) kasebat runtut ing ngriki, saged diewahi utawi dibusak langsung.</p>
         <div id="epList"></div>
       </div>
     </div>
 
     <div class="panel" id="panelSync">
-      <div class="panel-head" id="syncHead"><span class="chev" id="syncChev">▸</span><span class="ptitle">☁️ Cadangan &amp; Sinkronisasi</span></div>
+      <div class="panel-head" id="syncHead"><span class="chev" id="syncChev">▸</span><span class="ptitle" data-i18n="pSync">☁️ Cadangan &amp; Sinkronisasi</span></div>
       <div class="panel-body closed" id="syncBody">
-        <p class="tiny muted">Data utami tetep ing HP niki. Mlebu nganggo akun Google pribadi supados data kacadhangaken lan saged dibikak wonten HP sanès — data mung kesimpen ing akun Google sampeyan piyambak, mboten dipun-bagi kaliyan tiyang sanès.</p>
+        <p class="tiny muted" data-i18n="syncIntro">Data utami tetep ing HP niki. Mlebu nganggo akun Google pribadi supados data kacadhangaken lan saged dibikak wonten HP sanès — data mung kesimpen ing akun Google sampeyan piyambak, mboten dipun-bagi kaliyan tiyang sanès.</p>
         <div class="row">
-          <button class="btn primary wide" id="googleSignInBtn">🔐 Mlebu nganggo Google</button>
+          <button class="btn primary wide" id="googleSignInBtn" data-i18n="btnSignIn">🔐 Mlebu nganggo Google</button>
         </div>
         <div class="row" id="googleSyncBtns" style="display:none">
-          <button class="btn primary" id="syncUpBtn">☁️⬆️ Simpen</button>
-          <button class="btn" id="syncDownBtn">☁️⬇️ Jupuk</button>
-          <button class="btn ghost" id="googleSignOutBtn">Metu</button>
+          <button class="btn primary" id="syncUpBtn" data-i18n="btnSyncUp">☁️⬆️ Simpen</button>
+          <button class="btn" id="syncDownBtn" data-i18n="btnSyncDown">☁️⬇️ Jupuk</button>
+          <button class="btn ghost" id="googleSignOutBtn" data-i18n="btnSignOut">Metu</button>
         </div>
-        <label class="chk" id="autoSyncWrap" style="display:none"><input type="checkbox" id="autoSyncChk" checked> Otomatis simpen ing Google saben owah</label>
+        <label class="chk" id="autoSyncWrap" style="display:none"><input type="checkbox" id="autoSyncChk" checked> <span data-i18n="autoSyncLbl">Otomatis simpen ing Google saben owah</span></label>
         <p class="tiny" id="syncStatus"></p>
         <div class="row" style="margin-top:.4rem">
-          <button class="btn ghost" id="exportBtn">💾 Ekspor .json</button>
-          <button class="btn ghost" id="importBtn">📂 Muat .json</button>
+          <button class="btn ghost" id="exportBtn" data-i18n="btnExport">💾 Ekspor .json</button>
+          <button class="btn ghost" id="importBtn" data-i18n="btnImport">📂 Muat .json</button>
           <input type="file" id="importFile" accept="application/json" style="display:none">
         </div>
         <div class="row" style="margin-top:.4rem">
-          <button class="btn ghost" id="resetBtn" style="border-color:var(--danger);color:var(--danger)">🗑️ Hapus sedaya data (reset)</button>
+          <button class="btn ghost" id="resetBtn" style="border-color:var(--danger);color:var(--danger)" data-i18n="btnReset">🗑️ Hapus sedaya data (reset)</button>
         </div>
       </div>
     </div>
   </main>
 
   <footer>
-    <p>Adhedhasar <em>Risalatul Mahaidl 2025</em> · Mazhab Syafi'i · prototipe mandiri<br>
-    ⚠️ Bagean istichadloh kategori tartamtu taksih draf, dèrèng ditashih lengkap.</p>
+    <p data-i18n-html="footerText"></p>
   </footer>
 </div>
 
@@ -314,15 +314,15 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
 
 <div class="overlay hidden" id="overlay">
   <div class="sheet">
-    <h2 id="sheetTitle">Cathet Dinten</h2>
-    <label class="field"><span>Tanggal</span><input type="date" id="fDate"></label>
-    <p class="tiny muted" style="margin:-4px 0 8px">Cathet mawon jam pinten kahananipun owah. Kagem mandheg, tambah cathetan enggal kanthi status "Suci" ing jam mandhegipun — mboten prelu ngisi jam mandheg piyambak.</p>
+    <h2 id="sheetTitle" data-i18n="sheetTitleDefault">Cathet Dinten</h2>
+    <label class="field"><span data-i18n="lblTanggal">Tanggal</span><input type="date" id="fDate"></label>
+    <p class="tiny muted" style="margin:-4px 0 8px" data-i18n="sheetHint">Cathet mawon jam pinten kahananipun owah. Kagem mandheg, tambah cathetan enggal kanthi status "Suci" ing jam mandhegipun — mboten prelu ngisi jam mandheg piyambak.</p>
     <div id="cpRows"></div>
-    <button type="button" class="btn ghost wide" id="addCpBtn" style="margin-bottom:14px">+ Tambah cathetan</button>
-    <label class="chk"><input type="checkbox" id="fLahir"> Dinten niki babaran (miwiti nifas)</label>
+    <button type="button" class="btn ghost wide" id="addCpBtn" style="margin-bottom:14px" data-i18n="btnAddCp">+ Tambah cathetan</button>
+    <label class="chk"><input type="checkbox" id="fLahir"> <span data-i18n="chkLahir">Dinten niki babaran (miwiti nifas)</span></label>
     <div class="sheetbtns">
-      <button type="button" class="btn-cancel" id="btnCancel">Batal</button>
-      <button type="button" class="btn-save" id="btnSave">Simpen</button>
+      <button type="button" class="btn-cancel" id="btnCancel" data-i18n="btnBatal">Batal</button>
+      <button type="button" class="btn-save" id="btnSave" data-i18n="btnSimpen">Simpen</button>
     </div>
   </div>
 </div>
@@ -349,11 +349,12 @@ function saveState(){ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
 function defaultState(){
   return {
     profile:{everHadHaidl:null, everHadNifas:null, adatHaidl:null, adatSuci:null, adatNifas:null, birthdate:null, lat:null, lon:null, tz:null, city:null},
-    checkpoints:[], episodes:[], births:[], istihadhohAnswers:{}
+    checkpoints:[], episodes:[], births:[], istihadhohAnswers:{}, lang:'jv'
   };
 }
 let state = loadState();
 if(!state.checkpoints) state.checkpoints = [];
+if(!state.lang) state.lang = 'jv';
 
 /* ======================= CATHETAN WEKDAL (checkpoint) -> WEWENGKON (episode) ======================= */
 // Saben checkpoint = {id, ts, status:'suci'|'flek'|'sedeng'|'kuat'}. Diurutake wektu, saben checkpoint
@@ -415,7 +416,9 @@ function buildHaidlBlock(events, idx, adat, everHadHaidl, answers){
       const durHaidl1 = Math.round((segEnd-e1.start)/DAY);
       const dur1raw = segEnd - e1.start;
       if(dur1raw < MIN_HAIDL){
-        segments.push({start:e1.start, end:segEnd, status:'ISTICHADLOH', belumCukup:true, note:`Getih namung medal ${(dur1raw/HOUR).toFixed(1)} jam, banjur mandheg tenanan (getih candhakipun sampun mlebet langkung saking 15 dinten, dados sampun cetha DEREG bakal nyambung). Amargi DEREG nyekapi minimal haidl (24 jam), getih punika tetep dipun-hukumi ISTICHADLOH (darah ingkang dereng nyekapi syarat haidl), sanès HAIDL. Miturut Bab I, cekap resik+wudhu mawon, mboten wajib mandi.`});
+        segments.push({start:e1.start, end:segEnd, status:'ISTICHADLOH', belumCukup:true, note: state.lang==='id'
+          ? `Darah hanya keluar ${(dur1raw/HOUR).toFixed(1)} jam, lalu benar-benar berhenti (darah berikutnya baru masuk lebih dari 15 hari kemudian, jadi sudah jelas TIDAK akan menyambung). Karena BELUM memenuhi minimal haidl (24 jam), darah ini tetap dihukumi ISTICHADLOH (darah yang belum memenuhi syarat haidl), bukan HAIDL. Menurut Bab I, cukup bersih+wudhu saja, tidak wajib mandi.`
+          : `Getih namung medal ${(dur1raw/HOUR).toFixed(1)} jam, banjur mandheg tenanan (getih candhakipun sampun mlebet langkung saking 15 dinten, dados sampun cetha DEREG bakal nyambung). Amargi DEREG nyekapi minimal haidl (24 jam), getih punika tetep dipun-hukumi ISTICHADLOH (darah ingkang dereng nyekapi syarat haidl), sanès HAIDL. Miturut Bab I, cekap resik+wudhu mawon, mboten wajib mandi.`});
         const nextAdatBC = {haidl:adat.haidl, suci:adat.suci, nifas:adat.nifas};
         if(j+1 >= events.length){
           return {segments, nextIndex:j+1, adatHaidl:null, adatSuci:null, needsInput:[]};
@@ -423,15 +426,21 @@ function buildHaidlBlock(events, idx, adat, everHadHaidl, answers){
         const restBC = buildHaidlBlock(events, j+1, nextAdatBC, everHadHaidl, answers);
         return {segments:[...segments, ...restBC.segments], nextIndex:restBC.nextIndex, adatHaidl:restBC.adatHaidl, adatSuci:restBC.adatSuci, needsInput:restBC.needsInput||[]};
       }
-      segments.push({start:e1.start, end:segEnd, status:'HAIDL', note:`Getih medal ${durHaidl1} dinten, taksih ing salebeting wates maksimal haidl (15 dinten), pramila sedaya dipun-hukumi HAIDL. Getih candhakipun sampun mlebet sasampunipun 15 dinten saking wiwitan blok punika, dados dipun-etang minangka rangkaian enggal (Bab I).`});
+      segments.push({start:e1.start, end:segEnd, status:'HAIDL', note: state.lang==='id'
+        ? `Darah keluar ${durHaidl1} hari, masih dalam batas maksimal haidl (15 hari), sehingga semua dihukumi HAIDL. Darah berikutnya baru masuk setelah 15 hari dari awal blok ini, jadi dihitung sebagai rangkaian baru (Bab I).`
+        : `Getih medal ${durHaidl1} dinten, taksih ing salebeting wates maksimal haidl (15 dinten), pramila sedaya dipun-hukumi HAIDL. Getih candhakipun sampun mlebet sasampunipun 15 dinten saking wiwitan blok punika, dados dipun-etang minangka rangkaian enggal (Bab I).`});
       if(kekurangan <= 0){
-        segments.push({start:segEnd, end:e2.start, status:'SUCI', note:`Jeda mboten medal getih punika ${Math.round(gapMurni/DAY)} dinten, sampun nyekapi wates minimal suci pemisah antawis kalih haidl (15 dinten), pramila getih candhakipun dipun-etang minangka haidl enggal, boten prelu fasad.`});
+        segments.push({start:segEnd, end:e2.start, status:'SUCI', note: state.lang==='id'
+          ? `Jeda tanpa keluar darah ini ${Math.round(gapMurni/DAY)} hari, sudah memenuhi batas minimal suci pemisah antara dua haidl (15 hari), sehingga darah berikutnya dihitung sebagai haidl baru, tidak perlu fasad.`
+          : `Jeda mboten medal getih punika ${Math.round(gapMurni/DAY)} dinten, sampun nyekapi wates minimal suci pemisah antawis kalih haidl (15 dinten), pramila getih candhakipun dipun-etang minangka haidl enggal, boten prelu fasad.`});
         const rest = buildHaidlBlock(events, j+1, adat, true, answers);
         return {segments:[...segments, ...rest.segments], nextIndex:rest.nextIndex, adatHaidl:rest.adatHaidl, adatSuci:rest.adatSuci, needsInput:rest.needsInput||[]};
       }
       const durE2 = (e2.end ?? Date.now()) - e2.start;
       if(durE2 <= kekurangan){
-        segments.push({start:segEnd, end:e2.end ?? Date.now(), status:'FASAD', note:`Getih punika medal sasampunipun 15 dinten saking wiwitan haidl sepisan, nanging jeda sesuci ingkang leres namung ${Math.round(gapMurni/DAY)} dinten (dèrèng 15 dinten). Amargi dangunipun getih punika (${Math.round(durE2/DAY)} dinten) taksih cekap dienggo nutupi kekiranganipun suci, sedaya dipun-hukumi DARAH FASAD — najis, nanging dipun-anggep suci kagem ibadah (mboten haidl enggal).`});
+        segments.push({start:segEnd, end:e2.end ?? Date.now(), status:'FASAD', note: state.lang==='id'
+          ? `Darah ini keluar setelah 15 hari dari awal haidl pertama, tetapi jeda suci yang sebenarnya hanya ${Math.round(gapMurni/DAY)} hari (belum 15 hari). Karena lama darah ini (${Math.round(durE2/DAY)} hari) masih cukup dipakai menutupi kekurangan suci, semua dihukumi DARAH FASAD — najis, tetapi dianggap suci untuk ibadah (bukan haidl baru).`
+          : `Getih punika medal sasampunipun 15 dinten saking wiwitan haidl sepisan, nanging jeda sesuci ingkang leres namung ${Math.round(gapMurni/DAY)} dinten (dèrèng 15 dinten). Amargi dangunipun getih punika (${Math.round(durE2/DAY)} dinten) taksih cekap dienggo nutupi kekiranganipun suci, sedaya dipun-hukumi DARAH FASAD — najis, nanging dipun-anggep suci kagem ibadah (mboten haidl enggal).`});
         const nextAdat = updateAdatFromCycle(adat, e1.start, segEnd);
         if(j+2 >= events.length){
           return {segments, nextIndex:j+2, adatHaidl:nextAdat.haidl, adatSuci:nextAdat.suci, needsInput:[]};
@@ -442,9 +451,13 @@ function buildHaidlBlock(events, idx, adat, everHadHaidl, answers){
         const sisaStart = e2.start + kekurangan;
         const sisaEnd = e2.end ?? Date.now();
         const sisaDur = sisaEnd - sisaStart;
-        segments.push({start:segEnd, end:sisaStart, status:'FASAD', note:`Jeda sesuci ingkang leres namung ${Math.round(gapMurni/DAY)} dinten (dèrèng 15 dinten). Pramila ${Math.round((sisaStart-segEnd)/DAY)} dinten pethikan wiwitan getih candhak dipun-hukumi DARAH FASAD (najis, nanging dipun-anggep suci kagem ibadah) supados nyempurnakaken wates minimal suci 15 dinten.`});
+        segments.push({start:segEnd, end:sisaStart, status:'FASAD', note: state.lang==='id'
+          ? `Jeda suci yang sebenarnya hanya ${Math.round(gapMurni/DAY)} hari (belum 15 hari). Maka ${Math.round((sisaStart-segEnd)/DAY)} hari petikan awal darah berikutnya dihukumi DARAH FASAD (najis, tetapi dianggap suci untuk ibadah) supaya menyempurnakan batas minimal suci 15 hari.`
+          : `Jeda sesuci ingkang leres namung ${Math.round(gapMurni/DAY)} dinten (dèrèng 15 dinten). Pramila ${Math.round((sisaStart-segEnd)/DAY)} dinten pethikan wiwitan getih candhak dipun-hukumi DARAH FASAD (najis, nanging dipun-anggep suci kagem ibadah) supados nyempurnakaken wates minimal suci 15 dinten.`});
         if(sisaDur <= MAX_HAIDL){
-          segments.push({start:sisaStart, end:sisaEnd, status:'HAIDL', note:`Sasampunipun wates minimal suci (15 dinten) kacekapan déning fasad ing nginggil, getih ingkang taksih medal salajengipun (${Math.round(sisaDur/DAY)} dinten) dipun-hukumi HAIDL ENGGAL — boten kedah nyekapi 24 jam piyambak amargi punika kelajengan getih ingkang taksih sami, sanès haidl ingkang pisah babar pisan.`});
+          segments.push({start:sisaStart, end:sisaEnd, status:'HAIDL', note: state.lang==='id'
+            ? `Setelah batas minimal suci (15 hari) terpenuhi oleh fasad di atas, darah yang masih keluar selanjutnya (${Math.round(sisaDur/DAY)} hari) dihukumi HAIDL BARU — tidak perlu memenuhi 24 jam sendiri karena ini kelanjutan darah yang masih sama, bukan haidl yang terpisah sama sekali.`
+            : `Sasampunipun wates minimal suci (15 dinten) kacekapan déning fasad ing nginggil, getih ingkang taksih medal salajengipun (${Math.round(sisaDur/DAY)} dinten) dipun-hukumi HAIDL ENGGAL — boten kedah nyekapi 24 jam piyambak amargi punika kelajengan getih ingkang taksih sami, sanès haidl ingkang pisah babar pisan.`});
           const nextAdat = updateAdatFromCycle(adat, e1.start, segEnd);
           if(j+2 >= events.length){
             return {segments, nextIndex:j+2, adatHaidl:nextAdat.haidl, adatSuci:nextAdat.suci, needsInput:[]};
@@ -466,11 +479,15 @@ function buildHaidlBlock(events, idx, adat, everHadHaidl, answers){
     const stillOngoing = events[j].end == null;
     const targetTs = e1.start + MIN_HAIDL;
     const sisaJam = ((targetTs - Date.now())/HOUR).toFixed(1);
-    segments.push({start:e1.start, end:segEnd, status:'ISTICHADLOH', belumCukup:true, note:`Getih namung medal ${(dur/HOUR).toFixed(1)} jam — DEREG nyekapi minimal haidl (24 jam / 1 dinten 1 dalu), dados SAKNIKI dipun-hukumi ISTICHADLOH (darah ingkang dereng nyekapi syarat haidl), sanès HAIDL. Miturut Bab I, getih ingkang mandheg sadèrèngipun 24 jam cekap resik+wudhu mawon (kados limrah), mboten wajib mandi.${stillOngoing? ` Getih taksih mlebet — MENAWI dèrèng mandheg salebeting ${sisaJam} jam candhakipun (nggenepi 24 jam saking wiwitan), hukum badhe OTOMATIS owah dados HAIDL.` : ' Amargi sampun mandheg lan dereng 24 jam, getih punika tetep ISTICHADLOH, boten dados haidl.'}`});
+    segments.push({start:e1.start, end:segEnd, status:'ISTICHADLOH', belumCukup:true, note: state.lang==='id'
+      ? `Darah hanya keluar ${(dur/HOUR).toFixed(1)} jam — BELUM memenuhi minimal haidl (24 jam / 1 hari 1 malam), sehingga SAAT INI dihukumi ISTICHADLOH (darah yang belum memenuhi syarat haidl), bukan HAIDL. Menurut Bab I, darah yang berhenti sebelum 24 jam cukup bersih+wudhu saja (seperti biasa), tidak wajib mandi.${stillOngoing? ` Darah masih berlangsung — JIKA belum berhenti dalam ${sisaJam} jam berikutnya (menggenapi 24 jam dari awal), hukum akan OTOMATIS berubah jadi HAIDL.` : ' Karena sudah berhenti dan belum 24 jam, darah ini tetap ISTICHADLOH, tidak jadi haidl.'}`
+      : `Getih namung medal ${(dur/HOUR).toFixed(1)} jam — DEREG nyekapi minimal haidl (24 jam / 1 dinten 1 dalu), dados SAKNIKI dipun-hukumi ISTICHADLOH (darah ingkang dereng nyekapi syarat haidl), sanès HAIDL. Miturut Bab I, getih ingkang mandheg sadèrèngipun 24 jam cekap resik+wudhu mawon (kados limrah), mboten wajib mandi.${stillOngoing? ` Getih taksih mlebet — MENAWI dèrèng mandheg salebeting ${sisaJam} jam candhakipun (nggenepi 24 jam saking wiwitan), hukum badhe OTOMATIS owah dados HAIDL.` : ' Amargi sampun mandheg lan dereng 24 jam, getih punika tetep ISTICHADLOH, boten dados haidl.'}`});
     return {segments, nextIndex:j+1, adatHaidl:null, adatSuci:null, needsInput:[]};
   }
   if(dur <= MAX_HAIDL){
-    segments.push({start:e1.start, end:segEnd, status:'HAIDL', note:`Getih (kalebet jeda ing satengahipun, menawi wonten) medal ${Math.round(dur/DAY)} dinten, taksih ing salebeting wates maksimal haidl (15 dinten), pramila sedaya dipun-hukumi HAIDL (qaul sahb — jeda ingkang dèrèng ngantos 15 dinten mboten misahaken).`});
+    segments.push({start:e1.start, end:segEnd, status:'HAIDL', note: state.lang==='id'
+      ? `Darah (termasuk jeda di tengahnya, jika ada) keluar ${Math.round(dur/DAY)} hari, masih dalam batas maksimal haidl (15 hari), sehingga semua dihukumi HAIDL (qaul sahb — jeda yang belum sampai 15 hari tidak memisahkan).`
+      : `Getih (kalebet jeda ing satengahipun, menawi wonten) medal ${Math.round(dur/DAY)} dinten, taksih ing salebeting wates maksimal haidl (15 dinten), pramila sedaya dipun-hukumi HAIDL (qaul sahb — jeda ingkang dèrèng ngantos 15 dinten mboten misahaken).`});
     const nextAdat = updateAdatFromCycle(adat, e1.start, segEnd);
     return {segments, nextIndex:j+1, adatHaidl:nextAdat.haidl, adatSuci:nextAdat.suci, needsInput:[]};
   } else {
@@ -499,7 +516,9 @@ function classifyIstihadhohHaidlCore(events, blockStartIdx, blockEndIdxExcl, ada
 
   if(!ans){
     return {segments:[{start, end: blockEvents[blockEvents.length-1].end ?? Date.now(), status:'ISTICHADLOH', pending:true, key,
-      note:'Getih sampun langkung 15 dinten (wates maksimal haidl), dados dipun-hukumi ISTICHADLOH (darah penyakit). Kagem mesthèkaken pundi dinten ingkang haidl lan pundi ingkang istichadloh, kedah dipun-priksa rumiyin: saged mbedakaken getih kuat/lemah? Sampun nate haidl sadèrèngipun? Emut adat? Mangga isi pitakenan ing ngandhap.'}],
+      note: state.lang==='id'
+        ? 'Darah sudah melebihi 15 hari (batas maksimal haidl), sehingga dihukumi ISTICHADLOH (darah penyakit). Untuk memastikan hari mana yang haidl dan mana yang istichadloh, perlu diperiksa dulu: bisa membedakan darah kuat/lemah? Sudah pernah haidl sebelumnya? Ingat kebiasaan? Silakan isi pertanyaan di bawah.'
+        : 'Getih sampun langkung 15 dinten (wates maksimal haidl), dados dipun-hukumi ISTICHADLOH (darah penyakit). Kagem mesthèkaken pundi dinten ingkang haidl lan pundi ingkang istichadloh, kedah dipun-priksa rumiyin: saged mbedakaken getih kuat/lemah? Sampun nate haidl sadèrèngipun? Emut adat? Mangga isi pitakenan ing ngandhap.'}],
       nextIndex: events.length, adatHaidl:null, adatSuci:null,
       needsInput:[{key, type:'haidl', start}]};
   }
@@ -537,11 +556,15 @@ function classifyIstihadhohHaidlCore(events, blockStartIdx, blockEndIdxExcl, ada
         const gapDur = kuatPhases[i+1].start - kuatPhases[i].end;
         if(gapDur < MIN_SUCI){
           syarat3Ok = false;
-          mumayyizahFailNote = `Getih kuat kaping-${i+2} wonten mriki mboten dipun-anggep mumayyizah: sasampunipun getih kuat sadèrèngipun mandheg, namung ${(gapDur/HOUR).toFixed(1)} jam getih lemah (kedahipun ≥15 dinten) sadèrèngipun getih kuat metu malih. Miturut kitab (syarat 3 mumayyizah), getih lemah sing kirang saking 15 dinten mboten sah dados pemisah antawis kalih haidl, pramila sedaya rangkaian punika dipun-itung nganggo aturan Ghoiru Mumayyizah, senadyan werni getih saged dipun-bedakaken.`;
+          mumayyizahFailNote = state.lang==='id'
+            ? `Darah kuat ke-${i+2} di sini tidak dianggap mumayyizah: setelah darah kuat sebelumnya berhenti, hanya ${(gapDur/HOUR).toFixed(1)} jam darah lemah (seharusnya ≥15 hari) sebelum darah kuat keluar lagi. Menurut kitab (syarat 3 mumayyizah), darah lemah yang kurang dari 15 hari tidak sah menjadi pemisah antara dua haidl, sehingga seluruh rangkaian ini dihitung memakai aturan Ghoiru Mumayyizah, walaupun warna darah bisa dibedakan.`
+            : `Getih kuat kaping-${i+2} wonten mriki mboten dipun-anggep mumayyizah: sasampunipun getih kuat sadèrèngipun mandheg, namung ${(gapDur/HOUR).toFixed(1)} jam getih lemah (kedahipun ≥15 dinten) sadèrèngipun getih kuat metu malih. Miturut kitab (syarat 3 mumayyizah), getih lemah sing kirang saking 15 dinten mboten sah dados pemisah antawis kalih haidl, pramila sedaya rangkaian punika dipun-itung nganggo aturan Ghoiru Mumayyizah, senadyan werni getih saged dipun-bedakaken.`;
         }
       }
       if(!syarat12Ok && !mumayyizahFailNote){
-        mumayyizahFailNote = 'Wonten fase getih kuat ingkang suwenipun kirang saking 24 jam utawi langkung saking 15 dinten (syarat 1/2 mumayyizah mboten kacekapan), pramila rangkaian punika dipun-itung nganggo aturan Ghoiru Mumayyizah, senadyan werni getih saged dipun-bedakaken.';
+        mumayyizahFailNote = state.lang==='id'
+          ? 'Ada fase darah kuat yang lamanya kurang dari 24 jam atau lebih dari 15 hari (syarat 1/2 mumayyizah tidak terpenuhi), sehingga rangkaian ini dihitung memakai aturan Ghoiru Mumayyizah, walaupun warna darah bisa dibedakan.'
+          : 'Wonten fase getih kuat ingkang suwenipun kirang saking 24 jam utawi langkung saking 15 dinten (syarat 1/2 mumayyizah mboten kacekapan), pramila rangkaian punika dipun-itung nganggo aturan Ghoiru Mumayyizah, senadyan werni getih saged dipun-bedakaken.';
       }
       if(durKuatTotal>0 && syarat12Ok && syarat3Ok) mumayyizah = true;
     }
@@ -551,9 +574,13 @@ function classifyIstihadhohHaidlCore(events, blockStartIdx, blockEndIdxExcl, ada
     scored.forEach(e=>{
       const isKuat = e.score === Math.max(...scored.map(x=>x.score));
       segs.push({start:e.start, end:e.end??Date.now(), status: isKuat?'HAIDL':'ISTICHADLOH',
-        note: isKuat
-          ? `Getih wonten mriki katingal langkung KUAT (warni ${COLOR_LABEL[e.warna].toLowerCase()}${e.kental?', kenthel':''}${e.bau?', mambet':''}) tinimbang getih sanèsipun ing rangkaian punika. Amargi saged dipun-bedakaken kuat/lemah (mumayyizah, nyukupi syarat 1/2/3), getih kuat dipun-hukumi HAIDL.`
-          : `Getih wonten mriki katingal langkung LEMAH (warni ${COLOR_LABEL[e.warna].toLowerCase()}${e.kental?', kenthel':''}${e.bau?', mambet':''}) tinimbang getih kuat ing rangkaian punika. Amargi saged dipun-bedakaken kuat/lemah (mumayyizah), getih lemah dipun-hukumi ISTICHADLOH, sanès haidl.`});
+        note: state.lang==='id'
+          ? (isKuat
+            ? `Darah di sini terlihat lebih KUAT (warna ${COLOR_LABEL[e.warna].toLowerCase()}${e.kental?', '+T('kenthel'):''}${e.bau?', '+T('mambet'):''}) dibanding darah lainnya dalam rangkaian ini. Karena bisa dibedakan kuat/lemah (mumayyizah, memenuhi syarat 1/2/3), darah kuat dihukumi HAIDL.`
+            : `Darah di sini terlihat lebih LEMAH (warna ${COLOR_LABEL[e.warna].toLowerCase()}${e.kental?', '+T('kenthel'):''}${e.bau?', '+T('mambet'):''}) dibanding darah kuat dalam rangkaian ini. Karena bisa dibedakan kuat/lemah (mumayyizah), darah lemah dihukumi ISTICHADLOH, bukan haidl.`)
+          : (isKuat
+            ? `Getih wonten mriki katingal langkung KUAT (warni ${COLOR_LABEL[e.warna].toLowerCase()}${e.kental?', kenthel':''}${e.bau?', mambet':''}) tinimbang getih sanèsipun ing rangkaian punika. Amargi saged dipun-bedakaken kuat/lemah (mumayyizah, nyukupi syarat 1/2/3), getih kuat dipun-hukumi HAIDL.`
+            : `Getih wonten mriki katingal langkung LEMAH (warni ${COLOR_LABEL[e.warna].toLowerCase()}${e.kental?', kenthel':''}${e.bau?', mambet':''}) tinimbang getih kuat ing rangkaian punika. Amargi saged dipun-bedakaken kuat/lemah (mumayyizah), getih lemah dipun-hukumi ISTICHADLOH, sanès haidl.`)});
     });
     const adatHaidl = kuatSegs.reduce((s,e)=>s+((e.end??Date.now())-e.start),0)/DAY;
     return {segments:segs, nextIndex:blockEndIdxExcl, adatHaidl:Math.round(adatHaidl), adatSuci:adat.suci, needsInput:[]};
@@ -569,9 +596,13 @@ function classifyIstihadhohHaidlCore(events, blockStartIdx, blockEndIdxExcl, ada
     let t = start;
     const endAll = blockEvents[blockEvents.length-1].end ?? Date.now();
     while(t < endAll){
-      segs.push({start:t, end:Math.min(t+MIN_HAIDL, endAll), status:'HAIDL', note:'Punika haidl sepisan (Mubtadi\'ah) lan warni/sifat getih boten saged dipun-bedakaken kuat-lemah (ghoiru mumayyizah), pramila namung 24 jam sepisanan saben siklus 30 dinten ingkang dipun-hukumi HAIDL kanthi yakin.'});
+      segs.push({start:t, end:Math.min(t+MIN_HAIDL, endAll), status:'HAIDL', note: state.lang==='id'
+        ? 'Ini haidl pertama (Mubtadi\'ah) dan warna/sifat darah tidak bisa dibedakan kuat-lemah (ghoiru mumayyizah), sehingga hanya 24 jam pertama setiap siklus 30 hari yang dihukumi HAIDL dengan yakin.'
+        : 'Punika haidl sepisan (Mubtadi\'ah) lan warni/sifat getih boten saged dipun-bedakaken kuat-lemah (ghoiru mumayyizah), pramila namung 24 jam sepisanan saben siklus 30 dinten ingkang dipun-hukumi HAIDL kanthi yakin.'});
       const istiEnd = Math.min(t+CYCLE_GHOIRU, endAll);
-      if(t+MIN_HAIDL < istiEnd) segs.push({start:t+MIN_HAIDL, end:istiEnd, status:'ISTICHADLOH', note:'Selebeting 29 dinten candhakipun (saking 30 dinten siklus) dipun-hukumi ISTICHADLOH, amargi getih boten saged dipun-bedakaken kuat/lemah lan taksih Mubtadi\'ah (dèrèng gadhah adat kagem pathokan).'});
+      if(t+MIN_HAIDL < istiEnd) segs.push({start:t+MIN_HAIDL, end:istiEnd, status:'ISTICHADLOH', note: state.lang==='id'
+        ? 'Sisa 29 hari berikutnya (dari 30 hari siklus) dihukumi ISTICHADLOH, karena darah tidak bisa dibedakan kuat/lemah dan masih Mubtadi\'ah (belum punya kebiasaan sebagai patokan).'
+        : 'Selebeting 29 dinten candhakipun (saking 30 dinten siklus) dipun-hukumi ISTICHADLOH, amargi getih boten saged dipun-bedakaken kuat/lemah lan taksih Mubtadi\'ah (dèrèng gadhah adat kagem pathokan).'});
       t += CYCLE_GHOIRU;
     }
     return {segments:segs, nextIndex:blockEndIdxExcl, adatHaidl:1, adatSuci:29, needsInput:[]};
@@ -587,21 +618,31 @@ function classifyIstihadhohHaidlCore(events, blockStartIdx, blockEndIdxExcl, ada
       let t = start;
       while(t < endAll){
         const hEnd = Math.min(t + adat.haidl*DAY, endAll);
-        segs.push({start:t, end:hEnd, status:'HAIDL', note:`Warni getih boten saged dipun-bedakaken kuat/lemah, nanging panjenengan taksih emut adat haidl sadèrèngipun (${adat.haidl} dinten haidl, ${adat.suci} dinten suci) lan adat punika stabil. Pramila ${Math.round((hEnd-t)/DAY)} dinten wiwitan siklus punika dipun-hukumi HAIDL manut adat.`});
+        segs.push({start:t, end:hEnd, status:'HAIDL', note: state.lang==='id'
+          ? `Warna darah tidak bisa dibedakan kuat/lemah, tetapi Anda masih ingat kebiasaan haidl sebelumnya (${adat.haidl} hari haidl, ${adat.suci} hari suci) dan kebiasaan ini stabil. Maka ${Math.round((hEnd-t)/DAY)} hari awal siklus ini dihukumi HAIDL menurut kebiasaan.`
+          : `Warni getih boten saged dipun-bedakaken kuat/lemah, nanging panjenengan taksih emut adat haidl sadèrèngipun (${adat.haidl} dinten haidl, ${adat.suci} dinten suci) lan adat punika stabil. Pramila ${Math.round((hEnd-t)/DAY)} dinten wiwitan siklus punika dipun-hukumi HAIDL manut adat.`});
         const sEnd = Math.min(hEnd + adat.suci*DAY, endAll);
-        if(hEnd<sEnd) segs.push({start:hEnd, end:sEnd, status:'ISTICHADLOH', note:`Sisanipun siklus (${Math.round((sEnd-hEnd)/DAY)} dinten, sami kaliyan adat suci) dipun-hukumi ISTICHADLOH, amargi manut adat sampun kalebet masa suci.`});
+        if(hEnd<sEnd) segs.push({start:hEnd, end:sEnd, status:'ISTICHADLOH', note: state.lang==='id'
+          ? `Sisa siklus (${Math.round((sEnd-hEnd)/DAY)} hari, sama dengan kebiasaan suci) dihukumi ISTICHADLOH, karena menurut kebiasaan sudah termasuk masa suci.`
+          : `Sisanipun siklus (${Math.round((sEnd-hEnd)/DAY)} dinten, sami kaliyan adat suci) dipun-hukumi ISTICHADLOH, amargi manut adat sampun kalebet masa suci.`});
         t = sEnd;
       }
       return {segments:segs, nextIndex:blockEndIdxExcl, adatHaidl:adat.haidl, adatSuci:adat.suci, needsInput:[]};
     }
     if(rem === 'waqtan-saja'){
       // 6.7: ingat kapan mulai, lupa lama -> hari1=haidl, 2..15=ihtiyat, 16+=suci
-      segs.push({start, end:Math.min(start+MIN_HAIDL,endAll), status:'HAIDL', note:'Panjenengan emut PERSIS tanggal/jam wiwitan haidl, nanging kesupen suwene adat haidl. 24 jam sepisanan punika YAKIN dipun-hukumi HAIDL.'});
+      segs.push({start, end:Math.min(start+MIN_HAIDL,endAll), status:'HAIDL', note: state.lang==='id'
+        ? 'Anda ingat PERSIS tanggal/jam mulai haidl, tetapi lupa lama kebiasaan haidl. 24 jam pertama ini YAKIN dihukumi HAIDL.'
+        : 'Panjenengan emut PERSIS tanggal/jam wiwitan haidl, nanging kesupen suwene adat haidl. 24 jam sepisanan punika YAKIN dipun-hukumi HAIDL.'});
       if(start+MIN_HAIDL < endAll){
-        segs.push({start:start+MIN_HAIDL, end:Math.min(start+MAX_HAIDL,endAll), status:'ISTICHADLOH', ihtiyat:true, note:'Amargi kesupen suwene adat, dinten ka-2 ngantos ka-15 punika mboten mesthi haidl utawi suci (saged ugi wiwitan mandhegipun haidl). Kedah ihtiyat: awisan haidl (jima\', mushaf, dll) tetep dipun-tindakaken, nanging ibadah (sholat/pasa) tetep katindakaken kanthi mandi/wudhu langkung rumiyin.'});
+        segs.push({start:start+MIN_HAIDL, end:Math.min(start+MAX_HAIDL,endAll), status:'ISTICHADLOH', ihtiyat:true, note: state.lang==='id'
+          ? 'Karena lupa lama kebiasaan, hari ke-2 sampai ke-15 ini belum tentu haidl atau suci (bisa juga awal berhentinya haidl). Harus ihtiyat: larangan haidl (jima\', mushaf, dll) tetap dijalankan, tetapi ibadah (sholat/puasa) tetap dilaksanakan dengan mandi/wudhu terlebih dahulu.'
+          : 'Amargi kesupen suwene adat, dinten ka-2 ngantos ka-15 punika mboten mesthi haidl utawi suci (saged ugi wiwitan mandhegipun haidl). Kedah ihtiyat: awisan haidl (jima\', mushaf, dll) tetep dipun-tindakaken, nanging ibadah (sholat/pasa) tetep katindakaken kanthi mandi/wudhu langkung rumiyin.'});
       }
       if(start+MAX_HAIDL < endAll){
-        segs.push({start:start+MAX_HAIDL, end:endAll, status:'SUCI', note:'Sasampunipun 15 dinten (wates maksimal haidl), yakin sampun suci amargi haidl mboten saged langkung 15 dinten.'});
+        segs.push({start:start+MAX_HAIDL, end:endAll, status:'SUCI', note: state.lang==='id'
+          ? 'Setelah 15 hari (batas maksimal haidl), yakin sudah suci karena haidl tidak bisa lebih dari 15 hari.'
+          : 'Sasampunipun 15 dinten (wates maksimal haidl), yakin sampun suci amargi haidl mboten saged langkung 15 dinten.'});
       }
       return {segments:segs, nextIndex:blockEndIdxExcl, adatHaidl:adat.haidl, adatSuci:adat.suci, needsInput:[]};
     }
@@ -615,7 +656,9 @@ function classifyIstihadhohHaidlCore(events, blockStartIdx, blockEndIdxExcl, ada
     // 'beberapa' (ingat beberapa kemungkinan lama, lupa mana yg terakhir) -> §6.4 poin 5-6, mandi tiap akhir angka.
     // Ditashih Gus Fi 10 Agu 2026: cekap dipun-arahaken rujuk kitab langsung (mboten prelu itungan rinci per-dinten kagem versi sakniki).
     return {segments:[{start, end:endAll, status:'ISTICHADLOH', manual:true,
-      note:'Panjenengan emut LANGKUNG saking setunggal kemungkinan lami-haidl saking wulan-wulan sadèrèngipun (adat robah-robah), nanging boten emut pundi ingkang pungkasan. Miturut kitab, kedah ihtiyat lan wajib mandi ing pungkasan SABEN angka ingkang dipun-emut (mis. yen emut 3, 5, 7 dinten, mandi ing akhir dinten ka-3, ka-5, DAN ka-7). Rincian status saben dinten mboten dipun-itung otomatis ing prototipe punika — mangga rujuk Bab V kitab langsung utawi tanglet Gus Fi.'}],
+      note: state.lang==='id'
+        ? 'Anda ingat LEBIH dari satu kemungkinan lama-haidl dari bulan-bulan sebelumnya (kebiasaan berubah-ubah), tetapi tidak ingat mana yang terakhir. Menurut kitab, harus ihtiyat dan wajib mandi pada akhir SETIAP angka yang diingat (misal ingat 3, 5, 7 hari, mandi di akhir hari ke-3, ke-5, DAN ke-7). Rincian status setiap hari tidak dihitung otomatis pada prototipe ini — silakan rujuk Bab V kitab langsung atau tanya Gus Fi.'
+        : 'Panjenengan emut LANGKUNG saking setunggal kemungkinan lami-haidl saking wulan-wulan sadèrèngipun (adat robah-robah), nanging boten emut pundi ingkang pungkasan. Miturut kitab, kedah ihtiyat lan wajib mandi ing pungkasan SABEN angka ingkang dipun-emut (mis. yen emut 3, 5, 7 dinten, mandi ing akhir dinten ka-3, ka-5, DAN ka-7). Rincian status saben dinten mboten dipun-itung otomatis ing prototipe punika — mangga rujuk Bab V kitab langsung utawi tanglet Gus Fi.'}],
       nextIndex:blockEndIdxExcl, adatHaidl:adat.haidl, adatSuci:adat.suci, needsInput:[]};
   }
   })();
@@ -630,7 +673,9 @@ function classifyIstihadhohHaidlCore(events, blockStartIdx, blockEndIdxExcl, ada
 function classifyMutahayyiroh(blockEvents, start, adat){
   const endAll = blockEvents[blockEvents.length-1].end ?? Date.now();
   return {segments:[{start, end:endAll, status:'ISTICHADLOH', ihtiyat:true,
-    note:'Panjenengan boten emut babar pisan adat haidlipun (lami menapa dene wekdal mulanipun) — dipun-wastani Mutahayyiroh. Kagem ngati-ati (ihtiyat): rangkaian dinten punika dihukumi KADOS HAIDL kagem awisan (jima\', maos/ndemek mushaf, mlebet masjid), NANGING dihukumi KADOS SUCI kagem kewajiban (wajib tetep sholat, pasa, mandi). Mandi wajib saben badhe sholat fardhu.'}],
+    note: state.lang==='id'
+      ? 'Anda sama sekali tidak ingat kebiasaan haidl (lama maupun waktu mulainya) — disebut Mutahayyiroh. Untuk kehati-hatian (ihtiyat): rangkaian hari ini dihukumi SEPERTI HAIDL untuk larangan (jima\', membaca/menyentuh mushaf, masuk masjid), TETAPI dihukumi SEPERTI SUCI untuk kewajiban (wajib tetap sholat, puasa, mandi). Mandi wajib setiap hendak sholat fardhu.'
+      : 'Panjenengan boten emut babar pisan adat haidlipun (lami menapa dene wekdal mulanipun) — dipun-wastani Mutahayyiroh. Kagem ngati-ati (ihtiyat): rangkaian dinten punika dihukumi KADOS HAIDL kagem awisan (jima\', maos/ndemek mushaf, mlebet masjid), NANGING dihukumi KADOS SUCI kagem kewajiban (wajib tetep sholat, pasa, mandi). Mandi wajib saben badhe sholat fardhu.'}],
     nextIndex: null, adatHaidl:adat.haidl, adatSuci:adat.suci, needsInput:[]};
 }
 
@@ -657,7 +702,9 @@ function slidingWindowQodronSaja(blockStart, blockEnd, adatHaidlDays, adatSuciDa
     while(j+1<results.length && results[j+1]===results[i]) j++;
     segs.push({start:blockStart+i*DAY, end:blockStart+(j+1)*DAY, status:results[i],
       ihtiyat: results[i]==='ISTICHADLOH',
-      note: results[i]==='ISTICHADLOH' ? '6.6 ihtiyat — dèrèng mesthi haidl/suci amargi wonten kemungkinan posisi wiwitan siklus ingkang bedo-bedo, pramila sholat/pasa tetep katindakaken kanthi wudhu/mandi rumiyin (metode jendela-geser, sampun ditashih Gus Fi).' : '6.6 hasil jendela-geser (sedaya kemungkinan posisi wiwitan siklus setuju) — sampun ditashih Gus Fi.'});
+      note: state.lang==='id'
+        ? (results[i]==='ISTICHADLOH' ? '6.6 ihtiyat — belum tentu haidl/suci karena ada kemungkinan posisi mulai siklus yang berbeda-beda, sehingga sholat/puasa tetap dilaksanakan dengan wudhu/mandi terlebih dahulu (metode jendela-geser, sudah ditashih Gus Fi).' : '6.6 hasil jendela-geser (semua kemungkinan posisi mulai siklus sepakat) — sudah ditashih Gus Fi.')
+        : (results[i]==='ISTICHADLOH' ? '6.6 ihtiyat — dèrèng mesthi haidl/suci amargi wonten kemungkinan posisi wiwitan siklus ingkang bedo-bedo, pramila sholat/pasa tetep katindakaken kanthi wudhu/mandi rumiyin (metode jendela-geser, sampun ditashih Gus Fi).' : '6.6 hasil jendela-geser (sedaya kemungkinan posisi wiwitan siklus setuju) — sampun ditashih Gus Fi.')});
     i=j+1;
   }
   return segs;
@@ -669,9 +716,13 @@ function buildNifasBlock(events, idx, birthDate, preBirthEp, adat, everHadNifas,
   if(preBirthEp){
     const dur = (preBirthEp.end ?? birthDate) - preBirthEp.start;
     if(dur >= MIN_HAIDL && dur <= MAX_HAIDL){
-      segments.push({start:preBirthEp.start, end:preBirthEp.end ?? birthDate, status:'HAIDL', note:`Getih punika medal sadèrèngipun/nalika babaran (dam al-thalq), dangunipun ${Math.round(dur/HOUR)} jam — sampun nyekapi minimal haidl (24 jam), pramila dipun-hukumi HAIDL, mboten melu nifas.`});
+      segments.push({start:preBirthEp.start, end:preBirthEp.end ?? birthDate, status:'HAIDL', note: state.lang==='id'
+        ? `Darah ini keluar sebelum/saat melahirkan (dam al-thalq), lamanya ${Math.round(dur/HOUR)} jam — sudah memenuhi minimal haidl (24 jam), sehingga dihukumi HAIDL, tidak termasuk nifas.`
+        : `Getih punika medal sadèrèngipun/nalika babaran (dam al-thalq), dangunipun ${Math.round(dur/HOUR)} jam — sampun nyekapi minimal haidl (24 jam), pramila dipun-hukumi HAIDL, mboten melu nifas.`});
     } else {
-      segments.push({start:preBirthEp.start, end:preBirthEp.end ?? birthDate, status:'FASAD', note:`Getih punika medal sadèrèngipun/nalika babaran (dam al-thalq), dangunipun namung ${Math.round(dur/HOUR)} jam — DEREG nyekapi minimal haidl (24 jam), pramila dipun-hukumi DARAH FASAD (najis, sanès haidl utawi nifas).`});
+      segments.push({start:preBirthEp.start, end:preBirthEp.end ?? birthDate, status:'FASAD', note: state.lang==='id'
+        ? `Darah ini keluar sebelum/saat melahirkan (dam al-thalq), lamanya hanya ${Math.round(dur/HOUR)} jam — BELUM memenuhi minimal haidl (24 jam), sehingga dihukumi DARAH FASAD (najis, bukan haidl atau nifas).`
+        : `Getih punika medal sadèrèngipun/nalika babaran (dam al-thalq), dangunipun namung ${Math.round(dur/HOUR)} jam — DEREG nyekapi minimal haidl (24 jam), pramila dipun-hukumi DARAH FASAD (najis, sanès haidl utawi nifas).`});
     }
   }
   if(idx >= events.length || events[idx].start < birthDate){
@@ -695,11 +746,15 @@ function buildNifasBlock(events, idx, birthDate, preBirthEp, adat, everHadNifas,
   }
   const totalDur = segEnd - birthDate;
   if(totalDur <= MAX_NIFAS){
-    segments.push({start:e1.start, end:segEnd, status:'NIFAS', note:`Sedaya rangkaian punika (${Math.round((segEnd-e1.start)/DAY)} dinten, kalebet jeda menawi wonten) taksih ing salebeting wates maksimal nifas (60 dinten), pramila dipun-hukumi NIFAS. ⚠️ Beda saking haidl: menawi wonten jeda getih mandheg ing tengah rangkaian punika, tetep WAJIB mandi+sholat kados tiyang suci (qaul laqth) — sanès kados haidl ingkang jeda-nipun ndèrèk dados haidl.`});
+    segments.push({start:e1.start, end:segEnd, status:'NIFAS', note: state.lang==='id'
+      ? `Seluruh rangkaian ini (${Math.round((segEnd-e1.start)/DAY)} hari, termasuk jeda jika ada) masih dalam batas maksimal nifas (60 hari), sehingga dihukumi NIFAS. ⚠️ Beda dengan haidl: jika ada jeda darah berhenti di tengah rangkaian ini, tetap WAJIB mandi+sholat seperti orang suci (qaul laqth) — bukan seperti haidl yang jedanya ikut jadi haidl.`
+      : `Sedaya rangkaian punika (${Math.round((segEnd-e1.start)/DAY)} dinten, kalebet jeda menawi wonten) taksih ing salebeting wates maksimal nifas (60 dinten), pramila dipun-hukumi NIFAS. ⚠️ Beda saking haidl: menawi wonten jeda getih mandheg ing tengah rangkaian punika, tetep WAJIB mandi+sholat kados tiyang suci (qaul laqth) — sanès kados haidl ingkang jeda-nipun ndèrèk dados haidl.`});
     const nextAdat = Math.round((segEnd - birthDate)/DAY);
     if(j+1 < events.length){
       const gap2 = events[j+1].start - segEnd;
-      segments.push({start:segEnd, end:events[j+1].start, status:'SUCI', note:`Jeda ${Math.round((events[j+1].start-segEnd)/DAY)} dinten punika dados suci pemisah antawis nifas lan haidl candhakipun. Beda saking suci antawis haidl-haidl, suci pemisah nifas↔haidl MBOTEN kedah 15 dinten — pinten mawon dangunipun (asal wonten) sampun cekap.`});
+      segments.push({start:segEnd, end:events[j+1].start, status:'SUCI', note: state.lang==='id'
+        ? `Jeda ${Math.round((events[j+1].start-segEnd)/DAY)} hari ini menjadi suci pemisah antara nifas dan haidl berikutnya. Beda dengan suci antar-haidl, suci pemisah nifas↔haidl TIDAK harus 15 hari — berapapun lamanya (asal ada) sudah cukup.`
+        : `Jeda ${Math.round((events[j+1].start-segEnd)/DAY)} dinten punika dados suci pemisah antawis nifas lan haidl candhakipun. Beda saking suci antawis haidl-haidl, suci pemisah nifas↔haidl MBOTEN kedah 15 dinten — pinten mawon dangunipun (asal wonten) sampun cekap.`});
       const rest = buildHaidlBlock(events, j+1, {...adat, nifas:nextAdat}, everHadHaidl, answers);
       return {segments:[...segments, ...rest.segments], nextIndex:rest.nextIndex, adatNifas:nextAdat, needsInput:rest.needsInput||[]};
     }
@@ -724,7 +779,9 @@ function classifyIstihadhohNifasCore(events, blockStartIdx, blockEndIdxExcl, bir
 
   if(!ans){
     return {segments:[{start:birthDate, end:endAll, status:'ISTICHADLOH', pending:true, key,
-      note:'Getih nifas sampun langkung 60 dinten (wates maksimal nifas), dados sebagean dipun-hukumi ISTICHADLOH. Mangga isi pitakenan ing ngandhap supados saged dipun-pesthèkaken pundi ingkang nifas lan pundi ingkang istichadloh.'}],
+      note: state.lang==='id'
+        ? 'Darah nifas sudah melebihi 60 hari (batas maksimal nifas), sehingga sebagian dihukumi ISTICHADLOH. Silakan isi pertanyaan di bawah supaya bisa dipastikan mana yang nifas dan mana yang istichadloh.'
+        : 'Getih nifas sampun langkung 60 dinten (wates maksimal nifas), dados sebagean dipun-hukumi ISTICHADLOH. Mangga isi pitakenan ing ngandhap supados saged dipun-pesthèkaken pundi ingkang nifas lan pundi ingkang istichadloh.'}],
       nextIndex:events.length, adatNifas:null, needsInput:[{key, type:'nifas', start:birthDate}]};
   }
 
@@ -743,32 +800,46 @@ function classifyIstihadhohNifasCore(events, blockStartIdx, blockEndIdxExcl, bir
     const maxS = Math.max(...scored.map(e=>e.score));
     scored.forEach(e=>{
       const isKuat = e.score===maxS;
-      segs.push({start:e.start,end:e.end??Date.now(),status:isKuat?'NIFAS':'ISTICHADLOH', note: isKuat
-        ? `Getih wonten mriki langkung KUAT (warni ${COLOR_LABEL[e.warna].toLowerCase()}) tinimbang liyanipun ing rangkaian nifas punika, pramila dipun-hukumi NIFAS.`
-        : `Getih wonten mriki langkung LEMAH tinimbang getih kuat ing rangkaian nifas punika, pramila dipun-hukumi ISTICHADLOH, sanès nifas.`});
+      segs.push({start:e.start,end:e.end??Date.now(),status:isKuat?'NIFAS':'ISTICHADLOH', note: state.lang==='id'
+        ? (isKuat
+          ? `Darah di sini lebih KUAT (warna ${COLOR_LABEL[e.warna].toLowerCase()}) dibanding lainnya dalam rangkaian nifas ini, sehingga dihukumi NIFAS.`
+          : `Darah di sini lebih LEMAH dibanding darah kuat dalam rangkaian nifas ini, sehingga dihukumi ISTICHADLOH, bukan nifas.`)
+        : (isKuat
+          ? `Getih wonten mriki langkung KUAT (warni ${COLOR_LABEL[e.warna].toLowerCase()}) tinimbang liyanipun ing rangkaian nifas punika, pramila dipun-hukumi NIFAS.`
+          : `Getih wonten mriki langkung LEMAH tinimbang getih kuat ing rangkaian nifas punika, pramila dipun-hukumi ISTICHADLOH, sanès nifas.`)});
     });
     return {segments:segs, nextIndex:blockEndIdxExcl, adatNifas: everHadNifas? adat.nifas : Math.round(scored.filter(e=>e.score===maxS).reduce((s,e)=>s+((e.end??Date.now())-e.start),0)/DAY), needsInput:[]};
   }
   if(ans.rememberType === 'tidak-ingat' || !everHadNifas && !ans.ingatAdat){
     segs.push({start:birthDate, end:Math.min(birthDate+MAX_NIFAS,endAll), status:'ISTICHADLOH', ihtiyat:true,
-      note:'Panjenengan boten emut adat nifas (lami/wekdal). Namung tetes getih sepisanan ingkang YAKIN nifas; salajengipun kedah ihtiyat ngantos dinten ka-60 — wajib mandi saben badhe sholat fardhu, amargi mboten mesthi taksih nifas utawi sampun suci.'});
-    if(birthDate+MAX_NIFAS < endAll) segs.push({start:birthDate+MAX_NIFAS, end:endAll, status:'ISTICHADLOH', note:'Sasampunipun 60 dinten (wates maksimal nifas), yakin sampun mboten nifas malih; cekap wudhu saben badhe sholat (kados tiyang da\'imul hadats/istihadhoh terus-terusan).'});
+      note: state.lang==='id'
+        ? 'Anda tidak ingat kebiasaan nifas (lama/waktu). Hanya tetes darah pertama yang YAKIN nifas; selanjutnya harus ihtiyat sampai hari ke-60 — wajib mandi setiap hendak sholat fardhu, karena belum tentu masih nifas atau sudah suci.'
+        : 'Panjenengan boten emut adat nifas (lami/wekdal). Namung tetes getih sepisanan ingkang YAKIN nifas; salajengipun kedah ihtiyat ngantos dinten ka-60 — wajib mandi saben badhe sholat fardhu, amargi mboten mesthi taksih nifas utawi sampun suci.'});
+    if(birthDate+MAX_NIFAS < endAll) segs.push({start:birthDate+MAX_NIFAS, end:endAll, status:'ISTICHADLOH', note: state.lang==='id'
+      ? 'Setelah 60 hari (batas maksimal nifas), yakin sudah tidak nifas lagi; cukup wudhu setiap hendak sholat (seperti orang da\'imul hadats/istihadhoh terus-menerus).'
+      : 'Sasampunipun 60 dinten (wates maksimal nifas), yakin sampun mboten nifas malih; cekap wudhu saben badhe sholat (kados tiyang da\'imul hadats/istihadhoh terus-terusan).'});
     return {segments:segs, nextIndex:blockEndIdxExcl, adatNifas:adat.nifas, needsInput:[]};
   }
   // Hafidzoh: ulangi pola [adat.nifas] nifas + [siklus ghoiru/adat suci-haidl] istichadloh/haidl
   let t = birthDate;
   const useHaidlAdat = everHadHaidl && adat.haidl;
-  segs.push({start:t, end:Math.min(t+adat.nifas*DAY, endAll), status:'NIFAS', note:`Panjenengan taksih emut adat nifas (${adat.nifas} dinten), pramila ${Math.round((Math.min(t+adat.nifas*DAY,endAll)-t)/DAY)} dinten wiwitan dipun-hukumi NIFAS manut adat.`});
+  segs.push({start:t, end:Math.min(t+adat.nifas*DAY, endAll), status:'NIFAS', note: state.lang==='id'
+    ? `Anda masih ingat kebiasaan nifas (${adat.nifas} hari), sehingga ${Math.round((Math.min(t+adat.nifas*DAY,endAll)-t)/DAY)} hari awal dihukumi NIFAS menurut kebiasaan.`
+    : `Panjenengan taksih emut adat nifas (${adat.nifas} dinten), pramila ${Math.round((Math.min(t+adat.nifas*DAY,endAll)-t)/DAY)} dinten wiwitan dipun-hukumi NIFAS manut adat.`});
   t += adat.nifas*DAY;
   while(t < endAll){
     const istiLen = useHaidlAdat? adat.suci*DAY : 29*DAY;
     const haidlLen = useHaidlAdat? adat.haidl*DAY : MIN_HAIDL;
     const istiEnd = Math.min(t+istiLen, endAll);
-    if(t<istiEnd) segs.push({start:t,end:istiEnd,status:'ISTICHADLOH', note: useHaidlAdat? `Sasampunipun nifas, ${Math.round((istiEnd-t)/DAY)} dinten punika dipun-hukumi ISTICHADLOH manut adat suci saking haidl (${adat.suci} dinten).` : `Sasampunipun nifas, ${Math.round((istiEnd-t)/DAY)} dinten (pola baku 29 dinten) dipun-hukumi ISTICHADLOH amargi dèrèng gadhah adat haidl kagem pathokan.`});
+    if(t<istiEnd) segs.push({start:t,end:istiEnd,status:'ISTICHADLOH', note: state.lang==='id'
+      ? (useHaidlAdat? `Setelah nifas, ${Math.round((istiEnd-t)/DAY)} hari ini dihukumi ISTICHADLOH menurut kebiasaan suci dari haidl (${adat.suci} hari).` : `Setelah nifas, ${Math.round((istiEnd-t)/DAY)} hari (pola baku 29 hari) dihukumi ISTICHADLOH karena belum punya kebiasaan haidl sebagai patokan.`)
+      : (useHaidlAdat? `Sasampunipun nifas, ${Math.round((istiEnd-t)/DAY)} dinten punika dipun-hukumi ISTICHADLOH manut adat suci saking haidl (${adat.suci} dinten).` : `Sasampunipun nifas, ${Math.round((istiEnd-t)/DAY)} dinten (pola baku 29 dinten) dipun-hukumi ISTICHADLOH amargi dèrèng gadhah adat haidl kagem pathokan.`)});
     t = istiEnd;
     if(t>=endAll) break;
     const hEnd = Math.min(t+haidlLen, endAll);
-    segs.push({start:t,end:hEnd,status:'HAIDL', note: useHaidlAdat? `Salajengipun ${Math.round((hEnd-t)/DAY)} dinten (sami adat haidl) dipun-hukumi HAIDL, ngambali siklus.` : `Salajengipun 24 jam dipun-hukumi HAIDL (pola baku), ngambali siklus.`});
+    segs.push({start:t,end:hEnd,status:'HAIDL', note: state.lang==='id'
+      ? (useHaidlAdat? `Selanjutnya ${Math.round((hEnd-t)/DAY)} hari (sama dengan kebiasaan haidl) dihukumi HAIDL, mengulangi siklus.` : `Selanjutnya 24 jam dihukumi HAIDL (pola baku), mengulangi siklus.`)
+      : (useHaidlAdat? `Salajengipun ${Math.round((hEnd-t)/DAY)} dinten (sami adat haidl) dipun-hukumi HAIDL, ngambali siklus.` : `Salajengipun 24 jam dipun-hukumi HAIDL (pola baku), ngambali siklus.`)});
     t = hEnd;
   }
   return {segments:segs, nextIndex:blockEndIdxExcl, adatNifas:adat.nifas, needsInput:[]};
@@ -930,6 +1001,178 @@ function deriveQadhaSholat(segments, lat, lon, tz){
 
 /* ======================= UI HELPERS ======================= */
 const $ = id => document.getElementById(id);
+
+/* ======================= I18N (Jawa krama alus / Bahasa Indonesia) ======================= */
+const I18N = {
+  jv: {
+    subtitle: "Haidl · Nifas · Istichadloh — Mazhab Syafi'i",
+    banner: '📔 Pencet dinten ing kalender kagem nyathet metu/mandhege getih. Sedaya kesimpen ing HP niki (mboten mbetahaken internet), lan bakal dipun-golongaken otomatis miturut <em>Risalatul Mahaidl 2025</em>.',
+    pKalender: '📅 Kalender', legSuci:'Suci', legFasad:'Fasad',
+    calHint: 'Pencet dinten kagem nyathet/ngewahi. Tandha ⚠️ = perlu jawaban tambahan (istichadloh).',
+    pRiwayat: '🗂️ Riwayat & Status',
+    riwEmpty: 'Dèrèng wonten catetan. Pencet dinten ing kalender ndhuwur.',
+    pQadha: '🕌 Qadha Sholat & Puasa', qadhaEmpty: 'Durung wonten data.',
+    pProfil: '⚙️ Profil & Adat', optional: 'opsional',
+    profIntro: 'Mboten wajib diisi ing wiwitan — adat bakal dipun-sinaoni piyambak dening app saking siklus ingkang jelas (mboten istichadloh). Kosongaken mawon menawi taksih bingung / dereng tertib.',
+    unitDinHaidl:'dinten haidl', unitDinSuci:'dinten suci', unitDinNifas:'dinten nifas',
+    qEverHaidl:'Sampun nate haidl?', qEverNifas:'Sampun nate nifas?', yaSampun:'Sampun', dereng:'Dèrèng',
+    lblAdatHaidl:'Adat haidl (dinten)', lblAdatSuci:'Adat suci (dinten)', lblAdatNifas:'Adat nifas (dinten)',
+    lblBirthdate:'Tanggal lahir (Masehi) — opsional',
+    lokasiIntro:'Lokasi kagem itungan jam sholat (kagem fitur Qadha Sholat ing ngandhap).',
+    gpsBtn:'📍 Deteksi lokasi otomatis (GPS)', lblCity:'Utawi ketik kutha/kabupaten',
+    cityNotFound:'Kutha mboten kepanggih ing dhaptar — mangga isi koordinat manual ing ngandhap, utawi pilih kutha caket saking dhaptar.',
+    lblLat:'Lintang (latitude)', lblLon:'Bujur (longitude)', lblTz:'Zona (UTC+)',
+    pRinci:'📋 Sedaya Cathetan', periksaEwahi:'priksa/ewahi',
+    rinciIntro:'Sedaya cathetan wekdal (saking kalender) kasebat runtut ing ngriki, saged diewahi utawi dibusak langsung.',
+    pSync:'☁️ Cadangan & Sinkronisasi',
+    syncIntro:'Data utami tetep ing HP niki. Mlebu nganggo akun Google pribadi supados data kacadhangaken lan saged dibikak wonten HP sanès — data mung kesimpen ing akun Google sampeyan piyambak, mboten dipun-bagi kaliyan tiyang sanès.',
+    btnSignIn:'🔐 Mlebu nganggo Google', btnSyncUp:'☁️⬆️ Simpen', btnSyncDown:'☁️⬇️ Jupuk', btnSignOut:'Metu',
+    autoSyncLbl:'Otomatis simpen ing Google saben owah',
+    btnExport:'💾 Ekspor .json', btnImport:'📂 Muat .json', btnReset:'🗑️ Hapus sedaya data (reset)',
+    footerText:'Adhedhasar <em>Risalatul Mahaidl 2025</em> · Mazhab Syafi\'i · prototipe mandiri<br>⚠️ Bagean istichadloh kategori tartamtu taksih draf, dèrèng ditashih lengkap.',
+    sheetTitleDefault:'Cathet Dinten', lblTanggal:'Tanggal',
+    sheetHint:'Cathet mawon jam pinten kahananipun owah. Kagem mandheg, tambah cathetan enggal kanthi status "Suci" ing jam mandhegipun — mboten prelu ngisi jam mandheg piyambak.',
+    btnAddCp:'+ Tambah cathetan', chkLahir:'Dinten niki babaran (miwiti nifas)',
+    btnBatal:'Batal', btnSimpen:'Simpen',
+    hukumLabel:'Hukum sakniki', noBloodNow:'Dèrèng wonten cathetan getih ingkang taksih mlebet sakniki.',
+    calcErr:'Kalepatan itungan', checkDataAgain:'Priksa malih data (tanggal kedah runtut).',
+    lblSebab:'Sebabipun', lblCatatanMentah:'Cathetan mentah', stillOngoing:'taksih mlebet',
+    badgeBelum24:'dèrèng 24 jam', badgeIhtiyat:'ihtiyat', badgePending:'durung dijawab', badgeManual:'rujuk kitab langsung',
+    unitDinten:'dinten', unitWektu:'wektu',
+    kenthel:'kenthel', cair:'cair', mambet:'mambet', mbotenMambet:'mboten mambet',
+    lblWajibMandi:'Wajib mandi', takWonten:'boten wonten.',
+    lblQadhaSholat:'Qadha sholat',
+    qadhaSholatNeedLoc:'during saged diitung — isi lintang/bujur/zona ing panel ⚙️ Profil & Adat rumiyin. Miturut Bab IV: sholat gugur amargi haidl/nifas mboten wajib diqadha, nanging ing masa ISTICHADLOH sholat tetep wajib.',
+    qadhaSholatNone:"boten wonten sing prelu diqadha' (dèrèng nate mlebet masa ISTICHADLOH).",
+    qadhaSholatIntro:'MENAWI during dipun-lampahi',
+    qadhaSholatTail:'ing masa ISTICHADLOH ing ngandhap (amargi haidl/nifas gugur, nanging ISTICHADLOH tetep wajib sholat):',
+    lblPerkiraanQadhaPuasa:'Perkiraan qadha puasa',
+    qadhaPuasaNote:'(total dinten haidl/istichadloh-ihtiyat — kedah dipun-filter manual sing bertepatan Ramadhan).',
+    gpsNoSupport:'⚠️ HP/browser mboten ndhukung GPS.', gpsSearching:'Nggoleki lokasi…',
+    gpsFound:'✅ Lokasi kepanggih (akurasi ±ACCm).',
+    gpsFail:'⚠️ Gagal njupuk lokasi: REASON Mangga ketik jeneng kutha mawon ing ngandhap.',
+    gpsDenied:'ijin GPS ditolak.',
+    resetConfirm1:'Sedaya cathetan getih, jawaban istichadloh, lan profil/adat ing HP niki BAKAL DIBUSAK. Menawi dèrèng ngeksport cadangan, mangga Batal rumiyin lajeng pencet "💾 Ekspor .json". Yakin badhe ngresetaken?',
+    resetConfirm2:'Pancen yakin? Tumindak niki mboten saged dibatalaken.',
+    resetDone:'🗑️ Sedaya data ing HP niki sampun dibusak.',
+    syncClientIdMissing:'⚠️ Client ID Google durung dipasang Gus Fi ing kode (mriksa komentar setup ing index.html).',
+    syncLoadFail:'Gagal muat Google Sign-In, priksa sambungan internet lan coba maneh.',
+    syncSignInFail:'Gagal mlebu: ', syncSignedIn:'✅ Sampun mlebu.',
+    syncSignedInHasBackup:'✅ Sampun mlebu — wonten cadangan ing akun iki, pencet ☁️⬇️ Jupuk menawi pengin mbukak.',
+    syncSignedInCheckFail:'Sampun mlebu, nanging gagal mriksa cadangan: ',
+    syncSavedAt:'✅ Kesimpen ing Google — ', syncSaveFail:'Gagal simpen ing Google: ',
+    syncNoBackup:'Durung ana cadangan ing akun iki.',
+    syncLoadedAt:'✅ Kaload saka Google — ', syncLoadFail2:'Gagal njupuk saka Google: ',
+    syncSignedOut:'Sampun metu.',
+    syncDownConfirm:'Data ing HP iki bakal ditimpa data saka Google. Lanjut?',
+    authNotReady:'Google auth durung siap',
+    noCpToday:'Dèrèng wonten cathetan ing dinten niki (dianggep suci). Pencet tombol ing ngandhap kagem miwiti.',
+    lblWekdal:'Wekdal (24h)', lvlSuci:'Suci', lvlFlek:'Flek', lvlSedeng:'Sedeng', lvlKuat:'Kuat',
+    lblWarnaGetih:'Warna getih', autoByLevel:'(otomatis miturut tingkat)',
+    lblKekentelan:'Kekentelan', autoOnly:'(otomatis)',
+    optKenthel:'Kenthel', optCair:'Cair', optMambet:'Mambet', optMbotenMambet:'Mboten mambet',
+    lblAmbet:'Ambet',
+    answeredLabel:'✅ Wangsulan istichadloh — ', answeredHint:'Sampun kajawab, itungan sakniki nganggo wangsulan iki. Saged diewahi menawi kaliru:',
+    getihLangkung:'⚠️ Getih >', watesMaksimal:'Sampun langkung wates maksimal', pleaseAnswer:'Mangga wangsuli:',
+    lblNifas:'nifas', lblHaidl:'haidl',
+    qBisaBedakan:'Saged mbedakaken getih kuat & lemah?', ansSaged:'Saged', ansMboten:'Mboten',
+    qDiemut:'Menapa ingkang dipun-emut?',
+    rtQodronWaqtan:'Lami & wekdal mulai', rtQodronSaja:'Lami mawon', rtWaqtanSaja:'Wekdal mulai mawon',
+    rtBeberapa:'Sawetara kemungkinan', rtTidakIngat:'Mboten emut',
+    qAdatNifas:'Taksih emut adat nifas?', rtHafidzoh:'Taksih emut',
+    btnSimpenOwahan:'Simpen owahan & itung ulang', btnSimpenItung:'Simpen & itung ulang',
+    importConfirm:'Data ing HP iki bakal ditimpa isi file iki. Lanjut?',
+    importDone:'Cadangan kasil dimuat.', importInvalid:'File mboten valid: '
+  },
+  id: {
+    subtitle: "Haidl · Nifas · Istichadloh — Mazhab Syafi'i",
+    banner: '📔 Ketuk tanggal di kalender untuk mencatat keluar/berhentinya darah. Semua tersimpan di HP ini (tidak perlu internet), dan akan digolongkan otomatis menurut <em>Risalatul Mahaidl 2025</em>.',
+    pKalender: '📅 Kalender', legSuci:'Suci', legFasad:'Fasad',
+    calHint: 'Ketuk tanggal untuk mencatat/mengubah. Tanda ⚠️ = perlu jawaban tambahan (istichadloh).',
+    pRiwayat: '🗂️ Riwayat & Status',
+    riwEmpty: 'Belum ada catatan. Ketuk tanggal di kalender di atas.',
+    pQadha: '🕌 Qadha Sholat & Puasa', qadhaEmpty: 'Belum ada data.',
+    pProfil: '⚙️ Profil & Kebiasaan', optional: 'opsional',
+    profIntro: 'Tidak wajib diisi di awal — kebiasaan akan dipelajari sendiri oleh aplikasi dari siklus yang jelas (bukan istichadloh). Kosongkan saja jika masih bingung / belum teratur.',
+    unitDinHaidl:'hari haidl', unitDinSuci:'hari suci', unitDinNifas:'hari nifas',
+    qEverHaidl:'Sudah pernah haidl?', qEverNifas:'Sudah pernah nifas?', yaSampun:'Sudah', dereng:'Belum',
+    lblAdatHaidl:'Kebiasaan haidl (hari)', lblAdatSuci:'Kebiasaan suci (hari)', lblAdatNifas:'Kebiasaan nifas (hari)',
+    lblBirthdate:'Tanggal lahir (Masehi) — opsional',
+    lokasiIntro:'Lokasi untuk perhitungan jam sholat (untuk fitur Qadha Sholat di bawah).',
+    gpsBtn:'📍 Deteksi lokasi otomatis (GPS)', lblCity:'Atau ketik kota/kabupaten',
+    cityNotFound:'Kota tidak ditemukan di daftar — silakan isi koordinat manual di bawah, atau pilih kota terdekat dari daftar.',
+    lblLat:'Lintang (latitude)', lblLon:'Bujur (longitude)', lblTz:'Zona (UTC+)',
+    pRinci:'📋 Semua Catatan', periksaEwahi:'periksa/ubah',
+    rinciIntro:'Semua catatan waktu (dari kalender) tersebut berurutan di sini, bisa diubah atau dihapus langsung.',
+    pSync:'☁️ Cadangan & Sinkronisasi',
+    syncIntro:'Data utama tetap di HP ini. Masuk dengan akun Google pribadi supaya data dicadangkan dan bisa dibuka di HP lain — data hanya tersimpan di akun Google Anda sendiri, tidak dibagikan ke orang lain.',
+    btnSignIn:'🔐 Masuk dengan Google', btnSyncUp:'☁️⬆️ Simpan', btnSyncDown:'☁️⬇️ Ambil', btnSignOut:'Keluar',
+    autoSyncLbl:'Otomatis simpan ke Google setiap ada perubahan',
+    btnExport:'💾 Ekspor .json', btnImport:'📂 Muat .json', btnReset:'🗑️ Hapus semua data (reset)',
+    footerText:'Berdasarkan <em>Risalatul Mahaidl 2025</em> · Mazhab Syafi\'i · prototipe mandiri<br>⚠️ Bagian istichadloh kategori tertentu masih draf, belum ditashih lengkap.',
+    sheetTitleDefault:'Catat Tanggal', lblTanggal:'Tanggal',
+    sheetHint:'Catat saja jam berapa keadaannya berubah. Untuk berhenti, tambah catatan baru dengan status "Suci" pada jam berhentinya — tidak perlu mengisi jam berhenti sendiri.',
+    btnAddCp:'+ Tambah catatan', chkLahir:'Hari ini melahirkan (mulai nifas)',
+    btnBatal:'Batal', btnSimpen:'Simpan',
+    hukumLabel:'Hukum saat ini', noBloodNow:'Belum ada catatan darah yang masih berlangsung saat ini.',
+    calcErr:'Kesalahan perhitungan', checkDataAgain:'Periksa lagi data (tanggal harus berurutan).',
+    lblSebab:'Sebabnya', lblCatatanMentah:'Catatan mentah', stillOngoing:'masih berlangsung',
+    badgeBelum24:'belum 24 jam', badgeIhtiyat:'ihtiyat', badgePending:'belum dijawab', badgeManual:'rujuk kitab langsung',
+    unitDinten:'hari', unitWektu:'waktu',
+    kenthel:'kental', cair:'cair', mambet:'berbau', mbotenMambet:'tidak berbau',
+    lblWajibMandi:'Wajib mandi', takWonten:'tidak ada.',
+    lblQadhaSholat:'Qadha sholat',
+    qadhaSholatNeedLoc:'belum bisa dihitung — isi lintang/bujur/zona di panel ⚙️ Profil & Kebiasaan terlebih dahulu. Menurut Bab IV: sholat gugur karena haidl/nifas tidak wajib diqadha, tetapi pada masa ISTICHADLOH sholat tetap wajib.',
+    qadhaSholatNone:"tidak ada yang perlu diqadha' (belum pernah masuk masa ISTICHADLOH).",
+    qadhaSholatIntro:'JIKA belum dilaksanakan',
+    qadhaSholatTail:'pada masa ISTICHADLOH di bawah ini (karena haidl/nifas gugur, tetapi ISTICHADLOH tetap wajib sholat):',
+    lblPerkiraanQadhaPuasa:'Perkiraan qadha puasa',
+    qadhaPuasaNote:'(total hari haidl/istichadloh-ihtiyat — perlu difilter manual yang bertepatan Ramadhan).',
+    gpsNoSupport:'⚠️ HP/browser tidak mendukung GPS.', gpsSearching:'Mencari lokasi…',
+    gpsFound:'✅ Lokasi ditemukan (akurasi ±ACCm).',
+    gpsFail:'⚠️ Gagal mengambil lokasi: REASON Silakan ketik nama kota saja di bawah.',
+    gpsDenied:'izin GPS ditolak.',
+    resetConfirm1:'Semua catatan darah, jawaban istichadloh, dan profil/kebiasaan di HP ini AKAN DIHAPUS. Jika belum mengekspor cadangan, silakan Batal dulu lalu tekan "💾 Ekspor .json". Yakin ingin mereset?',
+    resetConfirm2:'Benar-benar yakin? Tindakan ini tidak bisa dibatalkan.',
+    resetDone:'🗑️ Semua data di HP ini sudah dihapus.',
+    syncClientIdMissing:'⚠️ Client ID Google belum dipasang di kode (periksa komentar setup di index.html).',
+    syncLoadFail:'Gagal memuat Google Sign-In, periksa sambungan internet dan coba lagi.',
+    syncSignInFail:'Gagal masuk: ', syncSignedIn:'✅ Sudah masuk.',
+    syncSignedInHasBackup:'✅ Sudah masuk — ada cadangan di akun ini, tekan ☁️⬇️ Ambil jika ingin membuka.',
+    syncSignedInCheckFail:'Sudah masuk, tetapi gagal memeriksa cadangan: ',
+    syncSavedAt:'✅ Tersimpan di Google — ', syncSaveFail:'Gagal menyimpan ke Google: ',
+    syncNoBackup:'Belum ada cadangan di akun ini.',
+    syncLoadedAt:'✅ Dimuat dari Google — ', syncLoadFail2:'Gagal mengambil dari Google: ',
+    syncSignedOut:'Sudah keluar.',
+    syncDownConfirm:'Data di HP ini akan ditimpa data dari Google. Lanjutkan?',
+    authNotReady:'Google auth belum siap',
+    noCpToday:'Belum ada catatan di hari ini (dianggap suci). Tekan tombol di bawah untuk mulai.',
+    lblWekdal:'Waktu (24 jam)', lvlSuci:'Suci', lvlFlek:'Flek', lvlSedeng:'Sedang', lvlKuat:'Kuat',
+    lblWarnaGetih:'Warna darah', autoByLevel:'(otomatis menurut tingkat)',
+    lblKekentelan:'Kekentalan', autoOnly:'(otomatis)',
+    optKenthel:'Kental', optCair:'Cair', optMambet:'Berbau', optMbotenMambet:'Tidak berbau',
+    lblAmbet:'Bau',
+    answeredLabel:'✅ Jawaban istichadloh — ', answeredHint:'Sudah dijawab, perhitungan saat ini memakai jawaban ini. Bisa diubah jika keliru:',
+    getihLangkung:'⚠️ Darah >', watesMaksimal:'Sudah melebihi batas maksimal', pleaseAnswer:'Silakan jawab:',
+    lblNifas:'nifas', lblHaidl:'haidl',
+    qBisaBedakan:'Bisa membedakan darah kuat & lemah?', ansSaged:'Bisa', ansMboten:'Tidak',
+    qDiemut:'Apa yang diingat?',
+    rtQodronWaqtan:'Lama & waktu mulai', rtQodronSaja:'Lama saja', rtWaqtanSaja:'Waktu mulai saja',
+    rtBeberapa:'Beberapa kemungkinan', rtTidakIngat:'Tidak ingat',
+    qAdatNifas:'Masih ingat kebiasaan nifas?', rtHafidzoh:'Masih ingat',
+    btnSimpenOwahan:'Simpan perubahan & hitung ulang', btnSimpenItung:'Simpan & hitung ulang',
+    importConfirm:'Data di HP ini akan ditimpa isi file ini. Lanjutkan?',
+    importDone:'Cadangan berhasil dimuat.', importInvalid:'File tidak valid: '
+  }
+};
+function T(k){ return (I18N[state.lang||'jv'] && I18N[state.lang||'jv'][k]) || I18N.jv[k] || k; }
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent = T(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{ el.innerHTML = T(el.dataset.i18nHtml); });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{ el.placeholder = T(el.dataset.i18nPlaceholder); });
+  $('langBtn').textContent = (state.lang==='id') ? 'ID' : 'JW';
+}
+
 const STATUS_META = {
   HAIDL:{c:'var(--haidl)', bg:'var(--haidl-bg)', label:'Haidl'},
   NIFAS:{c:'var(--nifas)', bg:'var(--nifas-bg)', label:'Nifas'},
@@ -1001,6 +1244,14 @@ $('themeBtn').addEventListener('click', ()=>{
 });
 (function(){ const t = localStorage.getItem('catatan-haidl-theme'); if(t){ document.documentElement.setAttribute('data-theme', t); $('themeBtn').textContent = t==='dark'?'☀️':'🌙'; } })();
 
+/* ======================= BASA (JW/ID) ======================= */
+$('langBtn').addEventListener('click', ()=>{
+  state.lang = (state.lang==='id') ? 'jv' : 'id';
+  saveState();
+  applyI18n();
+  renderProfile(); renderEpisodes(); renderCalendar(); recalcAndRender();
+});
+
 /* ======================= PROFIL ======================= */
 /* ======================= DHAPTAR KUTHA (kagem lokasi jam sholat) ======================= */
 // [lintang, bujur, zona UTC+]. Perkiraan koordinat pusat kutha/kabupaten — cekap kagem jam sholat (ora prelu presisi meter).
@@ -1065,8 +1316,8 @@ $('inCity').addEventListener('change', e=>{
   }
 });
 $('gpsBtn').addEventListener('click', ()=>{
-  if(!navigator.geolocation){ $('gpsStatus').textContent = '⚠️ HP/browser mboten ndhukung GPS.'; $('gpsStatus').style.color='var(--danger)'; return; }
-  $('gpsStatus').textContent = 'Nggoleki lokasi…'; $('gpsStatus').style.color='var(--muted)';
+  if(!navigator.geolocation){ $('gpsStatus').textContent = T('gpsNoSupport'); $('gpsStatus').style.color='var(--danger)'; return; }
+  $('gpsStatus').textContent = T('gpsSearching'); $('gpsStatus').style.color='var(--muted)';
   navigator.geolocation.getCurrentPosition(
     pos=>{
       const tz = -(new Date().getTimezoneOffset()/60); // zona wektu miturut setelan jam HP, ora perlu GPS kanggo iki
@@ -1076,11 +1327,11 @@ $('gpsBtn').addEventListener('click', ()=>{
       state.profile.city = null;
       $('inCity').value = '';
       $('cityNotFound').style.display='none';
-      $('gpsStatus').textContent = '✅ Lokasi kepanggih (akurasi ±' + Math.round(pos.coords.accuracy) + 'm).'; $('gpsStatus').style.color='var(--muted)';
+      $('gpsStatus').textContent = T('gpsFound').replace('ACC', Math.round(pos.coords.accuracy)); $('gpsStatus').style.color='var(--muted)';
       saveState(); renderProfile(); recalcAndRender();
     },
     err=>{
-      $('gpsStatus').textContent = '⚠️ Gagal njupuk lokasi: ' + (err.code===1? 'ijin GPS ditolak.' : err.message) + ' Mangga ketik jeneng kutha mawon ing ngandhap.';
+      $('gpsStatus').textContent = T('gpsFail').replace('REASON', err.code===1? T('gpsDenied') : err.message);
       $('gpsStatus').style.color='var(--danger)';
     },
     {enableHighAccuracy:true, timeout:10000}
@@ -1107,17 +1358,18 @@ const LEVEL_LABEL = {suci:'Suci', flek:'Flek', sedeng:'Sedeng', kuat:'Kuat'};
 function renderEpisodes(){
   const wrap = $('epList');
   wrap.innerHTML='';
-  if(!state.checkpoints.length){ wrap.innerHTML = '<p class="tiny muted">Dèrèng wonten cathetan. Pencet dinten ing kalender kagem miwiti.</p>'; return; }
+  if(!state.checkpoints.length){ wrap.innerHTML = `<p class="tiny muted">${T('riwEmpty')}</p>`; return; }
+  const LEVEL_LABEL_T = {suci:T('lvlSuci'), flek:T('lvlFlek'), sedeng:T('lvlSedeng'), kuat:T('lvlKuat')};
   state.checkpoints.slice().sort((a,b)=>a.ts-b.ts).forEach(cp=>{
     const div = document.createElement('div');
     div.className='ep';
     const d = new Date(cp.ts);
     div.innerHTML = `
       <button class="del" data-del="${cp.id}">✕</button>
-      <label class="field" style="margin-bottom:8px"><span>Tanggal</span><input type="date" data-f="date" value="${dateStrOf(cp.ts)}"></label>
-      <label class="field" style="margin-bottom:8px"><span>Wekdal (24h)</span><div style="display:flex;align-items:center">${timeSelectHTML(cp.id,'jam',d.getHours(),d.getMinutes())}</div></label>
+      <label class="field" style="margin-bottom:8px"><span>${T('lblTanggal')}</span><input type="date" data-f="date" value="${dateStrOf(cp.ts)}"></label>
+      <label class="field" style="margin-bottom:8px"><span>${T('lblWekdal')}</span><div style="display:flex;align-items:center">${timeSelectHTML(cp.id,'jam',d.getHours(),d.getMinutes())}</div></label>
       <div class="seg" data-statusseg>
-        ${Object.keys(LEVEL_LABEL).map(k=>`<button type="button" data-v="${k}" class="${cp.status===k?'on':''}">${LEVEL_LABEL[k]}</button>`).join('')}
+        ${Object.keys(LEVEL_LABEL_T).map(k=>`<button type="button" data-v="${k}" class="${cp.status===k?'on':''}">${LEVEL_LABEL_T[k]}</button>`).join('')}
       </div>`;
     div.querySelector('[data-f="date"]').addEventListener('change', e=>{
       const nd = new Date(cp.ts); const [y,m,day]=e.target.value.split('-').map(Number);
@@ -1166,10 +1418,10 @@ function renderCalendar(){
   $('calHijriRange').textContent = (h1[1]===h2[1])
     ? `${arNum(h1[2])}–${arNum(h2[2])} ${HIJRI_BULAN[h1[1]]} ${arNum(h1[0])} H`
     : `${arNum(h1[2])} ${HIJRI_BULAN[h1[1]]} ${arNum(h1[0])} – ${arNum(h2[2])} ${HIJRI_BULAN[h2[1]]} ${arNum(h2[0])} H`;
-  $('calOffTxt').textContent = 'Koreksi rukyat: ' + (calOffset? ((calOffset>0?'+':'')+calOffset+' dinten') : '0 (hisab taqribi)');
+  $('calOffTxt').textContent = 'Koreksi rukyat: ' + (calOffset? ((calOffset>0?'+':'')+calOffset+' '+T('unitDinten')) : '0 (hisab taqribi)');
 
   let html='';
-  ['Sen','Sel','Reb','Kem','Jem','Set','Ngh'].forEach(h=>html+=`<div class="cal-dow">${h}</div>`);
+  (state.lang==='id' ? ['Sen','Sel','Rab','Kam','Jum','Sab','Min'] : ['Sen','Sel','Reb','Kem','Jem','Set','Ngh']).forEach(h=>html+=`<div class="cal-dow">${h}</div>`);
   for(let i=0;i<firstWd;i++) html+='<div class="cal-cell blank"></div>';
   for(let d=1; d<=ndays; d++){
     const dt = new Date(calYear, calMonth, d).getTime();
@@ -1215,37 +1467,37 @@ function checkpointsOfDay(dayTs){
 }
 function renderCpRows(){
   const wrap = $('cpRows');
-  if(!sheetCps.length){ wrap.innerHTML = '<p class="tiny muted">Dèrèng wonten cathetan ing dinten niki (dianggep suci). Pencet tombol ing ngandhap kagem miwiti.</p>'; return; }
+  if(!sheetCps.length){ wrap.innerHTML = `<p class="tiny muted">${T('noCpToday')}</p>`; return; }
   wrap.innerHTML = sheetCps.map(r=>`
     <div class="ep" data-row="${r.rowId}">
       <button type="button" class="del" data-delrow="${r.rowId}">✕</button>
-      <label class="field" style="min-width:auto;margin-bottom:8px"><span>Wekdal (24h)</span><div style="display:flex;align-items:center">${timeSelectHTML(r.rowId,'jam',r.hh,r.mm)}</div></label>
+      <label class="field" style="min-width:auto;margin-bottom:8px"><span>${T('lblWekdal')}</span><div style="display:flex;align-items:center">${timeSelectHTML(r.rowId,'jam',r.hh,r.mm)}</div></label>
       <div class="seg" data-rowseg="${r.rowId}">
-        <button type="button" data-level="suci" class="${r.level==='suci'?'on':''}">Suci</button>
-        <button type="button" data-level="flek" class="${r.level==='flek'?'on':''}">Flek</button>
-        <button type="button" data-level="sedeng" class="${r.level==='sedeng'?'on':''}">Sedeng</button>
-        <button type="button" data-level="kuat" class="${r.level==='kuat'?'on':''}">Kuat</button>
+        <button type="button" data-level="suci" class="${r.level==='suci'?'on':''}">${T('lvlSuci')}</button>
+        <button type="button" data-level="flek" class="${r.level==='flek'?'on':''}">${T('lvlFlek')}</button>
+        <button type="button" data-level="sedeng" class="${r.level==='sedeng'?'on':''}">${T('lvlSedeng')}</button>
+        <button type="button" data-level="kuat" class="${r.level==='kuat'?'on':''}">${T('lvlKuat')}</button>
       </div>
       ${r.level!=='suci' ? `
       <div class="detailfields" style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-        <label class="field" style="min-width:auto"><span>Warna getih</span>
+        <label class="field" style="min-width:auto"><span>${T('lblWarnaGetih')}</span>
           <select class="wsel" data-row="${r.rowId}">
-            <option value="" ${!r.warna?'selected':''}>(otomatis miturut tingkat)</option>
+            <option value="" ${!r.warna?'selected':''}>${T('autoByLevel')}</option>
             ${Object.keys(COLOR_LABEL).map(k=> `<option value="${k}" ${r.warna===k?'selected':''}>${COLOR_LABEL[k]}</option>`).join('')}
           </select>
         </label>
-        <label class="field" style="min-width:auto"><span>Kekentelan</span>
+        <label class="field" style="min-width:auto"><span>${T('lblKekentelan')}</span>
           <select class="ksel" data-row="${r.rowId}">
-            <option value="" ${r.kental==null?'selected':''}>(otomatis)</option>
-            <option value="1" ${r.kental===true?'selected':''}>Kenthel</option>
-            <option value="0" ${r.kental===false?'selected':''}>Cair</option>
+            <option value="" ${r.kental==null?'selected':''}>${T('autoOnly')}</option>
+            <option value="1" ${r.kental===true?'selected':''}>${T('optKenthel')}</option>
+            <option value="0" ${r.kental===false?'selected':''}>${T('optCair')}</option>
           </select>
         </label>
-        <label class="field" style="min-width:auto"><span>Ambet</span>
+        <label class="field" style="min-width:auto"><span>${T('lblAmbet')}</span>
           <select class="bsel" data-row="${r.rowId}">
-            <option value="" ${r.bau==null?'selected':''}>(otomatis)</option>
-            <option value="1" ${r.bau===true?'selected':''}>Mambet</option>
-            <option value="0" ${r.bau===false?'selected':''}>Mboten mambet</option>
+            <option value="" ${r.bau==null?'selected':''}>${T('autoOnly')}</option>
+            <option value="1" ${r.bau===true?'selected':''}>${T('optMambet')}</option>
+            <option value="0" ${r.bau===false?'selected':''}>${T('optMbotenMambet')}</option>
           </select>
         </label>
       </div>` : ''}
@@ -1353,35 +1605,35 @@ function renderIstihadhohPrompts(list){
     div.innerHTML = `
       <div class="panel-body" style="padding:14px">
         ${item.answered
-          ? `<p style="color:var(--accent);font-weight:700;font-size:13px;margin:0 0 6px">✅ Wangsulan istichadloh — ${fmtD(item.start)}</p>
-             <p class="tiny muted">Sampun kajawab, itungan sakniki nganggo wangsulan iki. Saged diewahi menawi kaliru:</p>`
-          : `<p style="color:var(--isti);font-weight:700;font-size:13px;margin:0 0 6px">⚠️ Getih &gt; ${item.type==='nifas'?'60':'15'} dinten — ${fmtD(item.start)}</p>
-             <p class="tiny muted">Sampun langkung wates maksimal ${item.type==='nifas'?'nifas':'haidl'}. Mangga wangsuli:</p>`}
-        <label class="field"><span>Saged mbedakaken getih kuat &amp; lemah?</span>
+          ? `<p style="color:var(--accent);font-weight:700;font-size:13px;margin:0 0 6px">${T('answeredLabel')}${fmtD(item.start)}</p>
+             <p class="tiny muted">${T('answeredHint')}</p>`
+          : `<p style="color:var(--isti);font-weight:700;font-size:13px;margin:0 0 6px">${T('getihLangkung')} ${item.type==='nifas'?'60':'15'} ${T('unitDinten')} — ${fmtD(item.start)}</p>
+             <p class="tiny muted">${T('watesMaksimal')} ${item.type==='nifas'?T('lblNifas'):T('lblHaidl')}. ${T('pleaseAnswer')}</p>`}
+        <label class="field"><span>${T('qBisaBedakan')}</span>
           <div class="pill-group" data-q="bisaBedakan">
-            <button class="pill ${ans.bisaBedakan===true?'active':''}" data-v="true" type="button">Saged</button>
-            <button class="pill ${ans.bisaBedakan===false?'active':''}" data-v="false" type="button">Mboten</button>
+            <button class="pill ${ans.bisaBedakan===true?'active':''}" data-v="true" type="button">${T('ansSaged')}</button>
+            <button class="pill ${ans.bisaBedakan===false?'active':''}" data-v="false" type="button">${T('ansMboten')}</button>
           </div>
         </label>
         <div data-show style="display:${ans.bisaBedakan===false?'block':'none'}">
           ${item.type==='haidl' ? `
-          <label class="field"><span>Menapa ingkang dipun-emut?</span>
+          <label class="field"><span>${T('qDiemut')}</span>
             <div class="pill-group" data-q="rememberType" style="flex-wrap:wrap">
-              <button class="pill ${ans.rememberType==='qodron-waqtan'?'active':''}" data-v="qodron-waqtan" type="button">Lami &amp; wekdal mulai</button>
-              <button class="pill ${ans.rememberType==='qodron-saja'?'active':''}" data-v="qodron-saja" type="button">Lami mawon</button>
-              <button class="pill ${ans.rememberType==='waqtan-saja'?'active':''}" data-v="waqtan-saja" type="button">Wekdal mulai mawon</button>
-              <button class="pill ${ans.rememberType==='beberapa'?'active':''}" data-v="beberapa" type="button">Sawetara kemungkinan</button>
-              <button class="pill ${ans.rememberType==='tidak-ingat'?'active':''}" data-v="tidak-ingat" type="button">Mboten emut</button>
+              <button class="pill ${ans.rememberType==='qodron-waqtan'?'active':''}" data-v="qodron-waqtan" type="button">${T('rtQodronWaqtan')}</button>
+              <button class="pill ${ans.rememberType==='qodron-saja'?'active':''}" data-v="qodron-saja" type="button">${T('rtQodronSaja')}</button>
+              <button class="pill ${ans.rememberType==='waqtan-saja'?'active':''}" data-v="waqtan-saja" type="button">${T('rtWaqtanSaja')}</button>
+              <button class="pill ${ans.rememberType==='beberapa'?'active':''}" data-v="beberapa" type="button">${T('rtBeberapa')}</button>
+              <button class="pill ${ans.rememberType==='tidak-ingat'?'active':''}" data-v="tidak-ingat" type="button">${T('rtTidakIngat')}</button>
             </div>
           </label>` : `
-          <label class="field"><span>Taksih emut adat nifas?</span>
+          <label class="field"><span>${T('qAdatNifas')}</span>
             <div class="pill-group" data-q="rememberType">
-              <button class="pill ${ans.rememberType==='hafidzoh'?'active':''}" data-v="hafidzoh" type="button">Taksih emut</button>
-              <button class="pill ${ans.rememberType==='tidak-ingat'?'active':''}" data-v="tidak-ingat" type="button">Mboten emut</button>
+              <button class="pill ${ans.rememberType==='hafidzoh'?'active':''}" data-v="hafidzoh" type="button">${T('rtHafidzoh')}</button>
+              <button class="pill ${ans.rememberType==='tidak-ingat'?'active':''}" data-v="tidak-ingat" type="button">${T('rtTidakIngat')}</button>
             </div>
           </label>`}
         </div>
-        <button class="btn primary wide" data-save style="margin-top:8px">${item.answered?'Simpen owahan &amp; itung ulang':'Simpen &amp; itung ulang'}</button>
+        <button class="btn primary wide" data-save style="margin-top:8px">${item.answered?T('btnSimpenOwahan'):T('btnSimpenItung')}</button>
       </div>`;
     div.querySelector('[data-q="bisaBedakan"]').addEventListener('click', e=>{
       if(e.target.dataset.v){ ans.bisaBedakan = e.target.dataset.v==='true'; state.istihadhohAnswers[item.key]=ans; saveState(); renderIstihadhohPrompts(list); }
@@ -1400,10 +1652,10 @@ function episodesOverlapping(start, end){
 function fmtT(ts){ return new Date(ts).toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false}); }
 function renderTimeline(segments){
   const body = $('timelineBody');
-  if(!segments.length){ body.innerHTML = '<div class="empty">Dèrèng wonten catetan. Pencet dinten ing kalender ndhuwur.</div>'; return; }
+  if(!segments.length){ body.innerHTML = `<div class="empty">${T('riwEmpty')}</div>`; return; }
   let html=''; let curMonth='';
   segments.slice().reverse().forEach(s=>{
-    const m = new Date(s.start).toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+    const m = new Date(s.start).toLocaleDateString(state.lang==='id'?'id-ID':'id-ID',{month:'long',year:'numeric'});
     if(m!==curMonth){ html+=`<div class="day-head">${m}</div>`; curMonth=m; }
     const meta = STATUS_META[s.status]||STATUS_META.ISTICHADLOH;
     const days = Math.max(1,Math.round((s.end-s.start)/DAY));
@@ -1412,20 +1664,20 @@ function renderTimeline(segments){
       <span class="dot" style="background:${meta.c};margin-top:4px"></span>
       <div style="flex:1">
         <span class="lbl" style="color:${meta.c}">${meta.label}</span>
-        <span class="tiny muted"> · ${fmtD(s.start)} ${fmtT(s.start)} – ${fmtD(s.end)} ${fmtT(s.end)} (${days} dinten)</span>
-        ${s.belumCukup?'<span class="badge" style="background:var(--isti-bg);color:var(--isti)">dèrèng 24 jam</span>':''}
-        ${s.ihtiyat?'<span class="badge" style="background:var(--isti-bg);color:var(--isti)">ihtiyat</span>':''}
-        ${s.pending?'<span class="badge" style="background:var(--danger-bg);color:var(--danger)">durung dijawab</span>':''}
-        ${s.manual?'<span class="badge" style="background:var(--danger-bg);color:var(--danger)">rujuk kitab langsung</span>':''}
-        ${s.note?`<div class="sub" style="margin-top:4px;line-height:1.5">📖 <b>Sebabipun:</b> ${s.note}</div>`:''}
-        ${(s.status==='HAIDL'||s.status==='NIFAS')? HAIDL_GUIDE_HTML : ''}
-        ${s.ihtiyat? IHTIYAT_GUIDE_HTML : ''}
+        <span class="tiny muted"> · ${fmtD(s.start)} ${fmtT(s.start)} – ${fmtD(s.end)} ${fmtT(s.end)} (${days} ${T('unitDinten')})</span>
+        ${s.belumCukup?`<span class="badge" style="background:var(--isti-bg);color:var(--isti)">${T('badgeBelum24')}</span>`:''}
+        ${s.ihtiyat?`<span class="badge" style="background:var(--isti-bg);color:var(--isti)">${T('badgeIhtiyat')}</span>`:''}
+        ${s.pending?`<span class="badge" style="background:var(--danger-bg);color:var(--danger)">${T('badgePending')}</span>`:''}
+        ${s.manual?`<span class="badge" style="background:var(--danger-bg);color:var(--danger)">${T('badgeManual')}</span>`:''}
+        ${s.note?`<div class="sub" style="margin-top:4px;line-height:1.5">📖 <b>${T('lblSebab')}:</b> ${s.note}</div>`:''}
+        ${(s.status==='HAIDL'||s.status==='NIFAS')? HAIDL_GUIDE_HTML() : ''}
+        ${s.ihtiyat? IHTIYAT_GUIDE_HTML() : ''}
         ${rawEps.length?`<div class="sub" style="margin-top:5px;padding:6px 8px;background:var(--surface2);border-radius:6px">
-          <b style="color:var(--muted)">🩸 Cathetan mentah:</b><br>
+          <b style="color:var(--muted)">🩸 ${T('lblCatatanMentah')}:</b><br>
           ${rawEps.map(e=>{
             const warnaLbl = COLOR_LABEL[e.warna]||e.warna;
-            const sifat = [e.kental?'kenthel':'cair', e.bau?'mambet':'mboten mambet'].join(', ');
-            const endTxt = e.end? `${fmtD(e.end)} ${fmtT(e.end)}` : 'taksih mlebet';
+            const sifat = [e.kental?T('kenthel'):T('cair'), e.bau?T('mambet'):T('mbotenMambet')].join(', ');
+            const endTxt = e.end? `${fmtD(e.end)} ${fmtT(e.end)}` : T('stillOngoing');
             return `${fmtD(e.start)} ${fmtT(e.start)} – ${endTxt} · <em>${warnaLbl.toLowerCase()}, ${sifat}</em>`;
           }).join('<br>')}
         </div>`:''}
@@ -1440,25 +1692,25 @@ function renderQadha(segments){
   const qs = deriveQadhaSholat(segments, lat, lon, tz);
   let sholatHtml;
   if(qs===null){
-    sholatHtml = `<p class="tiny muted">🕌 <b>Qadha sholat:</b> during saged diitung — isi lintang/bujur/zona ing panel ⚙️ Profil &amp; Adat rumiyin. Miturut Bab IV: sholat gugur amargi haidl/nifas mboten wajib diqadha, nanging ing masa ISTICHADLOH sholat tetep wajib.</p>`;
+    sholatHtml = `<p class="tiny muted">🕌 <b>${T('lblQadhaSholat')}:</b> ${T('qadhaSholatNeedLoc')}</p>`;
   } else if(!qs.length){
-    sholatHtml = `<p class="tiny">🕌 <b>Qadha sholat:</b> boten wonten sing prelu diqadha' (dèrèng nate mlebet masa ISTICHADLOH).</p>`;
+    sholatHtml = `<p class="tiny">🕌 <b>${T('lblQadhaSholat')}:</b> ${T('qadhaSholatNone')}</p>`;
   } else {
     const total = qs.reduce((s,it)=>s+it.count,0);
-    sholatHtml = `<p class="tiny">🕌 <b>Qadha sholat:</b> ± ${total} wektu sholat (itungan saking jam sholat asli lokasi), <b>MENAWI during dipun-lampahi</b> ing masa ISTICHADLOH ing ngandhap (amargi haidl/nifas gugur, nanging ISTICHADLOH tetep wajib sholat):</p>
-    <p class="tiny muted" style="margin-top:-4px">${qs.map(it=>`${fmtD(it.start)}–${fmtD(it.end)}: ~${it.count} wektu`).join('<br>')}</p>`;
+    sholatHtml = `<p class="tiny">🕌 <b>${T('lblQadhaSholat')}:</b> ± ${total} ${T('unitWektu')} sholat (itungan saking jam sholat asli lokasi), <b>${T('qadhaSholatIntro')}</b> ${T('qadhaSholatTail')}</p>
+    <p class="tiny muted" style="margin-top:-4px">${qs.map(it=>`${fmtD(it.start)}–${fmtD(it.end)}: ~${it.count} ${T('unitWektu')}`).join('<br>')}</p>`;
   }
   $('qadhaBody').innerHTML = `
-    <p class="tiny">🚿 <b>Wajib mandi:</b> ${wajibMandiPoints.length? wajibMandiPoints.map(fmtDT).join('; ') : 'boten wonten.'}</p>
-    ${wajibMandiPoints.length? DURUNG_ADUS_GUIDE_HTML : ''}
-    <p class="tiny">🌙 <b>Perkiraan qadha puasa:</b> ± ${puasaQadhaDays} dinten (total dinten haidl/istichadloh-ihtiyat — kedah dipun-filter manual sing bertepatan Ramadhan).</p>
+    <p class="tiny">🚿 <b>${T('lblWajibMandi')}:</b> ${wajibMandiPoints.length? wajibMandiPoints.map(fmtDT).join('; ') : T('takWonten')}</p>
+    ${wajibMandiPoints.length? DURUNG_ADUS_GUIDE_HTML() : ''}
+    <p class="tiny">🌙 <b>${T('lblPerkiraanQadhaPuasa')}:</b> ± ${puasaQadhaDays} ${T('unitDinten')} ${T('qadhaPuasaNote')}</p>
     ${sholatHtml}
   `;
 }
 
 /* ======================= RECALC PIPELINE ======================= */
 let lastResult = null;
-const HAIDL_GUIDE_HTML = `<details style="margin-top:10px">
+const HAIDL_GUIDE_HTML_JV = `<details style="margin-top:10px">
   <summary style="cursor:pointer;font-weight:700;font-size:12px">📋 Ingkang haram nalika haidl/nifas</summary>
   <div style="font-size:11.5px;line-height:1.65;margin-top:8px">
     <ul style="margin:0 0 8px;padding-left:18px">
@@ -1475,7 +1727,26 @@ const HAIDL_GUIDE_HTML = `<details style="margin-top:10px">
     <p style="color:var(--muted);margin:0">📖 Sumber: Risalatul Mahaidl 2025, Bab IV.</p>
   </div>
 </details>`;
-const DURUNG_ADUS_GUIDE_HTML = `<details style="margin-top:6px">
+const HAIDL_GUIDE_HTML_ID = `<details style="margin-top:10px">
+  <summary style="cursor:pointer;font-weight:700;font-size:12px">📋 Yang haram ketika haidl/nifas</summary>
+  <div style="font-size:11.5px;line-height:1.65;margin-top:8px">
+    <ul style="margin:0 0 8px;padding-left:18px">
+      <li>Sholat (fardhu dan sunnah) — <b>gugur, tidak perlu diqadha'</b> (tetap mendapat pahala jika niat tunduk pada perintah Allah)</li>
+      <li>Sujud syukur dan sujud tilawah</li>
+      <li>Puasa (wajib dan sunnah) — <b>WAJIB diqadha'</b> setelah suci</li>
+      <li>Thawaf (fardhu dan sunnah)</li>
+      <li>Membaca Al-Qur'an dengan niat membaca (dzikir/doa tanpa niat membaca Qur'an tetap boleh)</li>
+      <li>Menyentuh atau membawa mushaf (Al-Qur'an) langsung tanpa alas</li>
+      <li>Berlama-lama atau berdiam di dalam masjid</li>
+      <li>Diceraikan (suami dilarang menceraikan istri ketika haidl/nifas)</li>
+      <li>Jima' (hubungan suami-istri) dan bersentuhan kulit di antara pusar–lutut</li>
+    </ul>
+    <p style="color:var(--muted);margin:0">📖 Sumber: Risalatul Mahaidl 2025, Bab IV.</p>
+  </div>
+</details>`;
+function HAIDL_GUIDE_HTML(){ return state.lang==='id' ? HAIDL_GUIDE_HTML_ID : HAIDL_GUIDE_HTML_JV; }
+
+const DURUNG_ADUS_GUIDE_HTML_JV = `<details style="margin-top:6px">
   <summary style="cursor:pointer;font-weight:700;font-size:12px">📋 Getih sampun mandheg, dèrèng adus — menapa ingkang kenging lan haram?</summary>
   <div style="font-size:11.5px;line-height:1.65;margin-top:8px">
     <p style="margin:0 0 4px"><b>✅ Kenging/wajib katindakaken sanajan dèrèng adus:</b></p>
@@ -1493,7 +1764,27 @@ const DURUNG_ADUS_GUIDE_HTML = `<details style="margin-top:6px">
     <p style="color:var(--muted);margin:0">📖 Sumber: Risalatul Mahaidl 2025, Bab I.</p>
   </div>
 </details>`;
-const IHTIYAT_GUIDE_HTML = `<details style="margin-top:10px">
+const DURUNG_ADUS_GUIDE_HTML_ID = `<details style="margin-top:6px">
+  <summary style="cursor:pointer;font-weight:700;font-size:12px">📋 Darah sudah berhenti, belum mandi — apa yang boleh dan haram?</summary>
+  <div style="font-size:11.5px;line-height:1.65;margin-top:8px">
+    <p style="margin:0 0 4px"><b>✅ Boleh/wajib dilakukan meski belum mandi:</b></p>
+    <ul style="margin:0 0 10px;padding-left:18px">
+      <li>Memulai niat puasa — <b>SAH dan WAJIB</b> dimulai meski belum mandi (karena haramnya puasa sebab haidl, bukan sebab hadats)</li>
+    </ul>
+    <p style="margin:0 0 4px"><b>⛔ Masih HARAM sampai selesai mandi:</b></p>
+    <ul style="margin:0 0 8px;padding-left:18px">
+      <li>Sholat</li>
+      <li>Menyentuh/membaca mushaf</li>
+      <li>Masuk masjid; thawaf</li>
+      <li>Jima' (hubungan suami-istri) — ada hadits yang tegas melarang sampai "bersuci" (mandi), bukan hanya berhentinya darah saja</li>
+    </ul>
+    <p style="margin:0 0 8px">💡 Sunnah: jika hendak tidur, makan, atau minum, dianjurkan membersihkan farji lalu wudhu terlebih dahulu (meninggalkan ini hukumnya makruh, bukan haram).</p>
+    <p style="color:var(--muted);margin:0">📖 Sumber: Risalatul Mahaidl 2025, Bab I.</p>
+  </div>
+</details>`;
+function DURUNG_ADUS_GUIDE_HTML(){ return state.lang==='id' ? DURUNG_ADUS_GUIDE_HTML_ID : DURUNG_ADUS_GUIDE_HTML_JV; }
+
+const IHTIYAT_GUIDE_HTML_JV = `<details style="margin-top:10px">
   <summary style="cursor:pointer;font-weight:700;font-size:12px">📋 Tatacara lengkap nalika ihtiyat</summary>
   <div style="font-size:11.5px;line-height:1.65;margin-top:8px">
     <p style="margin:0 0 4px"><b>⛔ Ingkang KEDAH dipun-tebihi (ihtiyat, dianggep kados haidl):</b></p>
@@ -1521,6 +1812,35 @@ const IHTIYAT_GUIDE_HTML = `<details style="margin-top:10px">
     <p style="color:var(--muted);margin:6px 0 0">📖 Sumber: Risalatul Mahaidl 2025, Bab IV (awisan haidl/nifas) &amp; tata cara sholat mustahadloh/da'imul hadats.</p>
   </div>
 </details>`;
+const IHTIYAT_GUIDE_HTML_ID = `<details style="margin-top:10px">
+  <summary style="cursor:pointer;font-weight:700;font-size:12px">📋 Tata cara lengkap saat ihtiyat</summary>
+  <div style="font-size:11.5px;line-height:1.65;margin-top:8px">
+    <p style="margin:0 0 4px"><b>⛔ Yang HARUS dijauhi (ihtiyat, dianggap seperti haidl):</b></p>
+    <ul style="margin:0 0 10px;padding-left:18px">
+      <li>Jima' (hubungan suami-istri) dan bersentuhan kulit di antara pusar–lutut</li>
+      <li>Membaca Al-Qur'an dengan niat membaca (dzikir/doa tanpa niat membaca Qur'an tetap boleh)</li>
+      <li>Menyentuh atau membawa mushaf (Al-Qur'an) langsung tanpa alas</li>
+      <li>Masuk atau berdiam di masjid; thawaf</li>
+      <li>Sujud syukur dan sujud tilawah</li>
+    </ul>
+    <p style="margin:0 0 4px"><b>✅ Yang TETAP WAJIB dilakukan (seperti suci):</b></p>
+    <ul style="margin:0 0 10px;padding-left:18px">
+      <li>Sholat fardhu 5 waktu — <b>TIDAK boleh ditinggalkan</b> (beda dengan haidl sungguhan)</li>
+      <li>Puasa Ramadhan — tetap wajib dilakukan, tidak boleh membatalkan dengan alasan "seperti haidl"</li>
+    </ul>
+    <p style="margin:0 0 4px"><b>🕌 Tata cara hendak sholat (setiap kali sholat fardhu):</b></p>
+    <ol style="margin:0 0 6px;padding-left:18px">
+      <li>Membersihkan farji dari najis yang keluar.</li>
+      <li>Menyumbat/menutup jalan keluarnya darah dengan kapas (hasywu) + pembalut/celana ketat atau kain yang diikat ('ashbu), supaya darah tidak banyak merembes. Jika masih rembes/tembus juga, dimaafkan (ma'fu). Jika terasa sakit memakai kapas, cukup 'ashbu saja; jika sedang puasa, WAJIB tidak memakai kapas (hasywu).</li>
+      <li>Wudhu dengan muwalah (berurutan, tidak boleh berhenti sampai kering anggota lainnya), dengan niat "supaya boleh melaksanakan sholat" (bukan niat menghilangkan hadats).</li>
+      <li>Segera melaksanakan sholat setelah wudhu — tidak boleh ditunda, kecuali untuk keperluan sholat itu sendiri (menutup aurat, menjawab adzan, menunggu jamaah, dsb.).</li>
+      <li>Semua tata cara 1–4 harus berurutan dan dilakukan SETELAH masuk waktu sholat; jika ada yang tidak terpenuhi atau ada hadats lain saat bersuci, harus dimulai lagi dari awal.</li>
+      <li>Tata cara ini harus DIULANGI setiap hendak sholat FARDHU baru (satu bersuci hanya untuk SATU sholat fardhu). Setelahnya, boleh dipakai sholat SUNNAH berkali-kali tanpa wudhu baru.</li>
+    </ol>
+    <p style="color:var(--muted);margin:6px 0 0">📖 Sumber: Risalatul Mahaidl 2025, Bab IV (larangan haidl/nifas) &amp; tata cara sholat mustahadloh/da'imul hadats.</p>
+  </div>
+</details>`;
+function IHTIYAT_GUIDE_HTML(){ return state.lang==='id' ? IHTIYAT_GUIDE_HTML_ID : IHTIYAT_GUIDE_HTML_JV; }
 function renderHukumSakniki(segments){
   const now = Date.now();
   let seg = segments.find(s=> now>=s.start && now<s.end);
@@ -1533,19 +1853,19 @@ function renderHukumSakniki(segments){
   const wrap = $('hukumSaknikiCard');
   if(!seg){
     wrap.innerHTML = `<div class="hukum-now" style="background:var(--accent-soft);color:var(--accent)">
-      <p class="eyebrow">Hukum sakniki (${fmtDT(now)})</p>
-      <p class="big">🟢 SUCI</p>
-      <p class="desc">Dèrèng wonten cathetan getih ingkang taksih mlebet sakniki.</p>
+      <p class="eyebrow">${T('hukumLabel')} (${fmtDT(now)})</p>
+      <p class="big">🟢 ${T('legSuci').toUpperCase()}</p>
+      <p class="desc">${T('noBloodNow')}</p>
     </div>`;
     return;
   }
   const meta = STATUS_META[seg.status]||STATUS_META.ISTICHADLOH;
   wrap.innerHTML = `<div class="hukum-now" style="background:${meta.bg};color:${meta.c}">
-    <p class="eyebrow">Hukum sakniki (${fmtDT(now)})</p>
+    <p class="eyebrow">${T('hukumLabel')} (${fmtDT(now)})</p>
     <p class="big">${seg.status==='HAIDL'?'🔴':seg.status==='NIFAS'?'🟤':seg.status==='ISTICHADLOH'?'🟡':'⚪'} ${meta.label.toUpperCase()}</p>
     <p class="desc">${seg.note||''}</p>
-    ${(seg.status==='HAIDL'||seg.status==='NIFAS')? HAIDL_GUIDE_HTML : ''}
-    ${seg.ihtiyat? IHTIYAT_GUIDE_HTML : ''}
+    ${(seg.status==='HAIDL'||seg.status==='NIFAS')? HAIDL_GUIDE_HTML() : ''}
+    ${seg.ihtiyat? IHTIYAT_GUIDE_HTML() : ''}
   </div>`;
 }
 function recalcAndRender(){
@@ -1560,7 +1880,7 @@ function recalcAndRender(){
     $('adatSuciView').textContent = lastResult.adat.suci ?? '–';
     $('adatNifasView').textContent = lastResult.adat.nifas ?? '–';
   }catch(err){
-    $('timelineBody').innerHTML = `<div class="flag-box">Kalepatan itungan: ${err.message}. Priksa malih data (tanggal kedah runtut).</div>`;
+    $('timelineBody').innerHTML = `<div class="flag-box">${T('calcErr')}: ${err.message}. ${T('checkDataAgain')}</div>`;
     console.error(err);
   }
   scheduleAutoSync();
@@ -1598,32 +1918,32 @@ function scheduleAutoSync(){
 }
 function initGoogleAuth(){
   if(gTokenClient) return true;
-  if(GOOGLE_CLIENT_ID.startsWith('PASANG-')){ setSyncStatus('⚠️ Client ID Google durung dipasang Gus Fi ing kode (mriksa komentar setup ing index.html).', true); return false; }
-  if(!window.google || !google.accounts){ setSyncStatus('Gagal muat Google Sign-In, priksa sambungan internet lan coba maneh.', true); return false; }
+  if(GOOGLE_CLIENT_ID.startsWith('PASANG-')){ setSyncStatus(T('syncClientIdMissing'), true); return false; }
+  if(!window.google || !google.accounts){ setSyncStatus(T('syncLoadFail'), true); return false; }
   gTokenClient = google.accounts.oauth2.initTokenClient({
     client_id: GOOGLE_CLIENT_ID,
     scope: 'https://www.googleapis.com/auth/drive.appdata',
     callback: async (resp)=>{
-      if(resp.error){ setSyncStatus('Gagal mlebu: '+resp.error, true); return; }
+      if(resp.error){ setSyncStatus(T('syncSignInFail')+resp.error, true); return; }
       gAccessToken = resp.access_token;
       gTokenExpiry = Date.now() + (resp.expires_in||3500)*1000;
       showSignedInUI(true);
-      setSyncStatus('✅ Sampun mlebu.');
+      setSyncStatus(T('syncSignedIn'));
       try{
         gDriveFileId = await driveFindFileId();
         if(gDriveFileId && !state.checkpoints.length && !state.births.length){
           await syncDown(); // HP kosong, cadangan wonten -> jupuk otomatis, aman (ora ana sing ical)
         } else if(gDriveFileId){
-          setSyncStatus('✅ Sampun mlebu — wonten cadangan ing akun iki, pencet ☁️⬇️ Jupuk menawi pengin mbukak.');
+          setSyncStatus(T('syncSignedInHasBackup'));
         }
-      }catch(err){ setSyncStatus('Sampun mlebu, nanging gagal mriksa cadangan: '+err.message, true); }
+      }catch(err){ setSyncStatus(T('syncSignedInCheckFail')+err.message, true); }
     }
   });
   return true;
 }
 function ensureToken(interactive){
   return new Promise((resolve, reject)=>{
-    if(!gTokenClient){ reject(new Error('Google auth durung siap')); return; }
+    if(!gTokenClient){ reject(new Error(T('authNotReady'))); return; }
     if(gAccessToken && Date.now() < gTokenExpiry - 60000){ resolve(gAccessToken); return; }
     const prevCb = gTokenClient.callback;
     gTokenClient.callback = (resp)=>{
@@ -1658,28 +1978,29 @@ async function syncUp(silent){
       if(res.ok){ const j = await res.json(); gDriveFileId = j.id; }
     }
     if(!res.ok) throw new Error('HTTP '+res.status);
-    setSyncStatus('✅ Kesimpen ing Google — ' + new Date().toLocaleString('id-ID'));
-  }catch(err){ setSyncStatus('Gagal simpen ing Google: '+err.message, true); }
+    setSyncStatus(T('syncSavedAt') + new Date().toLocaleString('id-ID'));
+  }catch(err){ setSyncStatus(T('syncSaveFail')+err.message, true); }
 }
 async function syncDown(){
   try{
     await ensureToken(false);
     if(!gDriveFileId) gDriveFileId = await driveFindFileId();
-    if(!gDriveFileId){ setSyncStatus('Durung ana cadangan ing akun iki.', true); return; }
+    if(!gDriveFileId){ setSyncStatus(T('syncNoBackup'), true); return; }
     const res = await fetch(`https://www.googleapis.com/drive/v3/files/${gDriveFileId}?alt=media`, {headers:{Authorization:'Bearer '+gAccessToken}});
     if(!res.ok) throw new Error('HTTP '+res.status);
     state = await res.json(); saveState();
+    applyI18n();
     renderProfile(); renderEpisodes(); recalcAndRender();
-    setSyncStatus('✅ Kaload saka Google — ' + new Date().toLocaleString('id-ID'));
-  }catch(err){ setSyncStatus('Gagal njupuk saka Google: '+err.message, true); }
+    setSyncStatus(T('syncLoadedAt') + new Date().toLocaleString('id-ID'));
+  }catch(err){ setSyncStatus(T('syncLoadFail2')+err.message, true); }
 }
 $('googleSignInBtn').addEventListener('click', ()=>{ if(initGoogleAuth()) gTokenClient.requestAccessToken({prompt:'consent'}); });
 $('googleSignOutBtn').addEventListener('click', ()=>{
   if(gAccessToken && window.google) google.accounts.oauth2.revoke(gAccessToken, ()=>{});
-  gAccessToken=null; gDriveFileId=null; showSignedInUI(false); setSyncStatus('Sampun metu.');
+  gAccessToken=null; gDriveFileId=null; showSignedInUI(false); setSyncStatus(T('syncSignedOut'));
 });
 $('syncUpBtn').addEventListener('click', ()=> syncUp(false));
-$('syncDownBtn').addEventListener('click', ()=>{ if(confirm('Data ing HP iki bakal ditimpa data saka Google. Lanjut?')) syncDown(); });
+$('syncDownBtn').addEventListener('click', ()=>{ if(confirm(T('syncDownConfirm'))) syncDown(); });
 $('exportBtn').addEventListener('click', ()=>{
   const blob = new Blob([JSON.stringify(state,null,2)], {type:'application/json'});
   const a = document.createElement('a');
@@ -1694,23 +2015,26 @@ $('importFile').addEventListener('change', e=>{
   reader.onload = ()=>{
     try{
       const loaded = JSON.parse(reader.result);
-      if(!confirm('Data ing HP iki bakal ditimpa isi file iki. Lanjut?')) return;
+      if(!confirm(T('importConfirm'))) return;
       state = loaded; saveState();
+      applyI18n();
       renderProfile(); renderEpisodes(); recalcAndRender();
-      alert('Cadangan kasil dimuat.');
-    }catch(err){ alert('File mboten valid: ' + err.message); }
+      alert(T('importDone'));
+    }catch(err){ alert(T('importInvalid') + err.message); }
   };
   reader.readAsText(file);
 });
 $('resetBtn').addEventListener('click', ()=>{
-  if(!confirm('Sedaya cathetan getih, jawaban istichadloh, lan profil/adat ing HP niki BAKAL DIBUSAK. Menawi dèrèng ngeksport cadangan, mangga Batal rumiyin lajeng pencet "💾 Ekspor .json". Yakin badhe ngresetaken?')) return;
-  if(!confirm('Pancen yakin? Tumindak niki mboten saged dibatalaken.')) return;
-  state = defaultState(); saveState();
+  if(!confirm(T('resetConfirm1'))) return;
+  if(!confirm(T('resetConfirm2'))) return;
+  const lang = state.lang;
+  state = defaultState(); state.lang = lang; saveState();
   renderProfile(); renderEpisodes(); recalcAndRender();
-  setSyncStatus('🗑️ Sedaya data ing HP niki sampun dibusak.');
+  setSyncStatus(T('resetDone'));
 });
 
 /* ======================= INIT ======================= */
+applyI18n();
 renderProfile();
 renderEpisodes();
 recalcAndRender();
