@@ -2112,6 +2112,11 @@ $('resetBtn').addEventListener('click', ()=>{
   setSyncStatus(T('resetDone'));
 });
 
+/* ======================= SERVICE WORKER (app-shell cache + syarat Chrome "Install app") ======================= */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+}
+
 /* ======================= INIT ======================= */
 applyI18n();
 setSyncStatus(T('syncNotSignedIn'));
