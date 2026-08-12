@@ -71,7 +71,7 @@ header{position:sticky;top:0;z-index:5;color:var(--accent-ink);background:linear
 .htitle p{margin:1px 0 0;font-size:11px;opacity:.82}
 .iconbtn{flex:none;width:32px;height:32px;border-radius:8px;border:none;background:rgba(255,255,255,.16);color:inherit;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .iconbtn:active{background:rgba(255,255,255,.3)}
-main{flex:1;padding:14px 16px 90px}
+main{flex:1;padding:14px 16px 78px}
 .banner{background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:10px 12px;font-size:11.5px;line-height:1.5;margin-bottom:14px}
 .warn-box{background:var(--hl-bg);color:var(--hl-accent);border-radius:10px;padding:.55rem .7rem;font-size:11.5px;line-height:1.5;margin-bottom:.7rem}
 .hukum-now{border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow)}
@@ -125,17 +125,29 @@ input:focus,select:focus{box-shadow:0 0 0 2px var(--accent)}
 .cal-cell .cp{font-size:7.5px;color:var(--faint)}
 .cal-cell.today .cp{color:inherit;opacity:.8}
 .cal-cell .cflag{position:absolute;top:2px;right:3px;font-size:8px}
+.cal-cell .cst{position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%}
 .cal-hijri-range{text-align:center;font-size:11.5px;color:var(--muted);margin:-4px 0 4px;font-family:"UthmanTahaNaskh","Traditional Arabic","Amiri",serif}
 .cal-koreksi{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:10px}
 .cal-koreksi button{background:var(--surface2);border:1px solid var(--line);color:var(--accent);width:22px;height:22px;border-radius:6px;cursor:pointer;font-weight:800}
 .cal-cell.pending{outline:2px dashed var(--danger)}
 
-.day-head{font-size:10.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:6px 12px}
+.day-head{font-size:10.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:6px 12px;margin-top:2px}
 .trow{padding:9px 12px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
 .trow:first-child{border-top:none}
 .dot{width:.6rem;height:.6rem;border-radius:50%;flex-shrink:0}
 .trow .lbl{font-size:12.5px;font-weight:600}
 .trow .sub{font-size:10.5px;color:var(--muted);margin-top:1px}
+.tl{align-items:flex-start;padding:12px 12px 12px 30px;border-top:none;position:relative}
+.tl .tl-dot{position:absolute;left:12px;top:15px;width:11px;height:11px;border-radius:50%;box-shadow:0 0 0 3px var(--surface);z-index:1}
+.tl .tl-line{position:absolute;left:17px;top:26px;bottom:-12px;width:2px;background:var(--line)}
+.tl.tl-last .tl-line{display:none}
+.tl .tl-body{flex:1;min-width:0}
+
+.sync-status-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:9px;padding:9px 11px;margin-bottom:12px}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--faint);flex:none}
+.sync-dot.on{background:var(--ok)}
+.sync-divider{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 8px;padding-top:12px;border-top:1px solid var(--line)}
+.sync-divider.danger{color:var(--danger)}
 .badge{display:inline-flex;align-items:center;gap:.25rem;padding:.15rem .5rem;border-radius:1rem;font-size:9.5px;font-weight:700;margin-left:4px}
 .empty{padding:26px 10px;text-align:center;color:var(--muted);font-size:12.5px}
 
@@ -147,9 +159,15 @@ input:focus,select:focus{box-shadow:0 0 0 2px var(--accent)}
 .ep{border:1px solid var(--line);border-radius:.6rem;padding:.7rem;margin-bottom:.6rem;position:relative}
 .ep .del{position:absolute;top:.5rem;right:.5rem;background:none;border:none;color:var(--muted);cursor:pointer;font-size:.9rem}
 
-.fab{position:fixed;right:18px;bottom:20px;z-index:10;width:54px;height:54px;border-radius:16px;border:none;background:var(--accent);color:var(--accent-ink);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;left:0;margin:0 auto;max-width:480px}
-.fab{position:fixed;right:calc(50% - 240px + 18px);bottom:20px}
-@media (max-width:480px){.fab{right:18px}}
+.fab{position:fixed;right:18px;bottom:78px;z-index:10;width:54px;height:54px;border-radius:16px;border:none;background:var(--accent);color:var(--accent-ink);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center}
+
+.bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
+.bottomnav-inner{max-width:480px;margin:0 auto;display:flex;width:100%}
+.navbtn{flex:1;background:none;border:none;cursor:pointer;padding:8px 2px 7px;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--muted);font-family:inherit}
+.navbtn .navicon{font-size:18px;line-height:1}
+.navbtn .navlbl{font-size:9.5px;font-weight:700}
+.navbtn.active{color:var(--accent)}
+.tabview[hidden]{display:none}
 
 .overlay{position:fixed;inset:0;background:rgba(10,10,14,.5);z-index:20;display:flex;align-items:flex-end;justify-content:center}
 .overlay.hidden{display:none}
@@ -188,6 +206,7 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
 
     <div id="istihadhohPrompts"></div>
 
+    <div class="tabview" id="tabKal">
     <div class="panel" id="panelKalender">
       <div class="panel-head" id="kalHead"><span class="chev" id="kalChev">▾</span><span class="ptitle" data-i18n="pKalender">📅 Kalender</span></div>
       <div class="panel-body" id="kalBody">
@@ -213,20 +232,26 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
         <p class="tiny muted" style="margin-top:8px" data-i18n="calHint">Pencet dinten kagem nyathet/ngewahi. Tandha ⚠️ = perlu jawaban tambahan (istichadloh).</p>
       </div>
     </div>
+    </div>
 
+    <div class="tabview" id="tabRiw" hidden>
     <div class="panel" id="panelRiwayat">
       <div class="panel-head" id="riwHead"><span class="chev" id="riwChev">▾</span><span class="ptitle" data-i18n="pRiwayat">🗂️ Riwayat &amp; Status</span></div>
       <div class="panel-body" id="timelineBody"><div class="empty" data-i18n="riwEmpty">Dèrèng wonten catetan. Pencet dinten ing kalender ndhuwur.</div></div>
     </div>
-
-    <div class="panel" id="panelQadha">
-      <div class="panel-head" id="qadhaHead"><span class="chev" id="qadhaChev">▸</span><span class="ptitle" data-i18n="pQadha">🕌 Qadha Sholat &amp; Puasa</span></div>
-      <div class="panel-body closed" id="qadhaBody" data-i18n="qadhaEmpty">Durung wonten data.</div>
     </div>
 
+    <div class="tabview" id="tabQad" hidden>
+    <div class="panel" id="panelQadha">
+      <div class="panel-head" id="qadhaHead"><span class="chev" id="qadhaChev">▾</span><span class="ptitle" data-i18n="pQadha">🕌 Qadha Sholat &amp; Puasa</span></div>
+      <div class="panel-body" id="qadhaBody" data-i18n="qadhaEmpty">Durung wonten data.</div>
+    </div>
+    </div>
+
+    <div class="tabview" id="tabPro" hidden>
     <div class="panel" id="panelProfil">
-      <div class="panel-head" id="profHead"><span class="chev" id="profChev">▸</span><span class="ptitle" data-i18n="pProfil">⚙️ Profil &amp; Adat</span><span class="pmeta" data-i18n="optional">opsional</span></div>
-      <div class="panel-body closed" id="profBody">
+      <div class="panel-head" id="profHead"><span class="chev" id="profChev">▾</span><span class="ptitle" data-i18n="pProfil">⚙️ Profil &amp; Adat</span><span class="pmeta" data-i18n="optional">opsional</span></div>
+      <div class="panel-body" id="profBody">
         <p class="tiny muted" data-i18n="profIntro">Mboten wajib diisi ing wiwitan — adat bakal dipun-sinaoni piyambak dening app saking siklus ingkang jelas (mboten istichadloh). Kosongaken mawon menawi taksih bingung / dereng tertib.</p>
         <div class="adat-grid">
           <div class="box"><b id="adatHaidlView">–</b><span data-i18n="unitDinHaidl">dinten haidl</span></div>
@@ -270,19 +295,27 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
         </div>
       </div>
     </div>
+    </div>
 
+    <div class="tabview" id="tabCat" hidden>
     <div class="panel" id="panelRinci">
-      <div class="panel-head" id="rinciHead"><span class="chev" id="rinciChev">▸</span><span class="ptitle" data-i18n="pRinci">📋 Sedaya Cathetan</span><span class="pmeta" data-i18n="periksaEwahi">priksa/ewahi</span></div>
-      <div class="panel-body closed" id="rinciBody">
+      <div class="panel-head" id="rinciHead"><span class="chev" id="rinciChev">▾</span><span class="ptitle" data-i18n="pRinci">📋 Sedaya Cathetan</span><span class="pmeta" data-i18n="periksaEwahi">priksa/ewahi</span></div>
+      <div class="panel-body" id="rinciBody">
         <p class="tiny muted" data-i18n="rinciIntro">Sedaya cathetan wekdal (saking kalender) kasebat runtut ing ngriki, saged diewahi utawi dibusak langsung.</p>
         <div id="epList"></div>
       </div>
     </div>
+    </div>
 
+    <div class="tabview" id="tabSyn" hidden>
     <div class="panel" id="panelSync">
-      <div class="panel-head" id="syncHead"><span class="chev" id="syncChev">▸</span><span class="ptitle" data-i18n="pSync">☁️ Cadangan &amp; Sinkronisasi</span></div>
-      <div class="panel-body closed" id="syncBody">
+      <div class="panel-head" id="syncHead"><span class="chev" id="syncChev">▾</span><span class="ptitle" data-i18n="pSync">☁️ Cadangan &amp; Sinkronisasi</span></div>
+      <div class="panel-body" id="syncBody">
         <p class="tiny muted" data-i18n="syncIntro">Data utami tetep ing HP niki. Mlebu nganggo akun Google pribadi supados data kacadhangaken lan saged dibikak wonten HP sanès — data mung kesimpen ing akun Google sampeyan piyambak, mboten dipun-bagi kaliyan tiyang sanès.</p>
+        <div class="sync-status-row">
+          <span class="sync-dot" id="syncDot"></span>
+          <p class="tiny" id="syncStatus" style="margin:0"></p>
+        </div>
         <div class="row">
           <button class="btn primary wide" id="googleSignInBtn" data-i18n="btnSignIn">🔐 Mlebu nganggo Google</button>
         </div>
@@ -292,16 +325,18 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
           <button class="btn ghost" id="googleSignOutBtn" data-i18n="btnSignOut">Metu</button>
         </div>
         <label class="chk" id="autoSyncWrap" style="display:none"><input type="checkbox" id="autoSyncChk" checked> <span data-i18n="autoSyncLbl">Otomatis simpen ing Google saben owah</span></label>
-        <p class="tiny" id="syncStatus"></p>
-        <div class="row" style="margin-top:.4rem">
+        <div class="sync-divider" data-i18n="lblCadanganLokal">📦 Cadangan lokal</div>
+        <div class="row">
           <button class="btn ghost" id="exportBtn" data-i18n="btnExport">💾 Ekspor .json</button>
           <button class="btn ghost" id="importBtn" data-i18n="btnImport">📂 Muat .json</button>
           <input type="file" id="importFile" accept="application/json" style="display:none">
         </div>
-        <div class="row" style="margin-top:.4rem">
+        <div class="sync-divider danger" data-i18n="lblZonaBebaya">⚠️ Zona bebaya</div>
+        <div class="row">
           <button class="btn ghost" id="resetBtn" style="border-color:var(--danger);color:var(--danger)" data-i18n="btnReset">🗑️ Hapus sedaya data (reset)</button>
         </div>
       </div>
+    </div>
     </div>
   </main>
 
@@ -309,6 +344,17 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
     <p data-i18n-html="footerText"></p>
   </footer>
 </div>
+
+<nav class="bottomnav">
+  <div class="bottomnav-inner">
+    <button type="button" class="navbtn active" data-tab="Kal"><span class="navicon">📅</span><span class="navlbl" data-i18n="navKal">Kalender</span></button>
+    <button type="button" class="navbtn" data-tab="Riw"><span class="navicon">🗂️</span><span class="navlbl" data-i18n="navRiw">Riwayat</span></button>
+    <button type="button" class="navbtn" data-tab="Qad"><span class="navicon">🕌</span><span class="navlbl" data-i18n="navQad">Qadha</span></button>
+    <button type="button" class="navbtn" data-tab="Pro"><span class="navicon">⚙️</span><span class="navlbl" data-i18n="navPro">Profil</span></button>
+    <button type="button" class="navbtn" data-tab="Cat"><span class="navicon">📋</span><span class="navlbl" data-i18n="navCat">Cathetan</span></button>
+    <button type="button" class="navbtn" data-tab="Syn"><span class="navicon">☁️</span><span class="navlbl" data-i18n="navSyn">Sinkron</span></button>
+  </div>
+</nav>
 
 <button class="fab" id="fabAdd" aria-label="Cathet dinten">+</button>
 
@@ -984,17 +1030,19 @@ function hitungWaktuSholat(dayTs, lat, lon, tz){
 // ISTICHADLOH (sanès HAIDL/NIFAS, amargi haidl/nifas gugur kewajiban sholat lan ORA prelu diqadha' babar pisan).
 // Kagem menawi during kalampahan; app mboten nyimpen cathetan sholat nyata, mula sifate "menawi during".
 // Ditashih Gus Fi 10 Agu 2026: leres kagem SEDAYA jinis ISTICHADLOH (kalebet ihtiyat/Mutahayyiroh).
+const PRAYER_NAMES = ['subuh','dzuhur','ashar','maghrib','isya'];
 function deriveQadhaSholat(segments, lat, lon, tz){
   if(lat==null || lon==null || tz==null) return null;
   const items = [];
   segments.forEach(s=>{
     if(s.status!=='ISTICHADLOH') return;
     let count = 0;
+    const byName = {subuh:0, dzuhur:0, ashar:0, maghrib:0, isya:0};
     for(let t=dayStart(s.start); t<s.end; t+=DAY){
       const w = hitungWaktuSholat(t, lat, lon, tz);
-      [w.subuh,w.dzuhur,w.ashar,w.maghrib,w.isya].forEach(pt=>{ if(pt!=null && pt>=s.start && pt<s.end) count++; });
+      PRAYER_NAMES.forEach(n=>{ const pt=w[n]; if(pt!=null && pt>=s.start && pt<s.end){ count++; byName[n]++; } });
     }
-    if(count>0) items.push({start:s.start, end:s.end, count});
+    if(count>0) items.push({start:s.start, end:s.end, count, byName});
   });
   return items;
 }
@@ -1011,6 +1059,7 @@ const I18N = {
     calHint: 'Pencet dinten kagem nyathet/ngewahi. Tandha ⚠️ = perlu jawaban tambahan (istichadloh).',
     pRiwayat: '🗂️ Riwayat & Status',
     riwEmpty: 'Dèrèng wonten catetan. Pencet dinten ing kalender ndhuwur.',
+    navKal:'Kalender', navRiw:'Riwayat', navQad:'Qadha', navPro:'Profil', navCat:'Cathetan', navSyn:'Sinkron',
     pQadha: '🕌 Qadha Sholat & Puasa', qadhaEmpty: 'Durung wonten data.',
     pProfil: '⚙️ Profil & Adat', optional: 'opsional',
     profIntro: 'Mboten wajib diisi ing wiwitan — adat bakal dipun-sinaoni piyambak dening app saking siklus ingkang jelas (mboten istichadloh). Kosongaken mawon menawi taksih bingung / dereng tertib.',
@@ -1026,6 +1075,7 @@ const I18N = {
     rinciIntro:'Sedaya cathetan wekdal (saking kalender) kasebat runtut ing ngriki, saged diewahi utawi dibusak langsung.',
     pSync:'☁️ Cadangan & Sinkronisasi',
     syncIntro:'Data utami tetep ing HP niki. Mlebu nganggo akun Google pribadi supados data kacadhangaken lan saged dibikak wonten HP sanès — data mung kesimpen ing akun Google sampeyan piyambak, mboten dipun-bagi kaliyan tiyang sanès.',
+    lblCadanganLokal:'📦 Cadangan lokal', lblZonaBebaya:'⚠️ Zona bebaya', syncNotSignedIn:'Durung mlebet akun Google.',
     btnSignIn:'🔐 Mlebu nganggo Google', btnSyncUp:'☁️⬆️ Simpen', btnSyncDown:'☁️⬇️ Jupuk', btnSignOut:'Metu',
     autoSyncLbl:'Otomatis simpen ing Google saben owah',
     btnExport:'💾 Ekspor .json', btnImport:'📂 Muat .json', btnReset:'🗑️ Hapus sedaya data (reset)',
@@ -1041,7 +1091,8 @@ const I18N = {
     unitDinten:'dinten', unitWektu:'wektu',
     kenthel:'kenthel', cair:'cair', mambet:'mambet', mbotenMambet:'mboten mambet',
     lblWajibMandi:'Wajib mandi', takWonten:'boten wonten.',
-    lblQadhaSholat:'Qadha sholat',
+    lblQadhaSholat:'Qadha sholat', lblRincianWektu:'Rincian per wektu',
+    sholat_subuh:'Subuh', sholat_dzuhur:'Dzuhur', sholat_ashar:'Ashar', sholat_maghrib:'Maghrib', sholat_isya:'Isya',
     qadhaSholatNeedLoc:'during saged diitung — isi lintang/bujur/zona ing panel ⚙️ Profil & Adat rumiyin. Miturut Bab IV: sholat gugur amargi haidl/nifas mboten wajib diqadha, nanging ing masa ISTICHADLOH sholat tetep wajib.',
     qadhaSholatNone:"boten wonten sing prelu diqadha' (dèrèng nate mlebet masa ISTICHADLOH).",
     qadhaSholatIntro:'MENAWI during dipun-lampahi',
@@ -1091,6 +1142,7 @@ const I18N = {
     calHint: 'Ketuk tanggal untuk mencatat/mengubah. Tanda ⚠️ = perlu jawaban tambahan (istichadloh).',
     pRiwayat: '🗂️ Riwayat & Status',
     riwEmpty: 'Belum ada catatan. Ketuk tanggal di kalender di atas.',
+    navKal:'Kalender', navRiw:'Riwayat', navQad:'Qadha', navPro:'Profil', navCat:'Catatan', navSyn:'Sinkron',
     pQadha: '🕌 Qadha Sholat & Puasa', qadhaEmpty: 'Belum ada data.',
     pProfil: '⚙️ Profil & Kebiasaan', optional: 'opsional',
     profIntro: 'Tidak wajib diisi di awal — kebiasaan akan dipelajari sendiri oleh aplikasi dari siklus yang jelas (bukan istichadloh). Kosongkan saja jika masih bingung / belum teratur.',
@@ -1106,6 +1158,7 @@ const I18N = {
     rinciIntro:'Semua catatan waktu (dari kalender) tersebut berurutan di sini, bisa diubah atau dihapus langsung.',
     pSync:'☁️ Cadangan & Sinkronisasi',
     syncIntro:'Data utama tetap di HP ini. Masuk dengan akun Google pribadi supaya data dicadangkan dan bisa dibuka di HP lain — data hanya tersimpan di akun Google Anda sendiri, tidak dibagikan ke orang lain.',
+    lblCadanganLokal:'📦 Cadangan lokal', lblZonaBebaya:'⚠️ Zona berbahaya', syncNotSignedIn:'Belum masuk akun Google.',
     btnSignIn:'🔐 Masuk dengan Google', btnSyncUp:'☁️⬆️ Simpan', btnSyncDown:'☁️⬇️ Ambil', btnSignOut:'Keluar',
     autoSyncLbl:'Otomatis simpan ke Google setiap ada perubahan',
     btnExport:'💾 Ekspor .json', btnImport:'📂 Muat .json', btnReset:'🗑️ Hapus semua data (reset)',
@@ -1121,7 +1174,8 @@ const I18N = {
     unitDinten:'hari', unitWektu:'waktu',
     kenthel:'kental', cair:'cair', mambet:'berbau', mbotenMambet:'tidak berbau',
     lblWajibMandi:'Wajib mandi', takWonten:'tidak ada.',
-    lblQadhaSholat:'Qadha sholat',
+    lblQadhaSholat:'Qadha sholat', lblRincianWektu:'Rincian per waktu',
+    sholat_subuh:'Subuh', sholat_dzuhur:'Dzuhur', sholat_ashar:'Ashar', sholat_maghrib:'Maghrib', sholat_isya:'Isya',
     qadhaSholatNeedLoc:'belum bisa dihitung — isi lintang/bujur/zona di panel ⚙️ Profil & Kebiasaan terlebih dahulu. Menurut Bab IV: sholat gugur karena haidl/nifas tidak wajib diqadha, tetapi pada masa ISTICHADLOH sholat tetap wajib.',
     qadhaSholatNone:"tidak ada yang perlu diqadha' (belum pernah masuk masa ISTICHADLOH).",
     qadhaSholatIntro:'JIKA belum dilaksanakan',
@@ -1212,8 +1266,14 @@ function hijriOfLocal(y,m,d){
   return gregorianToHijri(shifted.getFullYear(), shifted.getMonth()+1, shifted.getDate());
 }
 
-function fmtD(ts){ return new Date(ts).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}); }
-function fmtDT(ts){ return new Date(ts).toLocaleString('id-ID',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+// Intl.DateTimeFormat digawe pisan lan dipun-goni bola-bali (mboten digawe anyar saben panggilan) —
+// nggawe formatter anyar saben call larang banget (kentekan ing HP kentang, kroso nalika daftar cathetan wis akeh).
+const DATE_FMT = new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short',year:'numeric'});
+const DATETIME_FMT = new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+const TIME_FMT = new Intl.DateTimeFormat('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false});
+const MONTH_FMT = new Intl.DateTimeFormat('id-ID',{month:'long',year:'numeric'});
+function fmtD(ts){ return DATE_FMT.format(ts); }
+function fmtDT(ts){ return DATETIME_FMT.format(ts); }
 function uid(){ return Math.random().toString(36).slice(2,9); }
 function dayStart(ts){ const d=new Date(ts); d.setHours(0,0,0,0); return d.getTime(); }
 function dateStrOf(ts){ const d=new Date(ts); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
@@ -1232,6 +1292,16 @@ bindPanelToggle('profHead','profBody','profChev');
 bindPanelToggle('rinciHead','rinciBody','rinciChev');
 bindPanelToggle('syncHead','syncBody','syncChev');
 bindPanelToggle('kalHead','kalBody','kalChev');
+
+/* ======================= BOTTOM TAB NAV ======================= */
+function switchTab(name){
+  document.querySelectorAll('.tabview').forEach(v=>{ v.hidden = (v.id !== 'tab'+name); });
+  document.querySelectorAll('.navbtn').forEach(b=>{ b.classList.toggle('active', b.dataset.tab===name); });
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.navbtn').forEach(b=>{
+  b.addEventListener('click', ()=>switchTab(b.dataset.tab));
+});
 
 /* ======================= THEME ======================= */
 $('themeBtn').addEventListener('click', ()=>{
@@ -1432,11 +1502,11 @@ function renderCalendar(){
     const pend = pendingKeyForDay(dt);
     const isToday = dt===todayKey;
     const meta = seg? STATUS_META[seg.status] : null;
-    const style = meta? `background:${meta.bg};color:${meta.c}` : '';
-    html += `<div class="cal-cell${isToday?' today':''}${pend?' pending':''}" style="${style}" data-day="${dt}">
+    html += `<div class="cal-cell${isToday?' today':''}${pend?' pending':''}" data-day="${dt}">
       <span class="cd">${d}</span>
       <span class="ch">${arNum(hj[2])} ${HIJRI_BULAN[hj[1]].slice(0,3)}</span>
       <span class="cp">${PASARAN_ABBR[pasaran]}</span>
+      ${meta?`<span class="cst" style="background:${meta.c}"></span>`:''}
       ${pend?'<span class="cflag">⚠️</span>':''}
     </div>`;
   }
@@ -1649,20 +1719,24 @@ function renderIstihadhohPrompts(list){
 function episodesOverlapping(start, end){
   return state.episodes.filter(e=> e.start < end && (e.end ?? Date.now()) > start).sort((a,b)=>a.start-b.start);
 }
-function fmtT(ts){ return new Date(ts).toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false}); }
+function fmtT(ts){ return TIME_FMT.format(ts); }
 function renderTimeline(segments){
   const body = $('timelineBody');
   if(!segments.length){ body.innerHTML = `<div class="empty">${T('riwEmpty')}</div>`; return; }
+  const rev = segments.slice().reverse();
   let html=''; let curMonth='';
-  segments.slice().reverse().forEach(s=>{
-    const m = new Date(s.start).toLocaleDateString(state.lang==='id'?'id-ID':'id-ID',{month:'long',year:'numeric'});
+  rev.forEach((s,i)=>{
+    const m = MONTH_FMT.format(s.start);
+    const nextM = (i+1<rev.length)? MONTH_FMT.format(rev[i+1].start) : null;
+    const isLast = nextM!==m;
     if(m!==curMonth){ html+=`<div class="day-head">${m}</div>`; curMonth=m; }
     const meta = STATUS_META[s.status]||STATUS_META.ISTICHADLOH;
     const days = Math.max(1,Math.round((s.end-s.start)/DAY));
     const rawEps = episodesOverlapping(s.start, s.end);
-    html += `<div class="trow" style="align-items:flex-start">
-      <span class="dot" style="background:${meta.c};margin-top:4px"></span>
-      <div style="flex:1">
+    html += `<div class="trow tl${isLast?' tl-last':''}">
+      <span class="tl-dot" style="background:${meta.c}"></span>
+      <span class="tl-line"></span>
+      <div class="tl-body">
         <span class="lbl" style="color:${meta.c}">${meta.label}</span>
         <span class="tiny muted"> · ${fmtD(s.start)} ${fmtT(s.start)} – ${fmtD(s.end)} ${fmtT(s.end)} (${days} ${T('unitDinten')})</span>
         ${s.belumCukup?`<span class="badge" style="background:var(--isti-bg);color:var(--isti)">${T('badgeBelum24')}</span>`:''}
@@ -1697,8 +1771,12 @@ function renderQadha(segments){
     sholatHtml = `<p class="tiny">🕌 <b>${T('lblQadhaSholat')}:</b> ${T('qadhaSholatNone')}</p>`;
   } else {
     const total = qs.reduce((s,it)=>s+it.count,0);
+    const totalByName = {subuh:0, dzuhur:0, ashar:0, maghrib:0, isya:0};
+    qs.forEach(it=>PRAYER_NAMES.forEach(n=>totalByName[n]+=it.byName[n]));
+    const rincian = PRAYER_NAMES.map(n=>`${T('sholat_'+n)} ${totalByName[n]}x`).join(' · ');
     sholatHtml = `<p class="tiny">🕌 <b>${T('lblQadhaSholat')}:</b> ± ${total} ${T('unitWektu')} sholat (itungan saking jam sholat asli lokasi), <b>${T('qadhaSholatIntro')}</b> ${T('qadhaSholatTail')}</p>
-    <p class="tiny muted" style="margin-top:-4px">${qs.map(it=>`${fmtD(it.start)}–${fmtD(it.end)}: ~${it.count} ${T('unitWektu')}`).join('<br>')}</p>`;
+    <p class="tiny" style="margin-top:-4px"><b>${T('lblRincianWektu')}:</b> ${rincian}</p>
+    <p class="tiny muted" style="margin-top:-4px">${qs.map(it=>`${fmtD(it.start)}–${fmtD(it.end)}: ${PRAYER_NAMES.map(n=>`${T('sholat_'+n)} ${it.byName[n]}x`).join(', ')}`).join('<br>')}</p>`;
   }
   $('qadhaBody').innerHTML = `
     <p class="tiny">🚿 <b>${T('lblWajibMandi')}:</b> ${wajibMandiPoints.length? wajibMandiPoints.map(fmtDT).join('; ') : T('takWonten')}</p>
@@ -1910,6 +1988,7 @@ function showSignedInUI(on){
   $('googleSignInBtn').style.display = on? 'none':'block';
   $('googleSyncBtns').style.display = on? 'flex':'none';
   $('autoSyncWrap').style.display = on? 'flex':'none';
+  $('syncDot').classList.toggle('on', on);
 }
 function scheduleAutoSync(){
   if(!gAccessToken || !$('autoSyncChk').checked) return;
@@ -2035,6 +2114,7 @@ $('resetBtn').addEventListener('click', ()=>{
 
 /* ======================= INIT ======================= */
 applyI18n();
+setSyncStatus(T('syncNotSignedIn'));
 renderProfile();
 renderEpisodes();
 recalcAndRender();
