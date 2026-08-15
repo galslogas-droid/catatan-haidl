@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dashboard Pengurus — Catatan Haidl</title>
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#d6336c">
 <link rel="icon" type="image/png" href="icon-192.png">
 <style>
 :root{
@@ -32,59 +33,86 @@
   }
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:40px}
-.wrap{max-width:640px;margin:0 auto;padding:16px}
-header{display:flex;align-items:center;gap:10px;padding:6px 0 16px}
-header img{width:36px;height:36px;border-radius:9px}
-header h1{font-size:17px;margin:0}
-header p{margin:0;font-size:12px;color:var(--muted)}
-.spacer{flex:1}
-.iconbtn{background:var(--surface);border:1px solid var(--line);color:var(--ink);width:38px;height:38px;border-radius:11px;font-size:16px;cursor:pointer}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;box-shadow:var(--shadow);transition:transform .1s}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:48px}
+.wrap{max-width:640px;margin:0 auto}
+.pad{padding:16px}
+
+header{position:sticky;top:0;z-index:5;color:var(--accent-ink);background:linear-gradient(160deg,var(--accent),var(--accent2));padding:16px 16px 40px;box-shadow:0 6px 20px -10px rgba(0,0,0,.35)}
+.htop{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:11px}
+.mono{width:42px;height:42px;border-radius:12px;background:#fff;border:2px solid rgba(255,255,255,.85);box-shadow:0 1px 6px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-size:19px;flex:none;overflow:hidden}
+.mono img{width:100%;height:100%;object-fit:cover}
+.htitle{flex:1;min-width:0}
+.htitle h1{margin:0;font-size:18px;font-weight:800;letter-spacing:-.01em}
+.htitle p{margin:2px 0 0;font-size:11.5px;opacity:.88;line-height:1.4}
+.hbtns{display:flex;gap:6px;flex:none}
+.iconbtn{width:36px;height:36px;border-radius:11px;border:none;background:rgba(255,255,255,.18);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.iconbtn:hover{background:rgba(255,255,255,.28)}
+.iconbtn:active{transform:scale(.94)}
+
+.content{margin-top:-26px;position:relative;z-index:1}
+
+.cfgbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.cfgbox .cfghead{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.cfgbox .cfghead .ico{width:30px;height:30px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;flex:none}
+.cfgbox .cfghead b{font-size:14.5px}
+.cfgbox p{font-size:12.5px;color:var(--muted);margin:0 0 14px;line-height:1.6}
+.field{display:block;margin-bottom:11px}
+.field span{display:block;font-size:11px;color:var(--muted);margin-bottom:5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.field input{width:100%;padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font-size:14px;font-family:inherit}
+.field input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.btn{background:var(--surface2);border:1px solid var(--line);color:var(--ink);padding:11px 14px;border-radius:11px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn.primary{background:linear-gradient(160deg,var(--accent),var(--accent2));color:var(--accent-ink);border:none;box-shadow:0 6px 16px -8px rgba(214,51,108,.5)}
+.btn.wide{width:100%}
+.row{display:flex;gap:8px;margin-top:13px}
+
+.summary{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.chip{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 13px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:7px;box-shadow:0 4px 12px -8px rgba(0,0,0,.15)}
+.chip i{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.chip b{font-size:14px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-left-width:4px;border-radius:14px;padding:14px 15px;margin-bottom:10px;cursor:pointer;box-shadow:0 6px 18px -12px rgba(0,0,0,.18);transition:transform .12s,box-shadow .12s}
+.card:hover{box-shadow:0 8px 22px -10px rgba(0,0,0,.24)}
 .card:active{transform:scale(.98)}
 .card-top{display:flex;align-items:center;gap:10px}
-.dot{width:11px;height:11px;border-radius:50%;flex:none}
-.nama{font-weight:700;font-size:15px;flex:1}
-.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
-.note{font-size:12.5px;color:var(--muted);margin:8px 0 0;line-height:1.5}
-.meta{font-size:11px;color:var(--faint);margin-top:8px}
-.empty,.loading{text-align:center;color:var(--muted);padding:40px 14px;font-size:13px}
-.err{background:var(--danger-bg);color:var(--danger);border-radius:10px;padding:12px;font-size:13px;margin-bottom:12px}
-.cfgbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
-.cfgbox p{font-size:12.5px;color:var(--muted);margin:0 0 12px;line-height:1.6}
-.field{display:block;margin-bottom:10px}
-.field span{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:600}
-.field input{width:100%;padding:10px 11px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font-size:14px}
-.btn{background:var(--surface2);border:1px solid var(--line);color:var(--ink);padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer}
-.btn.primary{background:var(--accent);color:var(--accent-ink);border:none}
-.btn.wide{width:100%}
-.row{display:flex;gap:8px;margin-top:12px}
-.summary{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
-.chip i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.nama{font-weight:700;font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.badge{font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;white-space:nowrap;letter-spacing:.01em}
+.note{font-size:12.5px;color:var(--muted);margin:9px 0 0;line-height:1.55}
+.meta{font-size:11px;color:var(--faint);margin-top:9px;display:flex;align-items:center;gap:5px}
+.chev{color:var(--faint);font-size:15px;flex:none}
+
+.empty,.loading{text-align:center;color:var(--muted);padding:52px 20px;font-size:13.5px;line-height:1.6}
+.empty .bigico,.loading .bigico{font-size:34px;margin-bottom:10px;display:block}
+.spinner{width:26px;height:26px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;margin:0 auto 12px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err{background:var(--danger-bg);color:var(--danger);border-radius:12px;padding:13px 14px;font-size:13px;line-height:1.6;margin-bottom:12px}
+
 .overlay{position:fixed;inset:0;background:var(--bg);z-index:50;display:flex;flex-direction:column}
 .overlay.hidden{display:none}
-.overlay-head{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
-.overlay-head b{flex:1;font-size:14px}
+.overlay-head{display:flex;align-items:center;gap:11px;padding:12px 14px;background:linear-gradient(160deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 14px -8px rgba(0,0,0,.35)}
+.overlay-head b{flex:1;font-size:14.5px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.overlay-head .iconbtn{background:rgba(255,255,255,.2)}
 .overlay iframe{flex:1;border:none;width:100%}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <img src="icon-192.png" alt="">
-    <div>
+<header>
+  <div class="htop">
+    <div class="mono"><img src="icon-192.png" alt=""></div>
+    <div class="htitle">
       <h1>Dashboard Pengurus</h1>
-      <p>Status haidl/nifas santri — sanès kagem edit, mung pamantauan.</p>
+      <p>Status haidl/nifas santri — mung pamantauan, sanès kagem ngewahi.</p>
     </div>
-    <div class="spacer"></div>
-    <button class="iconbtn" id="refreshBtn" title="Refresh">🔄</button>
-    <button class="iconbtn" id="cfgBtn" title="Setelan">⚙️</button>
-  </header>
+    <div class="hbtns">
+      <button class="iconbtn" id="refreshBtn" title="Refresh">🔄</button>
+      <button class="iconbtn" id="cfgBtn" title="Setelan">⚙️</button>
+    </div>
+  </div>
+</header>
 
+<div class="wrap content pad">
   <div class="cfgbox hidden" id="cfgBox">
-    <p>Tempelaken URL Web App Apps Script (asil deploy, pungkasan /exec) lan ADMIN_TOKEN ingkang sampun dipun-pasang wonten google-apps-script.gs. Data niki mung kesimpen ing browser panjenengan piyambak (localStorage), mboten dipun-unggah dhateng GitHub.</p>
-    <label class="field"><span>URL Apps Script (/exec)</span><input type="text" id="cfgUrl" placeholder="https://script.google.com/macros/s/.../exec"></label>
+    <div class="cfghead"><span class="ico">🔑</span><b>Setelan Sambungan</b></div>
+    <p>Tempelaken ADMIN_TOKEN ingkang sampun dipun-pasang wonten <code>google-apps-script.gs</code>. Token niki mung kesimpen ing browser panjenengan piyambak, mboten dipun-unggah dhateng GitHub.</p>
     <label class="field"><span>ADMIN_TOKEN</span><input type="password" id="cfgToken" placeholder="token rahasia admin"></label>
     <div class="row">
       <button class="btn primary wide" id="cfgSaveBtn">Simpen &amp; Mriksa</button>
@@ -104,7 +132,9 @@ header p{margin:0;font-size:12px;color:var(--muted)}
 </div>
 
 <script>
-const LS_URL = 'catatan-haidl-admin-url';
+// URL Web App Apps Script — sami kagem sedaya admin, sanès rahasia (mung ADMIN_TOKEN sing rahasia),
+// dadi dipun-pateni langsung mriki supados admin mboten prelu golek/tempel URL-ipun piyambak.
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDz__A_TjUsYhEnc9lVZzvPdt4c-90VgmCngGDhBEhsMHzcPDpn-Pqn5VlFTE9qUIv/exec';
 const LS_TOKEN = 'catatan-haidl-admin-token';
 const $ = id => document.getElementById(id);
 
@@ -113,21 +143,18 @@ const STATUS_DOT = {HAIDL:'var(--haidl)', NIFAS:'var(--nifas)', ISTICHADLOH:'var
 const STATUS_BG = {HAIDL:'var(--haidl-bg)', NIFAS:'var(--nifas-bg)', ISTICHADLOH:'var(--isti-bg)', FASAD:'var(--surface2)', SUCI:'var(--suci-bg)'};
 const STATUS_FG = {HAIDL:'var(--haidl)', NIFAS:'var(--nifas)', ISTICHADLOH:'var(--isti)', FASAD:'var(--muted)', SUCI:'var(--suci)'};
 
-function getCfg(){ return {url: localStorage.getItem(LS_URL)||'', token: localStorage.getItem(LS_TOKEN)||''}; }
-function hasCfg(){ const c=getCfg(); return c.url && c.token; }
+function getCfg(){ return {token: localStorage.getItem(LS_TOKEN)||''}; }
+function hasCfg(){ return !!getCfg().token; }
 
 function showCfg(show){ $('cfgBox').classList.toggle('hidden', !show); }
 
 $('cfgBtn').addEventListener('click', ()=>{
-  const c = getCfg();
-  $('cfgUrl').value = c.url; $('cfgToken').value = c.token;
+  $('cfgToken').value = getCfg().token;
   showCfg($('cfgBox').classList.contains('hidden'));
 });
 $('cfgSaveBtn').addEventListener('click', ()=>{
-  const url = $('cfgUrl').value.trim();
   const token = $('cfgToken').value.trim();
-  if(!url || !token){ alert('Isi URL lan token rumiyin.'); return; }
-  localStorage.setItem(LS_URL, url);
+  if(!token){ alert('Isi token rumiyin.'); return; }
   localStorage.setItem(LS_TOKEN, token);
   showCfg(false);
   load();
@@ -154,14 +181,17 @@ function renderSummary(rows){
   const labels = {HAIDL:'Haidl', NIFAS:'Nifas', ISTICHADLOH:'Istichadloh', SUCI:'Suci'};
   const wrap = $('summaryRow');
   wrap.innerHTML = Object.keys(labels).map(k=>
-    `<span class="chip"><i style="background:${STATUS_DOT[k]}"></i>${labels[k]}: ${counts[k]}</span>`
+    `<span class="chip"><i style="background:${STATUS_DOT[k]}"></i>${labels[k]} <b>${counts[k]}</b></span>`
   ).join('');
   wrap.style.display = rows.length ? 'flex' : 'none';
 }
 
 function renderList(rows){
   const wrap = $('list');
-  if(!rows.length){ wrap.innerHTML = '<div class="empty">Dèrèng wonten santri ingkang lapor status.</div>'; return; }
+  if(!rows.length){
+    wrap.innerHTML = '<div class="empty"><span class="bigico">🌙</span>Dèrèng wonten santri ingkang lapor status.</div>';
+    return;
+  }
   const sorted = rows.slice().sort((a,b)=>{
     const oa = STATUS_ORDER[a.status] ?? 4, ob = STATUS_ORDER[b.status] ?? 4;
     if(oa!==ob) return oa-ob;
@@ -173,14 +203,15 @@ function renderList(rows){
     div.className = 'card';
     const fg = STATUS_FG[r.status] || 'var(--muted)';
     const bg = STATUS_BG[r.status] || 'var(--surface2)';
+    div.style.borderLeftColor = STATUS_DOT[r.status] || 'var(--faint)';
     div.innerHTML = `
       <div class="card-top">
-        <span class="dot" style="background:${STATUS_DOT[r.status]||'var(--faint)'}"></span>
         <span class="nama">${escapeHtml(r.nama)}</span>
         <span class="badge" style="background:${bg};color:${fg}">${escapeHtml(r.label||r.status||'?')}</span>
+        <span class="chev">›</span>
       </div>
       ${r.note ? `<p class="note">${escapeHtml(r.note)}</p>` : ''}
-      <p class="meta">Kalapuraken ${relTime(r.updatedAt)}</p>
+      <p class="meta">🕓 Kalapuraken ${relTime(r.updatedAt)}</p>
     `;
     div.addEventListener('click', ()=> openViewer(r));
     wrap.appendChild(div);
@@ -211,15 +242,15 @@ $('closeViewer').addEventListener('click', ()=>{
 async function load(){
   if(!hasCfg()){ showCfg(true); return; }
   const c = getCfg();
-  $('list').innerHTML = '<div class="loading">Nyuwun data…</div>';
+  $('list').innerHTML = '<div class="loading"><span class="spinner"></span>Nyuwun data…</div>';
   try{
-    const res = await fetch(c.url + '?token=' + encodeURIComponent(c.token));
+    const res = await fetch(APPS_SCRIPT_URL + '?token=' + encodeURIComponent(c.token));
     const j = await res.json();
     if(!j.ok) throw new Error(j.error||'?');
     renderSummary(j.rows||[]);
     renderList(j.rows||[]);
   }catch(err){
-    $('list').innerHTML = `<div class="err">Gagal njupuk data: ${escapeHtml(err.message)}<br>Priksa malih URL/token ing ⚙️ Setelan.</div>`;
+    $('list').innerHTML = `<div class="err">⚠️ Gagal njupuk data: ${escapeHtml(err.message)}<br>Priksa malih URL/token ing ⚙️ Setelan.</div>`;
   }
 }
 
