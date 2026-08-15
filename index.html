@@ -185,7 +185,33 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
 
 body.view-only #fabAdd,
 body.view-only [data-tab="Syn"],
-body.view-only [data-tab="Cat"]{display:none}
+body.view-only [data-tab="Cat"],
+body.view-only #adminModeBtn{display:none}
+
+/* ======================= MODE PENGURUS (admin, digabung dadi 1 app) ======================= */
+.adm-root{position:fixed;inset:0;z-index:30;background:var(--bg);display:flex;flex-direction:column}
+.adm-root.hidden{display:none}
+.adm-head{display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(160deg,var(--accent),var(--accent2));color:var(--accent-ink);box-shadow:0 6px 20px -10px rgba(0,0,0,.35);flex:none}
+.adm-htitle{flex:1;min-width:0}
+.adm-htitle b{display:block;font-size:16px;font-weight:800}
+.adm-htitle span{display:block;font-size:11px;opacity:.85;margin-top:1px}
+.adm-body{flex:1;overflow-y:auto;padding:16px;max-width:480px;margin:0 auto;width:100%}
+.adm-summary{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.adm-chip{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:7px;box-shadow:0 4px 12px -8px rgba(0,0,0,.15)}
+.adm-chip i{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.adm-chip b{font-size:14px}
+.adm-card{background:var(--surface);border:1px solid var(--line);border-left-width:4px;border-radius:14px;padding:14px 15px;margin-bottom:10px;cursor:pointer;box-shadow:0 6px 18px -12px rgba(0,0,0,.18)}
+.adm-card:active{transform:scale(.98)}
+.adm-card-top{display:flex;align-items:center;gap:10px}
+.adm-nama{font-weight:700;font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adm-badge{font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.adm-note{font-size:12.5px;color:var(--muted);margin:9px 0 0;line-height:1.55}
+.adm-meta{font-size:11px;color:var(--faint);margin-top:9px}
+.adm-empty,.adm-loading{text-align:center;color:var(--muted);padding:52px 20px;font-size:13.5px;line-height:1.6}
+.adm-empty .bigico{font-size:34px;margin-bottom:10px;display:block}
+.adm-spinner{width:26px;height:26px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;margin:0 auto 12px;animation:admspin .8s linear infinite}
+@keyframes admspin{to{transform:rotate(360deg)}}
+.adm-err{background:var(--danger-bg);color:var(--danger);border-radius:12px;padding:13px 14px;font-size:13px;line-height:1.6;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -200,8 +226,46 @@ body.view-only [data-tab="Cat"]{display:none}
       </div>
       <button class="iconbtn" id="langBtn" title="Basa Jawa / Bahasa Indonesia">JW</button>
       <button class="iconbtn" id="themeBtn" title="Mode padhang/peteng">🌙</button>
+      <button class="iconbtn" id="adminModeBtn" title="Mode Pengurus">🔐</button>
     </div>
   </header>
+
+  <div class="overlay hidden" id="adminPinOverlay">
+    <div class="sheet">
+      <h2>🔐 Mode Pengurus</h2>
+      <p class="tiny muted" style="margin:-4px 0 12px">Tempelaken PIN/token admin kagem mriksa status sedaya santri.</p>
+      <label class="field"><span>PIN</span><input type="password" id="adminPinInput" placeholder="PIN admin"></label>
+      <p class="tiny" id="adminPinStatus" style="margin:6px 0 0"></p>
+      <div class="sheetbtns">
+        <button type="button" class="btn-cancel" id="adminPinCancel">Batal</button>
+        <button type="button" class="btn-save" id="adminPinSubmit">Mlebet</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="adm-root hidden" id="adminDash">
+    <div class="adm-head">
+      <button class="iconbtn" id="adminBackBtn">←</button>
+      <div class="adm-htitle">
+        <b>Dashboard Pengurus</b>
+        <span>Status haidl/nifas santri — mung pamantauan</span>
+      </div>
+      <button class="iconbtn" id="adminRefreshBtn" title="Refresh">🔄</button>
+      <button class="iconbtn" id="adminLogoutBtn" title="Metu saking mode pengurus">⏻</button>
+    </div>
+    <div class="adm-body">
+      <div id="adminSummary" class="adm-summary" style="display:none"></div>
+      <div id="adminList"></div>
+    </div>
+  </div>
+
+  <div class="adm-root hidden" id="adminViewerOverlay">
+    <div class="adm-head">
+      <button class="iconbtn" id="adminViewerClose">←</button>
+      <b id="adminViewerNama" style="flex:1"></b>
+    </div>
+    <iframe id="adminViewerFrame" style="flex:1;border:none;width:100%"></iframe>
+  </div>
 
   <main>
     <div class="banner" data-i18n-html="banner"></div>
@@ -2057,6 +2121,136 @@ async function reportStatus(){
     if(!j.ok) throw new Error(j.error||'?');
     setLaporStatus(T('laporSukses') + new Date().toLocaleString('id-ID'));
   }catch(err){ setLaporStatus(T('laporGagal')+err.message, true); }
+}
+
+/* ======================= MODE PENGURUS (admin, digabung dadi 1 app) =======================
+   Diunlock nganggo PIN sing SAMI kaliyan ADMIN_TOKEN ing google-apps-script.gs (dudu token
+   sing beda) — dashboard-e ndeleng ringkesan status kabeh santri, lan mbukak detail lengkap
+   siji-siji liwat index.html?view=1 ing iframe dhewe (mode among sing sampun wonten), dadi
+   mesin fiqh-e mung siji, ora tiron.
+================================================================================================ */
+const ADMIN_PIN_KEY = 'catatan-haidl-admin-pin';
+const ADM_STATUS_ORDER = {HAIDL:0, NIFAS:1, ISTICHADLOH:2, FASAD:3, SUCI:4};
+const ADM_STATUS_DOT = {HAIDL:'var(--haidl)', NIFAS:'var(--nifas)', ISTICHADLOH:'var(--isti)', FASAD:'var(--faint)', SUCI:'var(--accent)'};
+const ADM_STATUS_BG = {HAIDL:'var(--haidl-bg)', NIFAS:'var(--nifas-bg)', ISTICHADLOH:'var(--isti-bg)', FASAD:'var(--surface2)', SUCI:'var(--accent-soft)'};
+const ADM_STATUS_FG = {HAIDL:'var(--haidl)', NIFAS:'var(--nifas)', ISTICHADLOH:'var(--isti)', FASAD:'var(--muted)', SUCI:'var(--accent)'};
+
+function adminRelTime(iso){
+  if(!iso) return '–';
+  const t = new Date(iso).getTime();
+  if(isNaN(t)) return '–';
+  const diff = Date.now() - t;
+  const min = Math.floor(diff/60000);
+  if(min < 1) return 'wau';
+  if(min < 60) return min+' menit kapengker';
+  const hr = Math.floor(min/60);
+  if(hr < 24) return hr+' jam kapengker';
+  return Math.floor(hr/24)+' dinten kapengker';
+}
+function escHtmlAdm(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+async function fetchAdminRows(pin){
+  const res = await fetch(REPORT_SCRIPT_URL + '?token=' + encodeURIComponent(pin));
+  const j = await res.json();
+  if(!j.ok) throw new Error(j.error||'?');
+  return j.rows||[];
+}
+
+function openAdminDash(pin){
+  $('adminDash').classList.remove('hidden');
+  $('adminList').innerHTML = '<div class="adm-loading"><span class="adm-spinner"></span>Nyuwun data…</div>';
+  fetchAdminRows(pin).then(showAdminDash).catch(err=>{
+    localStorage.removeItem(ADMIN_PIN_KEY);
+    $('adminList').innerHTML = `<div class="adm-err">⚠️ Gagal njupuk data: ${escHtmlAdm(err.message)}<br>PIN saged lepat — pencet ← lajeng 🔐 malih kagem mlebet PIN.</div>`;
+  });
+}
+
+function showAdminDash(rows){
+  const counts = {HAIDL:0, NIFAS:0, ISTICHADLOH:0, SUCI:0};
+  rows.forEach(r=>{ if(counts[r.status]!=null) counts[r.status]++; else counts.SUCI++; });
+  const labels = {HAIDL:'Haidl', NIFAS:'Nifas', ISTICHADLOH:'Istichadloh', SUCI:'Suci'};
+  const sw = $('adminSummary');
+  sw.innerHTML = Object.keys(labels).map(k=> `<span class="adm-chip"><i style="background:${ADM_STATUS_DOT[k]}"></i>${labels[k]} <b>${counts[k]}</b></span>`).join('');
+  sw.style.display = rows.length? 'flex':'none';
+
+  const wrap = $('adminList');
+  if(!rows.length){ wrap.innerHTML = '<div class="adm-empty"><span class="bigico">🌙</span>Dèrèng wonten santri ingkang lapor status.</div>'; return; }
+  const sorted = rows.slice().sort((a,b)=>{
+    const oa = ADM_STATUS_ORDER[a.status] ?? 4, ob = ADM_STATUS_ORDER[b.status] ?? 4;
+    if(oa!==ob) return oa-ob;
+    return (a.nama||'').localeCompare(b.nama||'');
+  });
+  wrap.innerHTML='';
+  sorted.forEach(r=>{
+    const div = document.createElement('div');
+    div.className='adm-card';
+    div.style.borderLeftColor = ADM_STATUS_DOT[r.status] || 'var(--faint)';
+    const fg = ADM_STATUS_FG[r.status]||'var(--muted)', bg = ADM_STATUS_BG[r.status]||'var(--surface2)';
+    div.innerHTML = `
+      <div class="adm-card-top">
+        <span class="adm-nama">${escHtmlAdm(r.nama)}</span>
+        <span class="adm-badge" style="background:${bg};color:${fg}">${escHtmlAdm(r.label||r.status||'?')}</span>
+      </div>
+      ${r.note? `<p class="adm-note">${escHtmlAdm(r.note)}</p>`:''}
+      <p class="adm-meta">🕓 Kalapuraken ${adminRelTime(r.updatedAt)}</p>
+    `;
+    div.addEventListener('click', ()=> openAdminViewer(r));
+    wrap.appendChild(div);
+  });
+}
+
+function openAdminViewer(row){
+  if(!row.state){ alert('Data lengkap santri niki durung wonten.'); return; }
+  $('adminViewerNama').textContent = row.nama;
+  const frame = $('adminViewerFrame');
+  const onReady = (ev)=>{
+    if(ev.source !== frame.contentWindow) return;
+    if(!ev.data || ev.data.type!=='VIEWER_READY') return;
+    frame.contentWindow.postMessage({type:'LOAD_SANTRI_STATE', state: row.state, nama: row.nama}, location.origin);
+    window.removeEventListener('message', onReady);
+  };
+  window.addEventListener('message', onReady);
+  frame.src = 'index.html?view=1&_=' + Date.now();
+  $('adminViewerOverlay').classList.remove('hidden');
+}
+
+if(!VIEW_ONLY){
+  $('adminModeBtn').addEventListener('click', ()=>{
+    const savedPin = localStorage.getItem(ADMIN_PIN_KEY);
+    if(savedPin){ openAdminDash(savedPin); return; }
+    $('adminPinInput').value=''; $('adminPinStatus').textContent='';
+    $('adminPinOverlay').classList.remove('hidden');
+    $('adminPinInput').focus();
+  });
+  $('adminPinCancel').addEventListener('click', ()=> $('adminPinOverlay').classList.add('hidden'));
+  $('adminPinSubmit').addEventListener('click', async ()=>{
+    const pin = $('adminPinInput').value.trim();
+    if(!pin) return;
+    $('adminPinStatus').style.color='var(--muted)'; $('adminPinStatus').textContent='Mriksa…';
+    try{
+      const rows = await fetchAdminRows(pin);
+      localStorage.setItem(ADMIN_PIN_KEY, pin);
+      $('adminPinOverlay').classList.add('hidden');
+      $('adminDash').classList.remove('hidden');
+      showAdminDash(rows);
+    }catch(err){
+      $('adminPinStatus').style.color='var(--danger)';
+      $('adminPinStatus').textContent = 'PIN lepat utawi gagal sambung: '+err.message;
+    }
+  });
+  $('adminBackBtn').addEventListener('click', ()=> $('adminDash').classList.add('hidden'));
+  $('adminLogoutBtn').addEventListener('click', ()=>{
+    localStorage.removeItem(ADMIN_PIN_KEY);
+    $('adminDash').classList.add('hidden');
+  });
+  $('adminRefreshBtn').addEventListener('click', ()=>{
+    const pin = localStorage.getItem(ADMIN_PIN_KEY);
+    if(pin) openAdminDash(pin);
+  });
+  $('adminViewerClose').addEventListener('click', ()=>{
+    $('adminViewerOverlay').classList.add('hidden');
+    $('adminViewerFrame').src = 'about:blank';
+  });
 }
 
 /* ======================= SINKRONISASI GOOGLE (akun pribadi, OAuth) =======================
