@@ -182,6 +182,10 @@ input:focus,select:focus{box-shadow:0 0 0 2px var(--accent)}
 
 footer{padding:16px;text-align:center}
 footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
+
+body.view-only #fabAdd,
+body.view-only [data-tab="Syn"],
+body.view-only [data-tab="Cat"]{display:none}
 </style>
 </head>
 <body>
@@ -201,6 +205,7 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
 
   <main>
     <div class="banner" data-i18n-html="banner"></div>
+    <div class="banner" id="viewOnlyBanner" style="display:none;background:var(--accent-soft);color:var(--accent);font-weight:600">👁️ <span id="viewOnlyText"></span></div>
 
     <div id="hukumSaknikiCard"></div>
 
@@ -311,6 +316,13 @@ footer p{margin:0;font-size:10px;color:var(--faint);line-height:1.6}
     <div class="panel" id="panelSync">
       <div class="panel-head" id="syncHead"><span class="chev" id="syncChev">▾</span><span class="ptitle" data-i18n="pSync">☁️ Cadangan &amp; Sinkronisasi</span></div>
       <div class="panel-body" id="syncBody">
+        <div class="sync-divider" data-i18n="lblLaporPengurus">🧑‍🤝‍🧑 Lapor Status ka Pengurus</div>
+        <p class="tiny muted" data-i18n="laporIntro">Menawi dipun-aktifaken, status haidl/nifas panjenengan sakniki (lan cathetan lengkapipun) dipun-kintunaken dhateng pengurus/Gus Fi supados saged dipun-pantau. Tulisaken asma ingkang gampil dipun-kenali pengurus.</p>
+        <label class="field"><span data-i18n="lblNamaLapor">Asma panjenengan</span><input type="text" id="inNamaLapor" placeholder="cth. Siti Aminah" autocomplete="off"></label>
+        <label class="chk"><input type="checkbox" id="chkLaporAktif"> <span data-i18n="chkLaporAktif">Bagikan status haidl/nifas kula dhateng pengurus</span></label>
+        <p class="tiny" id="laporStatus" style="margin:6px 0 0"></p>
+
+        <div class="sync-divider" data-i18n="lblCadanganGoogle">☁️ Cadangan &amp; Sinkronisasi (akun Google pribadi)</div>
         <p class="tiny muted" data-i18n="syncIntro">Data utami tetep ing HP niki. Mlebu nganggo akun Google pribadi supados data kacadhangaken lan saged dibikak wonten HP sanès — data mung kesimpen ing akun Google sampeyan piyambak, mboten dipun-bagi kaliyan tiyang sanès.</p>
         <div class="sync-status-row">
           <span class="sync-dot" id="syncDot"></span>
@@ -395,12 +407,21 @@ function saveState(){ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
 function defaultState(){
   return {
     profile:{everHadHaidl:null, everHadNifas:null, adatHaidl:null, adatSuci:null, adatNifas:null, birthdate:null, lat:null, lon:null, tz:null, city:null},
-    checkpoints:[], episodes:[], births:[], istihadhohAnswers:{}, lang:'jv'
+    checkpoints:[], episodes:[], births:[], istihadhohAnswers:{}, lang:'jv',
+    lapor:{nama:'', aktif:false}
   };
 }
-let state = loadState();
+/* Mode "among" (view-only) kagem dashboard pengurus: dibukak liwat index.html?view=1 ing
+   iframe saka admin.html, data dikintunaken liwat postMessage (dudu localStorage HP iki),
+   lan saveState dadi ora nglakoni apa-apa supaya data santri liyane ora tiba kesimpen
+   kacampur karo localStorage HP sing mbukak (umpamane Gus Fi mbukak iki ing browser dhewe). */
+const urlParams = new URLSearchParams(location.search);
+const VIEW_ONLY = urlParams.get('view')==='1';
+let state = VIEW_ONLY ? defaultState() : loadState();
+if(VIEW_ONLY){ saveState = function(){}; document.body.classList.add('view-only'); }
 if(!state.checkpoints) state.checkpoints = [];
 if(!state.lang) state.lang = 'jv';
+if(!state.lapor) state.lapor = {nama:'', aktif:false};
 
 /* ======================= CATHETAN WEKDAL (checkpoint) -> WEWENGKON (episode) ======================= */
 // Saben checkpoint = {id, ts, status:'suci'|'flek'|'sedeng'|'kuat'}. Diurutake wektu, saben checkpoint
@@ -1117,6 +1138,15 @@ const I18N = {
     syncSignedOut:'Sampun metu.',
     syncDownConfirm:'Data ing HP iki bakal ditimpa data saka Google. Lanjut?',
     authNotReady:'Google auth durung siap',
+    lblLaporPengurus:'🧑‍🤝‍🧑 Lapor Status ka Pengurus',
+    laporIntro:'Menawi dipun-aktifaken, status haidl/nifas panjenengan sakniki (lan cathetan lengkapipun) dipun-kintunaken dhateng pengurus/Gus Fi supados saged dipun-pantau. Tulisaken asma ingkang gampil dipun-kenali pengurus.',
+    lblNamaLapor:'Asma panjenengan', chkLaporAktif:'Bagikan status haidl/nifas kula dhateng pengurus',
+    laporNamaKosong:'⚠️ Tulisaken asma rumiyin supados saged dipun-lapuraken.',
+    laporUrlKosong:'⚠️ Fitur lapor durung dipasang Gus Fi (REPORT_SCRIPT_URL durung diisi).',
+    laporSukses:'✅ Sampun kalapuraken dhateng pengurus — ', laporGagal:'Gagal lapor: ',
+    laporNonaktif:'Lapor status dipun-pateni.',
+    viewOnlyBanner:'Mode pengurus — mriksa cathetan: NAMA (mode among, mboten kasimpen)',
+    lblCadanganGoogle:'☁️ Cadangan & Sinkronisasi (akun Google pribadi)',
     noCpToday:'Dèrèng wonten cathetan ing dinten niki (dianggep suci). Pencet tombol ing ngandhap kagem miwiti.',
     lblWekdal:'Wekdal (24h)', lvlSuci:'Suci', lvlFlek:'Flek', lvlSedeng:'Sedeng', lvlKuat:'Kuat',
     lblWarnaGetih:'Warna getih', autoByLevel:'(otomatis miturut tingkat)',
@@ -1200,6 +1230,15 @@ const I18N = {
     syncSignedOut:'Sudah keluar.',
     syncDownConfirm:'Data di HP ini akan ditimpa data dari Google. Lanjutkan?',
     authNotReady:'Google auth belum siap',
+    lblLaporPengurus:'🧑‍🤝‍🧑 Lapor Status ke Pengurus',
+    laporIntro:'Jika diaktifkan, status haidl/nifas Anda saat ini (dan catatan lengkapnya) dikirim ke pengurus/Gus Fi supaya bisa dipantau. Tulis nama yang mudah dikenali pengurus.',
+    lblNamaLapor:'Nama Anda', chkLaporAktif:'Bagikan status haidl/nifas saya ke pengurus',
+    laporNamaKosong:'⚠️ Tulis nama dulu supaya bisa dilaporkan.',
+    laporUrlKosong:'⚠️ Fitur lapor belum dipasang Gus Fi (REPORT_SCRIPT_URL belum diisi).',
+    laporSukses:'✅ Sudah dilaporkan ke pengurus — ', laporGagal:'Gagal lapor: ',
+    laporNonaktif:'Lapor status dimatikan.',
+    viewOnlyBanner:'Mode pengurus — melihat catatan: NAMA (mode lihat saja, tidak tersimpan)',
+    lblCadanganGoogle:'☁️ Cadangan & Sinkronisasi (akun Google pribadi)',
     noCpToday:'Belum ada catatan di hari ini (dianggap suci). Tekan tombol di bawah untuk mulai.',
     lblWekdal:'Waktu (24 jam)', lvlSuci:'Suci', lvlFlek:'Flek', lvlSedeng:'Sedang', lvlKuat:'Kuat',
     lblWarnaGetih:'Warna darah', autoByLevel:'(otomatis menurut tingkat)',
@@ -1616,6 +1655,7 @@ $('addCpBtn').addEventListener('click', ()=>{
 });
 
 function openSheet(dayTs){
+  if(VIEW_ONLY) return;
   sheetDayTs = dayTs;
   $('fDate').value = dateStrOf(dayTs);
   sheetCps = checkpointsOfDay(dayTs).map(cp=>{
@@ -1962,6 +2002,61 @@ function recalcAndRender(){
     console.error(err);
   }
   scheduleAutoSync();
+  scheduleReportStatus();
+}
+
+/* ======================= LAPOR STATUS DHATENG PENGURUS =======================
+   Beda karo sinkronisasi Google Drive ing ngisor (kuwi kagem cadangan pribadi santri).
+   Iki ngirim status "hukum sakniki" + data lengkap menyang Google Sheet bareng liwat
+   Google Apps Script, supaya pengurus/Gus Fi saged mriksa kabeh santri ing siji dashboard
+   (admin.html). SETUP (Gus Fi nglakoni sepisan wae):
+   1. Gawe Google Sheet anyar > Extensions > Apps Script > tempel isi "google-apps-script.gs"
+      (versi pengurus, dudu versi lawas siji-user).
+   2. Deploy > New deployment > tipe "Web app" > Execute as: Me, Who has access: Anyone.
+   3. Ganti SUBMIT_TOKEN ing google-apps-script.gs dadi PIN bebas, banjur tempelaken PIN
+      SING PADHA persis ing REPORT_TOKEN ngisor iki.
+   4. Copy URL /exec asil deploy, tempelaken ing REPORT_SCRIPT_URL ngisor iki.
+   Cathetan: REPORT_TOKEN iki katon ing kode publik (dudu rahasia sanyata), mung nyaring
+   bot/isengan. Sing kudu dijaga rahasia yaiku ADMIN_TOKEN (kagem maca kabeh data ing
+   admin.html) — kuwi mboten katulis ing file iki.
+================================================================================================ */
+const REPORT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDz__A_TjUsYhEnc9lVZzvPdt4c-90VgmCngGDhBEhsMHzcPDpn-Pqn5VlFTE9qUIv/exec';
+const REPORT_TOKEN = '1993';
+let reportTimer = null;
+function setLaporStatus(msg, isErr){ const el=$('laporStatus'); if(!el) return; el.textContent=msg; el.style.color=isErr?'var(--danger)':'var(--muted)'; }
+function currentHukumHeadline(){
+  if(!lastResult || !lastResult.segments) return {status:'SUCI', label:T('legSuci'), note:''};
+  const now = Date.now();
+  let seg = lastResult.segments.find(s=> now>=s.start && now<s.end);
+  if(!seg && lastResult.segments.length){
+    const last = lastResult.segments[lastResult.segments.length-1];
+    if(now>=last.start && now-last.end < 5*60000) seg = last;
+  }
+  if(!seg) return {status:'SUCI', label:T('legSuci'), note:''};
+  const meta = STATUS_META[seg.status]||STATUS_META.ISTICHADLOH;
+  return {status:seg.status, label:meta.label, note:seg.note||''};
+}
+function scheduleReportStatus(){
+  if(VIEW_ONLY) return;
+  clearTimeout(reportTimer);
+  reportTimer = setTimeout(reportStatus, 2500);
+}
+async function reportStatus(){
+  if(VIEW_ONLY) return;
+  if(!state.lapor || !state.lapor.aktif) return;
+  const nama = (state.lapor.nama||'').trim();
+  if(!nama){ setLaporStatus(T('laporNamaKosong'), true); return; }
+  if(REPORT_SCRIPT_URL.startsWith('PASANG-')){ setLaporStatus(T('laporUrlKosong'), true); return; }
+  try{
+    const h = currentHukumHeadline();
+    const res = await fetch(REPORT_SCRIPT_URL, {
+      method:'POST',
+      body: JSON.stringify({token:REPORT_TOKEN, nama, status:h.status, label:h.label, note:h.note, state})
+    });
+    const j = await res.json();
+    if(!j.ok) throw new Error(j.error||'?');
+    setLaporStatus(T('laporSukses') + new Date().toLocaleString('id-ID'));
+  }catch(err){ setLaporStatus(T('laporGagal')+err.message, true); }
 }
 
 /* ======================= SINKRONISASI GOOGLE (akun pribadi, OAuth) =======================
@@ -2112,8 +2207,36 @@ $('resetBtn').addEventListener('click', ()=>{
   setSyncStatus(T('resetDone'));
 });
 
+$('inNamaLapor').value = state.lapor.nama || '';
+$('chkLaporAktif').checked = !!state.lapor.aktif;
+$('inNamaLapor').addEventListener('change', ()=>{
+  state.lapor.nama = $('inNamaLapor').value.trim(); saveState();
+  if(state.lapor.aktif) reportStatus();
+});
+$('chkLaporAktif').addEventListener('change', ()=>{
+  state.lapor.aktif = $('chkLaporAktif').checked; saveState();
+  if(state.lapor.aktif) reportStatus(); else setLaporStatus(T('laporNonaktif'));
+});
+
+/* ======================= MODE AMONG (dibukak saka admin.html liwat iframe) ======================= */
+if(VIEW_ONLY){
+  window.addEventListener('message', (ev)=>{
+    if(ev.origin !== location.origin) return;
+    if(!ev.data || ev.data.type!=='LOAD_SANTRI_STATE') return;
+    state = ev.data.state || defaultState();
+    if(!state.checkpoints) state.checkpoints = [];
+    if(!state.lang) state.lang = 'jv';
+    if(!state.lapor) state.lapor = {nama:'', aktif:false};
+    applyI18n();
+    $('viewOnlyText').textContent = T('viewOnlyBanner').replace('NAMA', ev.data.nama||state.lapor.nama||'-');
+    $('viewOnlyBanner').style.display = '';
+    renderProfile(); renderEpisodes(); recalcAndRender();
+  });
+  if(window.parent!==window) window.parent.postMessage({type:'VIEWER_READY'}, location.origin);
+}
+
 /* ======================= SERVICE WORKER (app-shell cache + syarat Chrome "Install app") ======================= */
-if('serviceWorker' in navigator){
+if('serviceWorker' in navigator && !VIEW_ONLY){
   window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
 }
 

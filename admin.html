@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Pengurus — Catatan Haidl</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="icon-192.png">
+<style>
+:root{
+  --bg:#f4f2ec; --surface:#ffffff; --surface2:#faf7f2; --line:#e5e7eb;
+  --ink:#1c1c1c; --muted:#6b7280; --faint:#9a9da6;
+  --accent:#d6336c; --accent2:#e64980; --accent-ink:#ffffff; --accent-soft:#fce4ec;
+  --danger:#a3271e; --danger-bg:#fbeceb; --ok:#1a7f37;
+  --haidl:#dc2626; --haidl-bg:#fee2e2;
+  --nifas:#9a3412; --nifas-bg:#ffedd5;
+  --isti:#b45309; --isti-bg:#fef3c7;
+  --suci:#1a7f37; --suci-bg:#e6f4ea;
+  --shadow:0 10px 26px -14px rgba(214,51,108,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#181215; --surface:#221b1f; --surface2:#2b2226; --line:#3c3238;
+    --ink:#f4ecf0; --muted:#b3a3ac; --faint:#7d6d76;
+    --accent:#ff8fab; --accent2:#ffb3c6; --accent-ink:#2a0f18; --accent-soft:#3a232b;
+    --danger:#ef8177; --danger-bg:#301917;
+    --haidl:#f0847c; --haidl-bg:#3a1917;
+    --nifas:#e0a37a; --nifas-bg:#3a2413;
+    --isti:#f0c464; --isti-bg:#3a2e10;
+    --suci:#6bcf8a; --suci-bg:#173321;
+    --shadow:0 10px 26px -14px rgba(0,0,0,.6);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:40px}
+.wrap{max-width:640px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;gap:10px;padding:6px 0 16px}
+header img{width:36px;height:36px;border-radius:9px}
+header h1{font-size:17px;margin:0}
+header p{margin:0;font-size:12px;color:var(--muted)}
+.spacer{flex:1}
+.iconbtn{background:var(--surface);border:1px solid var(--line);color:var(--ink);width:38px;height:38px;border-radius:11px;font-size:16px;cursor:pointer}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;box-shadow:var(--shadow);transition:transform .1s}
+.card:active{transform:scale(.98)}
+.card-top{display:flex;align-items:center;gap:10px}
+.dot{width:11px;height:11px;border-radius:50%;flex:none}
+.nama{font-weight:700;font-size:15px;flex:1}
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.note{font-size:12.5px;color:var(--muted);margin:8px 0 0;line-height:1.5}
+.meta{font-size:11px;color:var(--faint);margin-top:8px}
+.empty,.loading{text-align:center;color:var(--muted);padding:40px 14px;font-size:13px}
+.err{background:var(--danger-bg);color:var(--danger);border-radius:10px;padding:12px;font-size:13px;margin-bottom:12px}
+.cfgbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.cfgbox p{font-size:12.5px;color:var(--muted);margin:0 0 12px;line-height:1.6}
+.field{display:block;margin-bottom:10px}
+.field span{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:600}
+.field input{width:100%;padding:10px 11px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font-size:14px}
+.btn{background:var(--surface2);border:1px solid var(--line);color:var(--ink);padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border:none}
+.btn.wide{width:100%}
+.row{display:flex;gap:8px;margin-top:12px}
+.summary{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+.chip i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.overlay{position:fixed;inset:0;background:var(--bg);z-index:50;display:flex;flex-direction:column}
+.overlay.hidden{display:none}
+.overlay-head{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.overlay-head b{flex:1;font-size:14px}
+.overlay iframe{flex:1;border:none;width:100%}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="icon-192.png" alt="">
+    <div>
+      <h1>Dashboard Pengurus</h1>
+      <p>Status haidl/nifas santri — sanès kagem edit, mung pamantauan.</p>
+    </div>
+    <div class="spacer"></div>
+    <button class="iconbtn" id="refreshBtn" title="Refresh">🔄</button>
+    <button class="iconbtn" id="cfgBtn" title="Setelan">⚙️</button>
+  </header>
+
+  <div class="cfgbox hidden" id="cfgBox">
+    <p>Tempelaken URL Web App Apps Script (asil deploy, pungkasan /exec) lan ADMIN_TOKEN ingkang sampun dipun-pasang wonten google-apps-script.gs. Data niki mung kesimpen ing browser panjenengan piyambak (localStorage), mboten dipun-unggah dhateng GitHub.</p>
+    <label class="field"><span>URL Apps Script (/exec)</span><input type="text" id="cfgUrl" placeholder="https://script.google.com/macros/s/.../exec"></label>
+    <label class="field"><span>ADMIN_TOKEN</span><input type="password" id="cfgToken" placeholder="token rahasia admin"></label>
+    <div class="row">
+      <button class="btn primary wide" id="cfgSaveBtn">Simpen &amp; Mriksa</button>
+    </div>
+  </div>
+
+  <div id="summaryRow" class="summary" style="display:none"></div>
+  <div id="list"></div>
+</div>
+
+<div class="overlay hidden" id="viewer">
+  <div class="overlay-head">
+    <button class="iconbtn" id="closeViewer">←</button>
+    <b id="viewerNama"></b>
+  </div>
+  <iframe id="viewerFrame"></iframe>
+</div>
+
+<script>
+const LS_URL = 'catatan-haidl-admin-url';
+const LS_TOKEN = 'catatan-haidl-admin-token';
+const $ = id => document.getElementById(id);
+
+const STATUS_ORDER = {HAIDL:0, NIFAS:1, ISTICHADLOH:2, FASAD:3, SUCI:4};
+const STATUS_DOT = {HAIDL:'var(--haidl)', NIFAS:'var(--nifas)', ISTICHADLOH:'var(--isti)', FASAD:'var(--faint)', SUCI:'var(--suci)'};
+const STATUS_BG = {HAIDL:'var(--haidl-bg)', NIFAS:'var(--nifas-bg)', ISTICHADLOH:'var(--isti-bg)', FASAD:'var(--surface2)', SUCI:'var(--suci-bg)'};
+const STATUS_FG = {HAIDL:'var(--haidl)', NIFAS:'var(--nifas)', ISTICHADLOH:'var(--isti)', FASAD:'var(--muted)', SUCI:'var(--suci)'};
+
+function getCfg(){ return {url: localStorage.getItem(LS_URL)||'', token: localStorage.getItem(LS_TOKEN)||''}; }
+function hasCfg(){ const c=getCfg(); return c.url && c.token; }
+
+function showCfg(show){ $('cfgBox').classList.toggle('hidden', !show); }
+
+$('cfgBtn').addEventListener('click', ()=>{
+  const c = getCfg();
+  $('cfgUrl').value = c.url; $('cfgToken').value = c.token;
+  showCfg($('cfgBox').classList.contains('hidden'));
+});
+$('cfgSaveBtn').addEventListener('click', ()=>{
+  const url = $('cfgUrl').value.trim();
+  const token = $('cfgToken').value.trim();
+  if(!url || !token){ alert('Isi URL lan token rumiyin.'); return; }
+  localStorage.setItem(LS_URL, url);
+  localStorage.setItem(LS_TOKEN, token);
+  showCfg(false);
+  load();
+});
+$('refreshBtn').addEventListener('click', load);
+
+function relTime(iso){
+  if(!iso) return '–';
+  const t = new Date(iso).getTime();
+  if(isNaN(t)) return '–';
+  const diff = Date.now() - t;
+  const min = Math.floor(diff/60000);
+  if(min < 1) return 'wau';
+  if(min < 60) return min+' menit kapengker';
+  const hr = Math.floor(min/60);
+  if(hr < 24) return hr+' jam kapengker';
+  const day = Math.floor(hr/24);
+  return day+' dinten kapengker';
+}
+
+function renderSummary(rows){
+  const counts = {HAIDL:0, NIFAS:0, ISTICHADLOH:0, SUCI:0};
+  rows.forEach(r=>{ if(counts[r.status]!=null) counts[r.status]++; else counts.SUCI++; });
+  const labels = {HAIDL:'Haidl', NIFAS:'Nifas', ISTICHADLOH:'Istichadloh', SUCI:'Suci'};
+  const wrap = $('summaryRow');
+  wrap.innerHTML = Object.keys(labels).map(k=>
+    `<span class="chip"><i style="background:${STATUS_DOT[k]}"></i>${labels[k]}: ${counts[k]}</span>`
+  ).join('');
+  wrap.style.display = rows.length ? 'flex' : 'none';
+}
+
+function renderList(rows){
+  const wrap = $('list');
+  if(!rows.length){ wrap.innerHTML = '<div class="empty">Dèrèng wonten santri ingkang lapor status.</div>'; return; }
+  const sorted = rows.slice().sort((a,b)=>{
+    const oa = STATUS_ORDER[a.status] ?? 4, ob = STATUS_ORDER[b.status] ?? 4;
+    if(oa!==ob) return oa-ob;
+    return (a.nama||'').localeCompare(b.nama||'');
+  });
+  wrap.innerHTML = '';
+  sorted.forEach(r=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    const fg = STATUS_FG[r.status] || 'var(--muted)';
+    const bg = STATUS_BG[r.status] || 'var(--surface2)';
+    div.innerHTML = `
+      <div class="card-top">
+        <span class="dot" style="background:${STATUS_DOT[r.status]||'var(--faint)'}"></span>
+        <span class="nama">${escapeHtml(r.nama)}</span>
+        <span class="badge" style="background:${bg};color:${fg}">${escapeHtml(r.label||r.status||'?')}</span>
+      </div>
+      ${r.note ? `<p class="note">${escapeHtml(r.note)}</p>` : ''}
+      <p class="meta">Kalapuraken ${relTime(r.updatedAt)}</p>
+    `;
+    div.addEventListener('click', ()=> openViewer(r));
+    wrap.appendChild(div);
+  });
+}
+
+function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function openViewer(row){
+  if(!row.state){ alert('Data lengkap santri niki durung wonten (during nate lapor cathetan).'); return; }
+  $('viewerNama').textContent = row.nama;
+  const frame = $('viewerFrame');
+  const onReady = (ev)=>{
+    if(ev.source !== frame.contentWindow) return;
+    if(!ev.data || ev.data.type!=='VIEWER_READY') return;
+    frame.contentWindow.postMessage({type:'LOAD_SANTRI_STATE', state: row.state, nama: row.nama}, location.origin);
+    window.removeEventListener('message', onReady);
+  };
+  window.addEventListener('message', onReady);
+  frame.src = 'index.html?view=1&_=' + Date.now();
+  $('viewer').classList.remove('hidden');
+}
+$('closeViewer').addEventListener('click', ()=>{
+  $('viewer').classList.add('hidden');
+  $('viewerFrame').src = 'about:blank';
+});
+
+async function load(){
+  if(!hasCfg()){ showCfg(true); return; }
+  const c = getCfg();
+  $('list').innerHTML = '<div class="loading">Nyuwun data…</div>';
+  try{
+    const res = await fetch(c.url + '?token=' + encodeURIComponent(c.token));
+    const j = await res.json();
+    if(!j.ok) throw new Error(j.error||'?');
+    renderSummary(j.rows||[]);
+    renderList(j.rows||[]);
+  }catch(err){
+    $('list').innerHTML = `<div class="err">Gagal njupuk data: ${escapeHtml(err.message)}<br>Priksa malih URL/token ing ⚙️ Setelan.</div>`;
+  }
+}
+
+load();
+</script>
+</body>
+</html>
