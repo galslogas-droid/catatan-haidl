@@ -129,7 +129,7 @@ input:focus,select:focus{box-shadow:0 0 0 2px var(--accent)}
 .cal-hijri-range{text-align:center;font-size:11.5px;color:var(--muted);margin:-4px 0 4px;font-family:"UthmanTahaNaskh","Traditional Arabic","Amiri",serif}
 .cal-koreksi{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:10px}
 .cal-koreksi button{background:var(--surface2);border:1px solid var(--line);color:var(--accent);width:22px;height:22px;border-radius:6px;cursor:pointer;font-weight:800}
-.cal-cell.pending{outline:2px dashed var(--danger)}
+.cal-cell.pending{outline:2px dashed var(--muted)}
 
 .day-head{font-size:10.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:6px 12px;margin-top:2px}
 .trow{padding:9px 12px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
@@ -1051,7 +1051,13 @@ function deriveQadha(segments){
       wajibMandiPoints.push(segments[idx+1].start);
     }
     const days = Math.round((s.end-s.start)/DAY);
-    if(s.status==='HAIDL' || (s.status==='ISTICHADLOH' && (s.ihtiyat||s.manual||s.pending))){
+    // Kabeh dinten ISTICHADLOH (dudu mung sing ihtiyat/manual/pending) kudu melu diitung, ora
+    // mung subset sing during pasti. Sumber: Risalatul Mahaidl 2025 §967 "Semua hari dalam
+    // permasalahan darah nifas yang dihukumi istichadloh ... demikian pula puasanya" lan §988
+    // (panutup bab Mustachadloh) "untuk puasa, wajib diqodlo' semua" — loro-lorone ora menehi
+    // wates mung kanggo dinten sing during yakin. Ditashih Gus Fi 17 Agu 2026 (dipercaya marang
+    // asil priksa kitab langsung, dudu tebakan).
+    if(s.status==='HAIDL' || s.status==='ISTICHADLOH'){
       puasaQadhaDays += days;
     }
   });
@@ -1141,7 +1147,7 @@ const I18N = {
     subtitle: "Haidl · Nifas · Istichadloh — Mazhab Syafi'i",
     banner: '📔 Pencet dinten ing kalender kagem nyathet metu/mandhege getih. Sedaya kesimpen ing HP niki (mboten mbetahaken internet), lan bakal dipun-golongaken otomatis miturut <em>Risalatul Mahaidl 2025</em>.',
     pKalender: '📅 Kalender', legSuci:'Suci', legFasad:'Fasad',
-    calHint: 'Pencet dinten kagem nyathet/ngewahi. Tandha ⚠️ = perlu jawaban tambahan (istichadloh).',
+    calHint: 'Pencet dinten kagem nyathet/ngewahi. Tandha ℹ️ = wonten informasi tambahan sing dibutuhaken kagem mutusaken dinten kasebut — dudu tandha status hukum during pasti.',
     pRiwayat: '🗂️ Riwayat & Status',
     riwEmpty: 'Dèrèng wonten catetan. Pencet dinten ing kalender ndhuwur.',
     navKal:'Kalender', navRiw:'Riwayat', navQad:'Qadha', navPro:'Profil', navCat:'Cathetan', navSyn:'Sinkron',
@@ -1183,7 +1189,7 @@ const I18N = {
     qadhaSholatIntro:'MENAWI during dipun-lampahi',
     qadhaSholatTail:'ing masa ISTICHADLOH ing ngandhap (amargi haidl/nifas gugur, nanging ISTICHADLOH tetep wajib sholat):',
     lblPerkiraanQadhaPuasa:'Perkiraan qadha puasa',
-    qadhaPuasaNote:'(total dinten haidl/istichadloh-ihtiyat — kedah dipun-filter manual sing bertepatan Ramadhan).',
+    qadhaPuasaNote:'MENAWI puasa ing dinten kasebut during katindakaken — total dinten haidl/istichadloh (yakin+ihtiyat) sing dihukumi, kedah dipun-filter manual sing bertepatan wulan Ramadhan.',
     gpsNoSupport:'⚠️ HP/browser mboten ndhukung GPS.', gpsSearching:'Nggoleki lokasi…',
     gpsFound:'✅ Lokasi kepanggih (akurasi ±ACCm).',
     gpsFail:'⚠️ Gagal njupuk lokasi: REASON Mangga ketik jeneng kutha mawon ing ngandhap.',
@@ -1233,7 +1239,7 @@ const I18N = {
     subtitle: "Haidl · Nifas · Istichadloh — Mazhab Syafi'i",
     banner: '📔 Ketuk tanggal di kalender untuk mencatat keluar/berhentinya darah. Semua tersimpan di HP ini (tidak perlu internet), dan akan digolongkan otomatis menurut <em>Risalatul Mahaidl 2025</em>.',
     pKalender: '📅 Kalender', legSuci:'Suci', legFasad:'Fasad',
-    calHint: 'Ketuk tanggal untuk mencatat/mengubah. Tanda ⚠️ = perlu jawaban tambahan (istichadloh).',
+    calHint: 'Ketuk tanggal untuk mencatat/mengubah. Tanda ℹ️ = ada informasi tambahan yang dibutuhkan untuk memutuskan hari tersebut — bukan tanda status hukum belum pasti.',
     pRiwayat: '🗂️ Riwayat & Status',
     riwEmpty: 'Belum ada catatan. Ketuk tanggal di kalender di atas.',
     navKal:'Kalender', navRiw:'Riwayat', navQad:'Qadha', navPro:'Profil', navCat:'Catatan', navSyn:'Sinkron',
@@ -1275,7 +1281,7 @@ const I18N = {
     qadhaSholatIntro:'JIKA belum dilaksanakan',
     qadhaSholatTail:'pada masa ISTICHADLOH di bawah ini (karena haidl/nifas gugur, tetapi ISTICHADLOH tetap wajib sholat):',
     lblPerkiraanQadhaPuasa:'Perkiraan qadha puasa',
-    qadhaPuasaNote:'(total hari haidl/istichadloh-ihtiyat — perlu difilter manual yang bertepatan Ramadhan).',
+    qadhaPuasaNote:'JIKA puasa pada hari tersebut belum dilaksanakan — total hari haidl/istichadloh (yakin+ihtiyat) yang dihukumi, perlu difilter manual yang bertepatan bulan Ramadhan.',
     gpsNoSupport:'⚠️ HP/browser tidak mendukung GPS.', gpsSearching:'Mencari lokasi…',
     gpsFound:'✅ Lokasi ditemukan (akurasi ±ACCm).',
     gpsFail:'⚠️ Gagal mengambil lokasi: REASON Silakan ketik nama kota saja di bawah.',
@@ -1610,7 +1616,7 @@ function renderCalendar(){
       <span class="ch">${arNum(hj[2])} ${HIJRI_BULAN[hj[1]].slice(0,3)}</span>
       <span class="cp">${PASARAN_ABBR[pasaran]}</span>
       ${meta?`<span class="cst" style="background:${meta.c}"></span>`:''}
-      ${pend?'<span class="cflag">⚠️</span>':''}
+      ${pend?'<span class="cflag" title="Mbutuhaken informasi tambahan">ℹ️</span>':''}
     </div>`;
   }
   $('calGrid').innerHTML = html;
@@ -1845,7 +1851,7 @@ function renderTimeline(segments){
         <span class="tiny muted"> · ${fmtD(s.start)} ${fmtT(s.start)} – ${fmtD(s.end)} ${fmtT(s.end)} (${days} ${T('unitDinten')})</span>
         ${s.belumCukup?`<span class="badge" style="background:var(--isti-bg);color:var(--isti)">${T('badgeBelum24')}</span>`:''}
         ${s.ihtiyat?`<span class="badge" style="background:var(--isti-bg);color:var(--isti)">${T('badgeIhtiyat')}</span>`:''}
-        ${s.pending?`<span class="badge" style="background:var(--danger-bg);color:var(--danger)">${T('badgePending')}</span>`:''}
+        ${s.pending?`<span class="badge" style="background:var(--surface2);color:var(--muted);border:1px solid var(--line)">ℹ️ ${T('badgePending')}</span>`:''}
         ${s.manual?`<span class="badge" style="background:var(--danger-bg);color:var(--danger)">${T('badgeManual')}</span>`:''}
         ${s.note?`<div class="sub" style="margin-top:4px;line-height:1.5">📖 <b>${T('lblSebab')}:</b> ${s.note}</div>`:''}
         ${(s.status==='HAIDL'||s.status==='NIFAS')? HAIDL_GUIDE_HTML() : ''}
