@@ -153,6 +153,8 @@ input:focus,select:focus{box-shadow:0 0 0 2px var(--accent)}
 .sync-divider.danger{color:var(--danger)}
 .badge{display:inline-flex;align-items:center;gap:.25rem;padding:.15rem .5rem;border-radius:1rem;font-size:9.5px;font-weight:700;margin-left:4px}
 .empty{padding:26px 10px;text-align:center;color:var(--muted);font-size:12.5px}
+.empty .bigico{font-size:32px;display:block;margin-bottom:8px}
+.empty .emphead{font-weight:700;color:var(--ink);font-size:14.5px;margin-bottom:4px}
 
 .adat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;text-align:center;margin-bottom:.6rem}
 .adat-grid .box{background:var(--accent-soft);border-radius:9px;padding:.5rem .3rem}
@@ -309,7 +311,7 @@ body.view-only #adminModeBtn{display:none}
     <div class="tabview" id="tabRiw" hidden>
     <div class="panel" id="panelRiwayat">
       <div class="panel-head" id="riwHead"><span class="chev" id="riwChev">▾</span><span class="ptitle" data-i18n="pRiwayat">🗂️ Riwayat &amp; Status</span></div>
-      <div class="panel-body" id="timelineBody"><div class="empty" data-i18n="riwEmpty">Dèrèng wonten catetan. Pencet dinten ing kalender ndhuwur.</div></div>
+      <div class="panel-body" id="timelineBody"><div class="empty"><span class="bigico">🌷</span><div class="emphead" data-i18n="riwEmptyTitle">Dèrèng wonten cathetan</div><span data-i18n="riwEmpty">Pencet dinten ing kalender ndhuwur kagem miwiti nyathet.</span></div></div>
     </div>
     </div>
 
@@ -324,6 +326,7 @@ body.view-only #adminModeBtn{display:none}
     <div class="panel" id="panelProfil">
       <div class="panel-head" id="profHead"><span class="chev" id="profChev">▾</span><span class="ptitle" data-i18n="pProfil">⚙️ Profil &amp; Adat</span><span class="pmeta" data-i18n="optional">opsional</span></div>
       <div class="panel-body" id="profBody">
+        <div class="sync-divider" style="margin-top:0;padding-top:0;border-top:none" data-i18n="secKebiasaan">🌙 Kebiasaan (Adat)</div>
         <p class="tiny muted" data-i18n="profIntro">Mboten wajib diisi ing wiwitan — adat bakal dipun-sinaoni piyambak dening app saking siklus ingkang jelas (mboten istichadloh). Kosongaken mawon menawi taksih bingung / dereng tertib.</p>
         <div class="adat-grid">
           <div class="box"><b id="adatHaidlView">–</b><span data-i18n="unitDinHaidl">dinten haidl</span></div>
@@ -349,8 +352,12 @@ body.view-only #adminModeBtn{display:none}
           <label class="field"><span data-i18n="lblAdatSuci">Adat suci (dinten)</span><input type="number" id="inAdatSuci" min="1" placeholder="cth. 24"></label>
           <label class="field"><span data-i18n="lblAdatNifas">Adat nifas (dinten)</span><input type="number" id="inAdatNifas" min="1" max="60" placeholder="cth. 40"></label>
         </div>
+
+        <div class="sync-divider" data-i18n="secDataPribadi">👤 Data Pribadi</div>
         <label class="field"><span data-i18n="lblBirthdate">Tanggal lahir (Masehi) — opsional</span><input type="date" id="inBirthdate"></label>
-        <p class="tiny muted" style="margin-top:10px" data-i18n="lokasiIntro">Lokasi kagem itungan jam sholat (kagem fitur Qadha Sholat ing ngandhap).</p>
+
+        <div class="sync-divider" data-i18n="secLokasi">📍 Lokasi</div>
+        <p class="tiny muted" data-i18n="lokasiIntro">Opsional. Namung dibutuhaken menawi panjenengan ngagem fitur itungan Qadha Sholat (tab 🕌 Qadha) — mboten mengaruhi status haidl/nifas/istichadloh.</p>
         <div class="row">
           <button type="button" class="btn ghost wide" id="gpsBtn" data-i18n="gpsBtn">📍 Deteksi lokasi otomatis (GPS)</button>
         </div>
@@ -1152,20 +1159,21 @@ const I18N = {
     pKalender: '📅 Kalender', legSuci:'Suci', legFasad:'Fasad',
     calHint: 'Pencet dinten kagem nyathet/ngewahi. Tandha ℹ️ = wonten informasi tambahan sing dibutuhaken kagem mutusaken dinten kasebut — dudu tandha status hukum during pasti.',
     pRiwayat: '🗂️ Riwayat & Status',
-    riwEmpty: 'Dèrèng wonten catetan. Pencet dinten ing kalender ndhuwur.',
+    riwEmptyTitle: 'Dèrèng wonten cathetan', riwEmpty: 'Pencet dinten ing kalender ndhuwur kagem miwiti nyathet.',
     navKal:'Kalender', navRiw:'Riwayat', navQad:'Qadha', navPro:'Profil', navCat:'Cathetan', navSyn:'Sinkron',
     pQadha: '🕌 Qadha Sholat & Puasa', qadhaEmpty: 'Durung wonten data.',
     pProfil: '⚙️ Profil & Adat', optional: 'opsional',
+    secKebiasaan:'🌙 Kebiasaan (Adat)', secDataPribadi:'👤 Data Pribadi', secLokasi:'📍 Lokasi',
     profIntro: 'Mboten wajib diisi ing wiwitan — adat bakal dipun-sinaoni piyambak dening app saking siklus ingkang jelas (mboten istichadloh). Kosongaken mawon menawi taksih bingung / dereng tertib.',
     unitDinHaidl:'dinten haidl', unitDinSuci:'dinten suci', unitDinNifas:'dinten nifas',
     qEverHaidl:'Sampun nate haidl?', qEverNifas:'Sampun nate nifas?', yaSampun:'Sampun', dereng:'Dèrèng',
     lblAdatHaidl:'Adat haidl (dinten)', lblAdatSuci:'Adat suci (dinten)', lblAdatNifas:'Adat nifas (dinten)',
     lblBirthdate:'Tanggal lahir (Masehi) — opsional',
-    lokasiIntro:'Lokasi kagem itungan jam sholat (kagem fitur Qadha Sholat ing ngandhap).',
+    lokasiIntro:'Opsional. Namung dibutuhaken menawi panjenengan ngagem fitur itungan Qadha Sholat (tab 🕌 Qadha) — mboten mengaruhi status haidl/nifas/istichadloh.',
     gpsBtn:'📍 Deteksi lokasi otomatis (GPS)', lblCity:'Utawi ketik kutha/kabupaten',
     cityNotFound:'Kutha mboten kepanggih ing dhaptar — mangga isi koordinat manual ing ngandhap, utawi pilih kutha caket saking dhaptar.',
     lblLat:'Lintang (latitude)', lblLon:'Bujur (longitude)', lblTz:'Zona (UTC+)',
-    pRinci:'📋 Sedaya Cathetan', periksaEwahi:'priksa/ewahi',
+    pRinci:'📋 Cathetan Detail', periksaEwahi:'priksa/ewahi',
     rinciIntro:'Sedaya cathetan wekdal (saking kalender) kasebat runtut ing ngriki, saged diewahi utawi dibusak langsung.',
     pSync:'☁️ Cadangan & Sinkronisasi',
     syncIntro:'Data utami tetep ing HP niki. Mlebu nganggo akun Google pribadi supados data kacadhangaken lan saged dibikak wonten HP sanès — data mung kesimpen ing akun Google sampeyan piyambak, mboten dipun-bagi kaliyan tiyang sanès.',
@@ -1246,20 +1254,21 @@ const I18N = {
     pKalender: '📅 Kalender', legSuci:'Suci', legFasad:'Fasad',
     calHint: 'Ketuk tanggal untuk mencatat/mengubah. Tanda ℹ️ = ada informasi tambahan yang dibutuhkan untuk memutuskan hari tersebut — bukan tanda status hukum belum pasti.',
     pRiwayat: '🗂️ Riwayat & Status',
-    riwEmpty: 'Belum ada catatan. Ketuk tanggal di kalender di atas.',
+    riwEmptyTitle: 'Belum ada catatan', riwEmpty: 'Ketuk tanggal di kalender di atas untuk mulai mencatat.',
     navKal:'Kalender', navRiw:'Riwayat', navQad:'Qadha', navPro:'Profil', navCat:'Catatan', navSyn:'Sinkron',
     pQadha: '🕌 Qadha Sholat & Puasa', qadhaEmpty: 'Belum ada data.',
     pProfil: '⚙️ Profil & Kebiasaan', optional: 'opsional',
+    secKebiasaan:'🌙 Kebiasaan (Adat)', secDataPribadi:'👤 Data Pribadi', secLokasi:'📍 Lokasi',
     profIntro: 'Tidak wajib diisi di awal — kebiasaan akan dipelajari sendiri oleh aplikasi dari siklus yang jelas (bukan istichadloh). Kosongkan saja jika masih bingung / belum teratur.',
     unitDinHaidl:'hari haidl', unitDinSuci:'hari suci', unitDinNifas:'hari nifas',
     qEverHaidl:'Sudah pernah haidl?', qEverNifas:'Sudah pernah nifas?', yaSampun:'Sudah', dereng:'Belum',
     lblAdatHaidl:'Kebiasaan haidl (hari)', lblAdatSuci:'Kebiasaan suci (hari)', lblAdatNifas:'Kebiasaan nifas (hari)',
     lblBirthdate:'Tanggal lahir (Masehi) — opsional',
-    lokasiIntro:'Lokasi untuk perhitungan jam sholat (untuk fitur Qadha Sholat di bawah).',
+    lokasiIntro:'Opsional. Hanya dibutuhkan jika Anda menggunakan fitur perhitungan Qadha Sholat (tab 🕌 Qadha) — tidak memengaruhi status haidl/nifas/istichadloh.',
     gpsBtn:'📍 Deteksi lokasi otomatis (GPS)', lblCity:'Atau ketik kota/kabupaten',
     cityNotFound:'Kota tidak ditemukan di daftar — silakan isi koordinat manual di bawah, atau pilih kota terdekat dari daftar.',
     lblLat:'Lintang (latitude)', lblLon:'Bujur (longitude)', lblTz:'Zona (UTC+)',
-    pRinci:'📋 Semua Catatan', periksaEwahi:'periksa/ubah',
+    pRinci:'📋 Catatan Detail', periksaEwahi:'periksa/ubah',
     rinciIntro:'Semua catatan waktu (dari kalender) tersebut berurutan di sini, bisa diubah atau dihapus langsung.',
     pSync:'☁️ Cadangan & Sinkronisasi',
     syncIntro:'Data utama tetap di HP ini. Masuk dengan akun Google pribadi supaya data dicadangkan dan bisa dibuka di HP lain — data hanya tersimpan di akun Google Anda sendiri, tidak dibagikan ke orang lain.',
@@ -1839,7 +1848,7 @@ function episodesOverlapping(start, end){
 function fmtT(ts){ return TIME_FMT.format(ts); }
 function renderTimeline(segments){
   const body = $('timelineBody');
-  if(!segments.length){ body.innerHTML = `<div class="empty">${T('riwEmpty')}</div>`; return; }
+  if(!segments.length){ body.innerHTML = `<div class="empty"><span class="bigico">🌷</span><div class="emphead">${T('riwEmptyTitle')}</div><span>${T('riwEmpty')}</span></div>`; return; }
   const rev = segments.slice().reverse();
   let html=''; let curMonth='';
   rev.forEach((s,i)=>{
