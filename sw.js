@@ -1,7 +1,7 @@
 // Service worker cilik: nyimpen "app shell" (file inti) supaya app iso dibukak
 // pisan liwat cache (luwih cepet + iso offline), lan nyukupi syarat Chrome Android
 // supaya prompt "Install app" (dudu mung shortcut bookmark) tenan katon.
-const CACHE_NAME = 'catatan-haidl-v3';
+const CACHE_NAME = 'catatan-haidl-v4';
 const APP_SHELL = [
   './',
   'index.html',
