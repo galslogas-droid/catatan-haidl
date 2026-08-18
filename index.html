@@ -71,7 +71,7 @@ header{position:sticky;top:0;z-index:5;color:var(--accent-ink);background:linear
 .htitle p{margin:1px 0 0;font-size:11px;opacity:.82}
 .iconbtn{flex:none;width:32px;height:32px;border-radius:8px;border:none;background:rgba(255,255,255,.16);color:inherit;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .iconbtn:active{background:rgba(255,255,255,.3)}
-main{flex:1;padding:14px 16px 78px}
+main{flex:1;padding:14px 16px calc(96px + env(safe-area-inset-bottom,0))}
 .banner{background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:10px 12px;font-size:11.5px;line-height:1.5;margin-bottom:14px}
 .warn-box{background:var(--hl-bg);color:var(--hl-accent);border-radius:10px;padding:.55rem .7rem;font-size:11.5px;line-height:1.5;margin-bottom:.7rem}
 .hukum-now{border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow)}
@@ -150,6 +150,7 @@ input:focus,select:focus{box-shadow:0 0 0 2px var(--accent)}
 .tl .tl-line{position:absolute;left:17px;top:26px;bottom:-12px;width:2px;background:var(--line)}
 .tl.tl-last .tl-line{display:none}
 .tl .tl-body{flex:1;min-width:0}
+.dot-plain{width:9px;height:9px;border-radius:50%;flex:none}
 
 .sync-status-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:9px;padding:9px 11px;margin-bottom:12px}
 .sync-dot{width:8px;height:8px;border-radius:50%;background:var(--faint);flex:none}
@@ -161,6 +162,18 @@ input:focus,select:focus{box-shadow:0 0 0 2px var(--accent)}
 .empty .bigico{font-size:32px;display:block;margin-bottom:8px}
 .empty .emphead{font-weight:700;color:var(--ink);font-size:14.5px;margin-bottom:4px}
 
+/* Micro-interaction ringan: mung transform/opacity (murah kanggo GPU, ora blur/gradient anyar),
+   tunggal-jalan (dudu terus-terusan), dihormati prefers-reduced-motion. */
+.btn,.navbtn,.fab,.qbtn,.rbtn,.seg button,.iconbtn,.sheetbtns button{transition:transform .12s ease}
+.btn:active,.navbtn:active,.fab:active,.qbtn:active,.rbtn:active,.seg button:active,.iconbtn:active,.sheetbtns button:active{transform:scale(.94)}
+@media (prefers-reduced-motion: no-preference){
+  .tabview:not([hidden]){animation:fadeup .2s ease both}
+  .overlay:not(.hidden) .sheet{animation:sheetup .22s ease both}
+  @keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes sheetup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+}
+body.sheet-open .bottomnav,body.sheet-open .fab{display:none}
+
 .adat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;text-align:center;margin-bottom:.6rem}
 .adat-grid .box{background:var(--accent-soft);border-radius:9px;padding:.5rem .3rem}
 .adat-grid .box b{display:block;font-size:1rem;color:var(--accent)}
@@ -169,9 +182,9 @@ input:focus,select:focus{box-shadow:0 0 0 2px var(--accent)}
 .ep{border:1px solid var(--line);border-radius:.6rem;padding:.7rem;margin-bottom:.6rem;position:relative}
 .ep .del{position:absolute;top:.5rem;right:.5rem;background:none;border:none;color:var(--muted);cursor:pointer;font-size:.9rem}
 
-.fab{position:fixed;right:18px;bottom:78px;z-index:10;width:54px;height:54px;border-radius:16px;border:none;background:var(--accent);color:var(--accent-ink);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center}
+.fab{position:fixed;right:18px;bottom:calc(84px + env(safe-area-inset-bottom,0));z-index:10;width:54px;height:54px;border-radius:16px;border:none;background:var(--accent);color:var(--accent-ink);font-size:26px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center}
 
-.bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0)}
+.bottomnav{position:fixed;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:460px;bottom:calc(10px + env(safe-area-inset-bottom,0));z-index:15;background:var(--surface);border:1px solid var(--line);border-radius:18px;display:flex;box-shadow:0 6px 20px -6px rgba(0,0,0,.3)}
 .bottomnav-inner{max-width:480px;margin:0 auto;display:flex;width:100%}
 .navbtn{flex:1;background:none;border:none;cursor:pointer;padding:8px 2px 7px;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--muted);font-family:inherit}
 .navbtn .navicon{font-size:18px;line-height:1}
@@ -1172,6 +1185,7 @@ const I18N = {
     calHint: 'Pencet dinten kagem nyathet/ngewahi. Tandha ℹ️ = wonten informasi tambahan sing dibutuhaken kagem mutusaken dinten kasebut — dudu tandha status hukum during pasti.',
     pRiwayat: '🗂️ Riwayat & Status',
     riwEmptyTitle: 'Dèrèng wonten cathetan', riwEmpty: 'Pencet dinten ing kalender ndhuwur kagem miwiti nyathet.',
+    viewPeriode: 'Periode', viewDina: 'Dina',
     navKal:'Kalender', navRiw:'Riwayat', navQad:'Qadha', navPro:'Profil', navCat:'Cathetan', navSyn:'Sinkron',
     pQadha: '🕌 Qadha Sholat & Puasa', qadhaEmpty: 'Durung wonten data.',
     pProfil: '⚙️ Profil & Adat', optional: 'opsional',
@@ -1268,6 +1282,7 @@ const I18N = {
     calHint: 'Ketuk tanggal untuk mencatat/mengubah. Tanda ℹ️ = ada informasi tambahan yang dibutuhkan untuk memutuskan hari tersebut — bukan tanda status hukum belum pasti.',
     pRiwayat: '🗂️ Riwayat & Status',
     riwEmptyTitle: 'Belum ada catatan', riwEmpty: 'Ketuk tanggal di kalender di atas untuk mulai mencatat.',
+    viewPeriode: 'Periode', viewDina: 'Hari',
     navKal:'Kalender', navRiw:'Riwayat', navQad:'Qadha', navPro:'Profil', navCat:'Catatan', navSyn:'Sinkron',
     pQadha: '🕌 Qadha Sholat & Puasa', qadhaEmpty: 'Belum ada data.',
     pProfil: '⚙️ Profil & Kebiasaan', optional: 'opsional',
@@ -1766,11 +1781,22 @@ function openSheet(dayTs){
   $('fLahir').checked = state.births.some(b=> dayStart(b.date)===dayTs);
   $('sheetTitle').textContent = fmtD(dayTs);
   $('overlay').classList.remove('hidden');
+  document.body.classList.add('sheet-open');
 }
-function closeSheet(){ $('overlay').classList.add('hidden'); sheetDayTs=null; sheetCps=[]; }
+function closeSheet(){ $('overlay').classList.add('hidden'); document.body.classList.remove('sheet-open'); sheetDayTs=null; sheetCps=[]; }
 $('fDate').addEventListener('change', e=>{ sheetDayTs = tsOfDateStr(e.target.value); });
 $('btnCancel').addEventListener('click', closeSheet);
-$('fabAdd').addEventListener('click', ()=> openSheet(dayStart(Date.now())));
+$('fabAdd').addEventListener('click', ()=>{
+  // Tumbak cepet: menawi dinten iki durung ana cathetan, langsung isekake 1 baris jam sakniki
+  // supaya pangguna mung kari milih tingkat getih + Simpen (dudu formulir kosong).
+  const dayTs = dayStart(Date.now());
+  openSheet(dayTs);
+  if(!sheetCps.length){
+    const now = new Date();
+    sheetCps.push({rowId:uid(), level:'sedeng', hh: now.getHours(), mm: now.getMinutes()});
+    renderCpRows();
+  }
+});
 
 $('btnSave').addEventListener('click', ()=>{
   const dayTs = sheetDayTs ?? dayStart(Date.now());
@@ -1860,9 +1886,16 @@ function episodesOverlapping(start, end){
   return state.episodes.filter(e=> e.start < end && (e.end ?? Date.now()) > start).sort((a,b)=>a.start-b.start);
 }
 function fmtT(ts){ return TIME_FMT.format(ts); }
-function renderTimeline(segments){
-  const body = $('timelineBody');
-  if(!segments.length){ body.innerHTML = `<div class="empty"><span class="bigico">🌷</span><div class="emphead">${T('riwEmptyTitle')}</div><span>${T('riwEmpty')}</span></div>`; return; }
+// Riwayat duwe 2 cara ndeleng: "Periode" (siji baris per rangkaian status, kaya sadurunge) lan
+// "Dina" (siji baris per dinten kalender) — murni tampilan, ora ngowahi segments/fiqh sing wis dihitung.
+let riwView = 'periode';
+function riwViewSegHtml(){
+  return `<div class="seg" id="riwViewSeg" style="margin-bottom:10px">
+    <button type="button" data-view="periode" class="${riwView==='periode'?'on':''}">${T('viewPeriode')}</button>
+    <button type="button" data-view="dina" class="${riwView==='dina'?'on':''}">${T('viewDina')}</button>
+  </div>`;
+}
+function renderTimelinePeriode(segments){
   const rev = segments.slice().reverse();
   let html=''; let curMonth='';
   rev.forEach((s,i)=>{
@@ -1898,7 +1931,38 @@ function renderTimeline(segments){
       </div>
     </div>`;
   });
-  body.innerHTML = html;
+  return html;
+}
+function renderTimelineDina(segments){
+  // Cukup kanggo cathetan pribadi (paling akeh sawetara wulan data) — dudu data ngantos ewon baris,
+  // dadi aman kanggo hape kentang tanpa perlu pagination.
+  const rows = [];
+  segments.forEach(s=>{
+    const meta = STATUS_META[s.status]||STATUS_META.ISTICHADLOH;
+    for(let t=dayStart(s.start); t<s.end; t+=DAY){ rows.push({t, meta}); }
+  });
+  rows.reverse();
+  let html=''; let curMonth='';
+  rows.forEach(r=>{
+    const m = MONTH_FMT.format(r.t);
+    if(m!==curMonth){ html+=`<div class="day-head">${m}</div>`; curMonth=m; }
+    html += `<div class="trow">
+      <span class="dot-plain" style="background:${r.meta.c}"></span>
+      <div class="tl-body">
+        <span class="lbl" style="color:${r.meta.c}">${r.meta.label}</span>
+        <span class="tiny muted"> · ${fmtD(r.t)}</span>
+      </div>
+    </div>`;
+  });
+  return html;
+}
+function renderTimeline(segments){
+  const body = $('timelineBody');
+  if(!segments.length){ body.innerHTML = `<div class="empty"><span class="bigico">🌷</span><div class="emphead">${T('riwEmptyTitle')}</div><span>${T('riwEmpty')}</span></div>`; return; }
+  body.innerHTML = riwViewSegHtml() + (riwView==='dina'? renderTimelineDina(segments) : renderTimelinePeriode(segments));
+  body.querySelectorAll('#riwViewSeg button').forEach(b=>{
+    b.addEventListener('click', ()=>{ riwView = b.dataset.view; renderTimeline(segments); });
+  });
 }
 // Tracker "sampun ditindakaken vs kantun" — namung nyathet progres manual pangguna ing dhuwur
 // itungan owah/wajib sing wis dihitung deriveQadha()/deriveQadhaSholat() (fiqh logic ora diowahi).
