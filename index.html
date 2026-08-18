@@ -81,6 +81,11 @@ main{flex:1;padding:14px 16px 78px}
 .ringkesan-nav{display:flex;gap:8px;margin-top:10px}
 .ringkesan-nav .rbtn{flex:1;padding:7px 8px;border-radius:8px;border:1px solid currentColor;background:transparent;color:inherit;font-size:11.5px;font-weight:700;cursor:pointer;opacity:.9}
 .ringkesan-nav .rbtn:active{opacity:1}
+.qprog{margin-top:6px}
+.qprog-btns{display:flex;gap:8px;margin-top:4px}
+.qprog-btns .qbtn{flex:1;padding:6px 8px;border-radius:8px;border:1px solid var(--muted);background:transparent;color:inherit;font-size:11.5px;font-weight:700;cursor:pointer}
+.qprog-btns .qbtn:active{opacity:.7}
+.qprog-btns .qbtn:disabled{opacity:.35;cursor:default}
 .flag-box{background:var(--danger-bg);color:var(--danger);border:1px dashed var(--danger);border-radius:10px;padding:.6rem .75rem;font-size:12px;line-height:1.5;margin-bottom:.6rem}
 .muted{color:var(--muted)}
 .tiny{font-size:11px}
@@ -474,15 +479,22 @@ function bloodScore(ep){ return COLOR_RANK[ep.warna] + (ep.kental?1:0) + (ep.bau
 
 /* ======================= STORAGE ======================= */
 const STORE_KEY = 'catatan-haidl-v1';
+// Nyukupi field enggal ing state lawas (mis. saka cadangan Drive/.json lawas sadurunge fitur iki
+// digawe) supaya ora undefined nalika diwaca.
+function ensureStateDefaults(st){
+  if(!st.qadhaProgress) st.qadhaProgress = {puasaDone:0, sholatDone:0};
+  return st;
+}
 function loadState(){
-  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || defaultState(); }catch(e){ return defaultState(); }
+  try{ return ensureStateDefaults(JSON.parse(localStorage.getItem(STORE_KEY)) || defaultState()); }catch(e){ return defaultState(); }
 }
 function saveState(){ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
 function defaultState(){
   return {
     profile:{everHadHaidl:null, everHadNifas:null, adatHaidl:null, adatSuci:null, adatNifas:null, birthdate:null, lat:null, lon:null, tz:null, city:null},
     checkpoints:[], episodes:[], births:[], istihadhohAnswers:{}, lang:'jv',
-    lapor:{nama:'', aktif:false}
+    lapor:{nama:'', aktif:false},
+    qadhaProgress:{puasaDone:0, sholatDone:0}
   };
 }
 /* Mode "among" (view-only) kagem dashboard pengurus: dibukak liwat index.html?view=1 ing
@@ -1196,6 +1208,7 @@ const I18N = {
     kenthel:'kenthel', cair:'cair', mambet:'mambet', mbotenMambet:'mboten mambet',
     lblWajibMandi:'Wajib mandi', takWonten:'boten wonten.',
     lblQadhaSholat:'Qadha sholat', lblRincianWektu:'Rincian per wektu',
+    lblQadhaDone:'Sampun katindakaken', lblQadhaKantun:'Kantun', btnKirangi:'Kirangi', btnTambah:'Tambah',
     sholat_subuh:'Subuh', sholat_dzuhur:'Dzuhur', sholat_ashar:'Ashar', sholat_maghrib:'Maghrib', sholat_isya:'Isya',
     qadhaSholatNeedLoc:'during saged diitung — isi lintang/bujur/zona ing panel ⚙️ Profil & Adat rumiyin. Miturut Bab IV: sholat gugur amargi haidl/nifas mboten wajib diqadha, nanging ing masa ISTICHADLOH sholat tetep wajib.',
     qadhaSholatNone:"boten wonten sing prelu diqadha' (dèrèng nate mlebet masa ISTICHADLOH).",
@@ -1291,6 +1304,7 @@ const I18N = {
     kenthel:'kental', cair:'cair', mambet:'berbau', mbotenMambet:'tidak berbau',
     lblWajibMandi:'Wajib mandi', takWonten:'tidak ada.',
     lblQadhaSholat:'Qadha sholat', lblRincianWektu:'Rincian per waktu',
+    lblQadhaDone:'Sudah dilakukan', lblQadhaKantun:'Sisa', btnKirangi:'Kurangi', btnTambah:'Tambah',
     sholat_subuh:'Subuh', sholat_dzuhur:'Dzuhur', sholat_ashar:'Ashar', sholat_maghrib:'Maghrib', sholat_isya:'Isya',
     qadhaSholatNeedLoc:'belum bisa dihitung — isi lintang/bujur/zona di panel ⚙️ Profil & Kebiasaan terlebih dahulu. Menurut Bab IV: sholat gugur karena haidl/nifas tidak wajib diqadha, tetapi pada masa ISTICHADLOH sholat tetap wajib.',
     qadhaSholatNone:"tidak ada yang perlu diqadha' (belum pernah masuk masa ISTICHADLOH).",
@@ -1886,30 +1900,54 @@ function renderTimeline(segments){
   });
   body.innerHTML = html;
 }
+// Tracker "sampun ditindakaken vs kantun" — namung nyathet progres manual pangguna ing dhuwur
+// itungan owah/wajib sing wis dihitung deriveQadha()/deriveQadhaSholat() (fiqh logic ora diowahi).
+function qadhaProgressBlock(kind, owed, unitLabel){
+  const done = Math.min(state.qadhaProgress[kind+'Done']||0, owed);
+  const sisa = owed - done;
+  return `<div class="qprog">
+    <p class="tiny">✅ <b>${T('lblQadhaDone')}:</b> ${done} / ${owed} ${unitLabel} · <b>${T('lblQadhaKantun')}: ${sisa} ${unitLabel}</b></p>
+    <div class="qprog-btns">
+      <button type="button" class="qbtn" data-kind="${kind}" data-d="-1"${done<=0?' disabled':''}>− ${T('btnKirangi')}</button>
+      <button type="button" class="qbtn" data-kind="${kind}" data-d="1"${done>=owed?' disabled':''}>+ ${T('btnTambah')}</button>
+    </div>
+  </div>`;
+}
 function renderQadha(segments){
   const {wajibMandiPoints, puasaQadhaDays} = deriveQadha(segments);
   const {lat, lon, tz} = state.profile;
   const qs = deriveQadhaSholat(segments, lat, lon, tz);
+  const sholatTotal = qs? qs.reduce((s,it)=>s+it.count,0) : 0;
   let sholatHtml;
   if(qs===null){
     sholatHtml = `<p class="tiny muted">🕌 <b>${T('lblQadhaSholat')}:</b> ${T('qadhaSholatNeedLoc')}</p>`;
   } else if(!qs.length){
     sholatHtml = `<p class="tiny">🕌 <b>${T('lblQadhaSholat')}:</b> ${T('qadhaSholatNone')}</p>`;
   } else {
-    const total = qs.reduce((s,it)=>s+it.count,0);
     const totalByName = {subuh:0, dzuhur:0, ashar:0, maghrib:0, isya:0};
     qs.forEach(it=>PRAYER_NAMES.forEach(n=>totalByName[n]+=it.byName[n]));
     const rincian = PRAYER_NAMES.map(n=>`${T('sholat_'+n)} ${totalByName[n]}x`).join(' · ');
-    sholatHtml = `<p class="tiny">🕌 <b>${T('lblQadhaSholat')}:</b> ± ${total} ${T('unitWektu')} sholat (itungan saking jam sholat asli lokasi), <b>${T('qadhaSholatIntro')}</b> ${T('qadhaSholatTail')}</p>
+    sholatHtml = `<p class="tiny">🕌 <b>${T('lblQadhaSholat')}:</b> ± ${sholatTotal} ${T('unitWektu')} sholat (itungan saking jam sholat asli lokasi), <b>${T('qadhaSholatIntro')}</b> ${T('qadhaSholatTail')}</p>
     <p class="tiny" style="margin-top:-4px"><b>${T('lblRincianWektu')}:</b> ${rincian}</p>
-    <p class="tiny muted" style="margin-top:-4px">${qs.map(it=>`${fmtD(it.start)}–${fmtD(it.end)}: ${PRAYER_NAMES.map(n=>`${T('sholat_'+n)} ${it.byName[n]}x`).join(', ')}`).join('<br>')}</p>`;
+    <p class="tiny muted" style="margin-top:-4px">${qs.map(it=>`${fmtD(it.start)}–${fmtD(it.end)}: ${PRAYER_NAMES.map(n=>`${T('sholat_'+n)} ${it.byName[n]}x`).join(', ')}`).join('<br>')}</p>
+    ${qadhaProgressBlock('sholat', sholatTotal, T('unitWektu'))}`;
   }
   $('qadhaBody').innerHTML = `
     <p class="tiny">🚿 <b>${T('lblWajibMandi')}:</b> ${wajibMandiPoints.length? wajibMandiPoints.map(fmtDT).join('; ') : T('takWonten')}</p>
     ${wajibMandiPoints.length? DURUNG_ADUS_GUIDE_HTML() : ''}
     <p class="tiny">🌙 <b>${T('lblPerkiraanQadhaPuasa')}:</b> ± ${puasaQadhaDays} ${T('unitDinten')} ${T('qadhaPuasaNote')}</p>
+    ${puasaQadhaDays>0? qadhaProgressBlock('puasa', puasaQadhaDays, T('unitDinten')) : ''}
     ${sholatHtml}
   `;
+  $('qadhaBody').querySelectorAll('.qbtn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const kind = b.dataset.kind, d = parseInt(b.dataset.d,10);
+      const key = kind+'Done';
+      const owed = kind==='puasa'? puasaQadhaDays : sholatTotal;
+      state.qadhaProgress[key] = Math.max(0, Math.min(owed, (state.qadhaProgress[key]||0)+d));
+      saveState(); recalcAndRender();
+    });
+  });
 }
 
 /* ======================= RECALC PIPELINE ======================= */
@@ -2398,7 +2436,7 @@ async function syncDown(){
     if(!gDriveFileId){ setSyncStatus(T('syncNoBackup'), true); return; }
     const res = await fetch(`https://www.googleapis.com/drive/v3/files/${gDriveFileId}?alt=media`, {headers:{Authorization:'Bearer '+gAccessToken}});
     if(!res.ok) throw new Error('HTTP '+res.status);
-    state = await res.json(); saveState();
+    state = ensureStateDefaults(await res.json()); saveState();
     applyI18n();
     renderProfile(); renderEpisodes(); recalcAndRender();
     setSyncStatus(T('syncLoadedAt') + new Date().toLocaleString('id-ID'));
@@ -2426,7 +2464,7 @@ $('importFile').addEventListener('change', e=>{
     try{
       const loaded = JSON.parse(reader.result);
       if(!confirm(T('importConfirm'))) return;
-      state = loaded; saveState();
+      state = ensureStateDefaults(loaded); saveState();
       applyI18n();
       renderProfile(); renderEpisodes(); recalcAndRender();
       alert(T('importDone'));
