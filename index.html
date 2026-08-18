@@ -88,6 +88,14 @@ main{flex:1;padding:14px 16px calc(96px + env(safe-area-inset-bottom,0))}
 .qprog-btns .qbtn{flex:1;padding:6px 8px;border-radius:8px;border:1px solid var(--muted);background:transparent;color:inherit;font-size:11.5px;font-weight:700;cursor:pointer}
 .qprog-btns .qbtn:active{opacity:.7}
 .qprog-btns .qbtn:disabled{opacity:.35;cursor:default}
+.qprog-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)}
+.qprog-row:last-child{border-bottom:0}
+.qprog-row .qprog-label{font-weight:700;min-width:52px;font-size:11.5px}
+.qprog-row .qprog-count{flex:1;font-size:11px;color:var(--muted)}
+.qprog-row .qprog-btns2{display:flex;gap:4px;flex-shrink:0}
+.qbtn-n{width:26px;height:26px;border-radius:7px;border:1px solid var(--muted);background:transparent;color:inherit;font-weight:700;cursor:pointer;font-size:14px;line-height:1}
+.qbtn-n:active{opacity:.7}
+.qbtn-n:disabled{opacity:.35;cursor:default}
 .flag-box{background:var(--danger-bg);color:var(--danger);border:1px dashed var(--danger);border-radius:10px;padding:.6rem .75rem;font-size:12px;line-height:1.5;margin-bottom:.6rem}
 .muted{color:var(--muted)}
 .tiny{font-size:11px}
@@ -166,8 +174,8 @@ input:focus,select:focus{box-shadow:0 0 0 2px var(--accent)}
 
 /* Micro-interaction ringan: mung transform/opacity (murah kanggo GPU, ora blur/gradient anyar),
    tunggal-jalan (dudu terus-terusan), dihormati prefers-reduced-motion. */
-.btn,.navbtn,.fab,.qbtn,.rbtn,.seg button,.iconbtn,.sheetbtns button{transition:transform .12s ease}
-.btn:active,.navbtn:active,.fab:active,.qbtn:active,.rbtn:active,.seg button:active,.iconbtn:active,.sheetbtns button:active{transform:scale(.94)}
+.btn,.navbtn,.fab,.qbtn,.qbtn-n,.rbtn,.seg button,.iconbtn,.sheetbtns button{transition:transform .12s ease}
+.btn:active,.navbtn:active,.fab:active,.qbtn:active,.qbtn-n:active,.rbtn:active,.seg button:active,.iconbtn:active,.sheetbtns button:active{transform:scale(.94)}
 @media (prefers-reduced-motion: no-preference){
   .tabview:not([hidden]){animation:fadeup .2s ease both}
   .overlay:not(.hidden) .sheet{animation:sheetup .22s ease both}
@@ -498,6 +506,11 @@ const STORE_KEY = 'catatan-haidl-v1';
 // digawe) supaya ora undefined nalika diwaca.
 function ensureStateDefaults(st){
   if(!st.qadhaProgress) st.qadhaProgress = {puasaDone:0, sholatDone:0};
+  // sholatByName: rincian progress qadha PER JINIS SHOLAT (Subuh/Dzuhur/Ashar/Maghrib/Isya),
+  // ngganteni sholatDone sing mung total gabungan. state lawas sing wis duwe progress ing
+  // sholatDone ora bisa dipérang piyambak-piyambak sholat apa wae sing wis katindakaken,
+  // dadi diwiwiti 0 kabeh (progress lawas mung kanggo referensi, ora ilang saka data).
+  if(!st.qadhaProgress.sholatByName) st.qadhaProgress.sholatByName = {subuh:0, dzuhur:0, ashar:0, maghrib:0, isya:0};
   return st;
 }
 function loadState(){
@@ -509,7 +522,7 @@ function defaultState(){
     profile:{everHadHaidl:null, everHadNifas:null, adatHaidl:null, adatSuci:null, adatNifas:null, birthdate:null, lat:null, lon:null, tz:null, city:null},
     checkpoints:[], episodes:[], births:[], istihadhohAnswers:{}, lang:'jv',
     lapor:{nama:'', aktif:false},
-    qadhaProgress:{puasaDone:0, sholatDone:0}
+    qadhaProgress:{puasaDone:0, sholatDone:0, sholatByName:{subuh:0, dzuhur:0, ashar:0, maghrib:0, isya:0}}
   };
 }
 /* Mode "among" (view-only) kagem dashboard pengurus: dibukak liwat index.html?view=1 ing
@@ -1077,7 +1090,7 @@ function computeTimeline(){
 /* ======================= IBADAH TURUNAN ======================= */
 function deriveQadha(segments){
   let wajibMandiPoints=[];
-  let puasaQadhaDays=0;
+  let puasaQadhaMs=0;
   segments.forEach((s,idx)=>{
     if((s.status==='HAIDL'||s.status==='NIFAS') && segments[idx+1] && segments[idx+1].status!==s.status){
       // Wajib mandi ing wates pungkasan haidl/nifas — tetep kedadeyan senadyan segmen candhake
@@ -1087,7 +1100,6 @@ function deriveQadha(segments){
       // (mandi ingkang sampun katindakaken tetep sah senadyan wonten koreksi hukum sabanjuripun).
       wajibMandiPoints.push(segments[idx+1].start);
     }
-    const days = Math.round((s.end-s.start)/DAY);
     // Kabeh dinten ISTICHADLOH (dudu mung sing ihtiyat/manual/pending) kudu melu diitung, ora
     // mung subset sing during pasti. Sumber: Risalatul Mahaidl 2025 §967 "Semua hari dalam
     // permasalahan darah nifas yang dihukumi istichadloh ... demikian pula puasanya" lan §988
@@ -1095,9 +1107,13 @@ function deriveQadha(segments){
     // wates mung kanggo dinten sing during yakin. Ditashih Gus Fi 17 Agu 2026 (dipercaya marang
     // asil priksa kitab langsung, dudu tebakan).
     if(s.status==='HAIDL' || s.status==='ISTICHADLOH'){
-      puasaQadhaDays += days;
+      // Jumlahake ms mentahan dhisik, buleti sepisan wae ing pungkasan — supaya segmen cendhak
+      // sing dibuletake kuwalik-kuwalik ora numpuk (mis. telu segmen 12 jam = 1.5 dina bisa
+      // kebacut dadi 3 utawa 0 yen dibuletake siji-siji sadurunge dijumlah).
+      puasaQadhaMs += (s.end-s.start);
     }
   });
+  const puasaQadhaDays = Math.round(puasaQadhaMs/DAY);
   return {wajibMandiPoints, puasaQadhaDays};
 }
 
@@ -2022,6 +2038,26 @@ function qadhaProgressBlock(kind, owed, unitLabel){
     </div>
   </div>`;
 }
+// Rincian progress qadha sholat PER JINIS (Subuh/Dzuhur/Ashar/Maghrib/Isya), dudu mung total
+// gabungan - amarga owed saben jinis beda-beda gumantung pinten kaping jinis kasebut tumiba
+// sajroning jendhela ISTICHADLOH, lan wong biasane nyicil per-jinis (mis. Subuh dhisik).
+function qadhaProgressBlockSholat(totalByName){
+  const byName = state.qadhaProgress.sholatByName;
+  const rows = PRAYER_NAMES.map(n=>{
+    const owed = totalByName[n]||0;
+    const done = Math.min(byName[n]||0, owed);
+    const sisa = owed - done;
+    return `<div class="qprog-row">
+      <span class="qprog-label">${T('sholat_'+n)}</span>
+      <span class="qprog-count">${done} / ${owed} · ${T('lblQadhaKantun')} ${sisa}</span>
+      <div class="qprog-btns2">
+        <button type="button" class="qbtn-n" data-n="${n}" data-d="-1"${done<=0?' disabled':''} aria-label="${T('btnKirangi')} ${T('sholat_'+n)}">−</button>
+        <button type="button" class="qbtn-n" data-n="${n}" data-d="1"${done>=owed?' disabled':''} aria-label="${T('btnTambah')} ${T('sholat_'+n)}">+</button>
+      </div>
+    </div>`;
+  }).join('');
+  return `<div class="qprog">${rows}</div>`;
+}
 function renderQadha(segments){
   const {wajibMandiPoints, puasaQadhaDays} = deriveQadha(segments);
   const {lat, lon, tz} = state.profile;
@@ -2039,7 +2075,7 @@ function renderQadha(segments){
     sholatHtml = `<p class="tiny">🕌 <b>${T('lblQadhaSholat')}:</b> ± ${sholatTotal} ${T('unitWektu')} sholat (itungan saking jam sholat asli lokasi), <b>${T('qadhaSholatIntro')}</b> ${T('qadhaSholatTail')}</p>
     <p class="tiny" style="margin-top:-4px"><b>${T('lblRincianWektu')}:</b> ${rincian}</p>
     <p class="tiny muted" style="margin-top:-4px">${qs.map(it=>`${fmtD(it.start)}–${fmtD(it.end)}: ${PRAYER_NAMES.map(n=>`${T('sholat_'+n)} ${it.byName[n]}x`).join(', ')}`).join('<br>')}</p>
-    ${qadhaProgressBlock('sholat', sholatTotal, T('unitWektu'))}`;
+    ${qadhaProgressBlockSholat(totalByName)}`;
   }
   $('qadhaBody').innerHTML = `
     <p class="tiny">🚿 <b>${T('lblWajibMandi')}:</b> ${wajibMandiPoints.length? wajibMandiPoints.map(fmtDT).join('; ') : T('takWonten')}</p>
@@ -2054,6 +2090,14 @@ function renderQadha(segments){
       const key = kind+'Done';
       const owed = kind==='puasa'? puasaQadhaDays : sholatTotal;
       state.qadhaProgress[key] = Math.max(0, Math.min(owed, (state.qadhaProgress[key]||0)+d));
+      saveState(); recalcAndRender();
+    });
+  });
+  $('qadhaBody').querySelectorAll('.qbtn-n').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const n = b.dataset.n, d = parseInt(b.dataset.d,10);
+      const owed = (qs? qs.reduce((s,it)=>s+it.byName[n],0) : 0);
+      state.qadhaProgress.sholatByName[n] = Math.max(0, Math.min(owed, (state.qadhaProgress.sholatByName[n]||0)+d));
       saveState(); recalcAndRender();
     });
   });
