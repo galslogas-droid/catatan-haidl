@@ -78,6 +78,8 @@ main{flex:1;padding:14px 16px calc(96px + env(safe-area-inset-bottom,0))}
 .hukum-now .eyebrow{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.75;margin:0 0 3px}
 .hukum-now .big{font-size:1.35rem;font-weight:800;margin:0 0 4px;display:flex;align-items:center;gap:8px}
 .hukum-now .desc{font-size:12px;line-height:1.55;opacity:.92}
+.hukum-dowhat{margin:8px 0;padding:8px 10px;border-radius:9px;border:1px dashed currentColor;font-size:12px;line-height:1.5}
+.hukum-dowhat b{display:block;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;opacity:.75;margin-bottom:2px}
 .ringkesan-nav{display:flex;gap:8px;margin-top:10px}
 .ringkesan-nav .rbtn{flex:1;padding:7px 8px;border-radius:8px;border:1px solid currentColor;background:transparent;color:inherit;font-size:11.5px;font-weight:700;cursor:pointer;opacity:.9}
 .ringkesan-nav .rbtn:active{opacity:1}
@@ -1213,6 +1215,21 @@ const I18N = {
     btnAddCp:'+ Tambah cathetan', chkLahir:'Dinten niki babaran (miwiti nifas)',
     btnBatal:'Batal', btnSimpen:'Simpen',
     hukumLabel:'Hukum sakniki', noBloodNow:'Dèrèng wonten cathetan getih ingkang taksih mlebet sakniki.',
+    lblStatusFiqh:'Status fiqh:', lblApaSingKudu:'Menapa ingkang kedah katindakaken?', lblKenapa:'Kenapa mekaten?',
+    plainHaidl:'🩸 Panjenengan saweg haidl', plainNifas:'🩸 Panjenengan saweg nifas',
+    doHaidlNifas:'Sholat lan pasa mboten katindakaken rumiyin. Sholat mboten prelu diqadha\', nanging pasa <b>WAJIB</b> diqadha\' sasampunipun suci.',
+    plainIsti:'🤍 Getih menika mboten dipun-anggep haidl',
+    doIsti:'Sholat lan pasa tetep wajib katindakaken (kanthi tata cara mustahadloh — deleng panduan ing tab 🕌 Qadha).',
+    plainIstiIhtiyat:'🤍 Getih menika dèrèng yakin haidl (ihtiyat)',
+    doIstiIhtiyat:'Ngatos-atos: sawetara babagan dipun-tebihi kados haidl, nanging sholat & pasa tetep wajib. Rincian lengkap wonten ngandhap.',
+    plainPending:'ℹ️ Dèrèng saged dipun-tentokaken statusipun',
+    doPending:'Kula betahaken wangsulan panjenengan rumiyin supados yakin. Mangga wangsuli pitakenan ing ngandhap utawi tab 🗂️ Riwayat.',
+    plainSuci:'🤍 Panjenengan saweg suci', doSuci:'Mboten wonten watesan ibadah. Sedaya ibadah katindakaken kados limrahipun.',
+    plainFasad:'🤍 Getih menika dipun-anggep fasad',
+    doFasad:'Ibadah tetep katindakaken kados limrahipun (getih dipun-anggep suci kagem ibadah, sanadyan najis).',
+    riwPlainHaidl:'Getih haidl', riwPlainNifas:'Getih nifas', riwPlainSuci:'Suci, mboten wonten getih',
+    riwPlainFasad:'Getih dipun-anggep fasad', riwPlainIsti:'Getih dudu haidl',
+    riwPlainIhtiyat:'Dèrèng yakin haidl', riwPlainPending:'Dèrèng dijawab',
     calcErr:'Kalepatan itungan', checkDataAgain:'Priksa malih data (tanggal kedah runtut).',
     lblSebab:'Sebabipun', lblCatatanMentah:'Cathetan mentah', stillOngoing:'taksih mlebet',
     badgeBelum24:'dèrèng 24 jam', badgeIhtiyat:'ihtiyat', badgePending:'durung dijawab', badgeManual:'rujuk kitab langsung',
@@ -1310,6 +1327,21 @@ const I18N = {
     btnAddCp:'+ Tambah catatan', chkLahir:'Hari ini melahirkan (mulai nifas)',
     btnBatal:'Batal', btnSimpen:'Simpan',
     hukumLabel:'Hukum saat ini', noBloodNow:'Belum ada catatan darah yang masih berlangsung saat ini.',
+    lblStatusFiqh:'Status fiqh:', lblApaSingKudu:'Apa yang perlu dilakukan?', lblKenapa:'Kenapa begitu?',
+    plainHaidl:'🩸 Anda sedang haidl', plainNifas:'🩸 Anda sedang nifas',
+    doHaidlNifas:'Sholat dan puasa tidak dilaksanakan dulu. Sholat tidak perlu diqadha\', tapi puasa <b>WAJIB</b> diqadha\' setelah suci.',
+    plainIsti:'🤍 Darah ini tidak dianggap haidl',
+    doIsti:'Sholat dan puasa tetap wajib dilaksanakan (dengan tata cara mustahadloh — lihat panduan di tab 🕌 Qadha).',
+    plainIstiIhtiyat:'🤍 Darah ini belum pasti haidl (ihtiyat)',
+    doIstiIhtiyat:'Hati-hati: beberapa hal dijauhi seperti haidl, tapi sholat & puasa tetap wajib. Rincian lengkap di bawah.',
+    plainPending:'ℹ️ Belum bisa ditentukan statusnya',
+    doPending:'Saya butuh jawaban Anda dulu supaya yakin. Silakan jawab pertanyaan di bawah atau tab 🗂️ Riwayat.',
+    plainSuci:'🤍 Anda sedang suci', doSuci:'Tidak ada batasan ibadah. Semua ibadah dilaksanakan seperti biasa.',
+    plainFasad:'🤍 Darah ini dianggap fasad',
+    doFasad:'Ibadah tetap dilaksanakan seperti biasa (darah dianggap suci untuk ibadah, meski najis).',
+    riwPlainHaidl:'Darah haidl', riwPlainNifas:'Darah nifas', riwPlainSuci:'Suci, tidak ada darah',
+    riwPlainFasad:'Darah dianggap fasad', riwPlainIsti:'Darah bukan haidl',
+    riwPlainIhtiyat:'Belum pasti haidl', riwPlainPending:'Belum dijawab',
     calcErr:'Kesalahan perhitungan', checkDataAgain:'Periksa lagi data (tanggal harus berurutan).',
     lblSebab:'Sebabnya', lblCatatanMentah:'Catatan mentah', stillOngoing:'masih berlangsung',
     badgeBelum24:'belum 24 jam', badgeIhtiyat:'ihtiyat', badgePending:'belum dijawab', badgeManual:'rujuk kitab langsung',
@@ -1895,6 +1927,19 @@ function riwViewSegHtml(){
     <button type="button" data-view="dina" class="${riwView==='dina'?'on':''}">${T('viewDina')}</button>
   </div>`;
 }
+// Label ringkes basa awam kagem baris Riwayat (dudu ukara "sakniki" kaya hukumPlainCopy — iki
+// kagem kadadeyan wingi/kapungkur, mula tanpa "saweg"). Istilah fiqh asli tetep katon ing baris
+// cilik ing sisihe (${meta.label}), ora dibucal. [[feedback_no-tebak-fiqh]]: mung ngganti tembung
+// paparan, ora ngowahi status/logika fiqh apa-apa.
+function riwPlainLabel(s){
+  if(s.status==='HAIDL') return T('riwPlainHaidl');
+  if(s.status==='NIFAS') return T('riwPlainNifas');
+  if(s.status==='SUCI') return T('riwPlainSuci');
+  if(s.status==='FASAD') return T('riwPlainFasad');
+  if(s.pending) return T('riwPlainPending');
+  if(s.ihtiyat) return T('riwPlainIhtiyat');
+  return T('riwPlainIsti');
+}
 function renderTimelinePeriode(segments){
   const rev = segments.slice().reverse();
   let html=''; let curMonth='';
@@ -1910,13 +1955,13 @@ function renderTimelinePeriode(segments){
       <span class="tl-dot" style="background:${meta.c}"></span>
       <span class="tl-line"></span>
       <div class="tl-body">
-        <span class="lbl" style="color:${meta.c}">${meta.label}</span>
-        <span class="tiny muted"> · ${fmtD(s.start)} ${fmtT(s.start)} – ${fmtD(s.end)} ${fmtT(s.end)} (${days} ${T('unitDinten')})</span>
+        <span class="lbl" style="color:${meta.c}">${riwPlainLabel(s)}</span>
+        <span class="tiny muted"> · ${meta.label} · ${fmtD(s.start)} ${fmtT(s.start)} – ${fmtD(s.end)} ${fmtT(s.end)} (${days} ${T('unitDinten')})</span>
         ${s.belumCukup?`<span class="badge" style="background:var(--isti-bg);color:var(--isti)">${T('badgeBelum24')}</span>`:''}
         ${s.ihtiyat?`<span class="badge" style="background:var(--isti-bg);color:var(--isti)">${T('badgeIhtiyat')}</span>`:''}
         ${s.pending?`<span class="badge" style="background:var(--surface2);color:var(--muted);border:1px solid var(--line)">ℹ️ ${T('badgePending')}</span>`:''}
         ${s.manual?`<span class="badge" style="background:var(--danger-bg);color:var(--danger)">${T('badgeManual')}</span>`:''}
-        ${s.note?`<div class="sub" style="margin-top:4px;line-height:1.5">📖 <b>${T('lblSebab')}:</b> ${s.note}</div>`:''}
+        ${s.note?`<details style="margin-top:4px"><summary style="cursor:pointer;font-weight:700;font-size:11px">${T('lblKenapa')}</summary><p class="sub" style="margin-top:4px;line-height:1.5">${s.note}</p></details>`:''}
         ${(s.status==='HAIDL'||s.status==='NIFAS')? HAIDL_GUIDE_HTML() : ''}
         ${s.ihtiyat? IHTIYAT_GUIDE_HTML() : ''}
         ${rawEps.length?`<div class="sub" style="margin-top:5px;padding:6px 8px;background:var(--surface2);border-radius:6px">
@@ -1939,7 +1984,7 @@ function renderTimelineDina(segments){
   const rows = [];
   segments.forEach(s=>{
     const meta = STATUS_META[s.status]||STATUS_META.ISTICHADLOH;
-    for(let t=dayStart(s.start); t<s.end; t+=DAY){ rows.push({t, meta}); }
+    for(let t=dayStart(s.start); t<s.end; t+=DAY){ rows.push({t, meta, s}); }
   });
   rows.reverse();
   let html=''; let curMonth='';
@@ -1949,8 +1994,8 @@ function renderTimelineDina(segments){
     html += `<div class="trow">
       <span class="dot-plain" style="background:${r.meta.c}"></span>
       <div class="tl-body">
-        <span class="lbl" style="color:${r.meta.c}">${r.meta.label}</span>
-        <span class="tiny muted"> · ${fmtD(r.t)}</span>
+        <span class="lbl" style="color:${r.meta.c}">${riwPlainLabel(r.s)}</span>
+        <span class="tiny muted"> · ${r.meta.label} · ${fmtD(r.t)}</span>
       </div>
     </div>`;
   });
@@ -2147,6 +2192,21 @@ const IHTIYAT_GUIDE_HTML_ID = `<details style="margin-top:10px">
   </div>
 </details>`;
 function IHTIYAT_GUIDE_HTML(){ return state.lang==='id' ? IHTIYAT_GUIDE_HTML_ID : IHTIYAT_GUIDE_HTML_JV; }
+// Basa awam dhisik, fiqh ing mburine: APA (headline gampang dimangertosi) -> istilah fiqh asli
+// (tetep dipun-tampilaken, mung dadi baris cilik, ora dibucal) -> APA SING KUDU DITINDAKAKE
+// (ringkesan tumindak) -> KENAPA (alesan lengkap, didhelikaken ing mburi "Kenapa?") -> detail
+// fiqh lengkap (guide sing wis wonten, HAIDL_GUIDE_HTML/IHTIYAT_GUIDE_HTML, ora diowahi).
+// Ditashih Gus Fi 18 Agu 2026: "aku pingin wong awam ora mumet, lan gelem sinau fiqh kewanitaan".
+function hukumPlainCopy(seg){
+  if(!seg) return {headline:T('plainSuci'), doText:T('doSuci')};
+  if(seg.status==='HAIDL') return {headline:T('plainHaidl'), doText:T('doHaidlNifas')};
+  if(seg.status==='NIFAS') return {headline:T('plainNifas'), doText:T('doHaidlNifas')};
+  if(seg.status==='SUCI') return {headline:T('plainSuci'), doText:T('doSuci')};
+  if(seg.status==='FASAD') return {headline:T('plainFasad'), doText:T('doFasad')};
+  if(seg.pending) return {headline:T('plainPending'), doText:T('doPending')};
+  if(seg.ihtiyat) return {headline:T('plainIstiIhtiyat'), doText:T('doIstiIhtiyat')};
+  return {headline:T('plainIsti'), doText:T('doIsti')};
+}
 function renderHukumSakniki(segments){
   const now = Date.now();
   let seg = segments.find(s=> now>=s.start && now<s.end);
@@ -2168,22 +2228,30 @@ function renderHukumSakniki(segments){
       <button type="button" class="rbtn" data-tab="Riw">${T('btnBukakRiwayat')}</button>
       <button type="button" class="rbtn" data-tab="Qad">${T('btnBukakQadha')}</button>
     </div>`;
+  const dowhatHtml = doText=>`<div class="hukum-dowhat">
+      <b>${T('lblApaSingKudu')}</b>
+      ${doText}
+    </div>`;
   if(!seg){
+    const {headline, doText} = hukumPlainCopy(null);
     wrap.innerHTML = `<div class="hukum-now" style="background:var(--accent-soft);color:var(--accent)">
       <p class="eyebrow">${T('hukumLabel')} (${fmtDT(now)})</p>
-      <p class="big">🟢 ${T('legSuci').toUpperCase()}</p>
-      <p class="desc">${T('noBloodNow')}</p>
+      <p class="big">${headline}</p>
+      <p class="desc">${T('lblStatusFiqh')} <b>${T('legSuci').toUpperCase()}</b></p>
+      ${dowhatHtml(doText)}
       ${qadhaMiniHtml}
       ${navBtnsHtml}
     </div>`;
   } else {
     const meta = STATUS_META[seg.status]||STATUS_META.ISTICHADLOH;
     const dayKe = Math.floor((now - seg.start)/DAY) + 1;
+    const {headline, doText} = hukumPlainCopy(seg);
     wrap.innerHTML = `<div class="hukum-now" style="background:${meta.bg};color:${meta.c}">
       <p class="eyebrow">${T('hukumLabel')} (${fmtDT(now)})</p>
-      <p class="big">${seg.status==='HAIDL'?'🔴':seg.status==='NIFAS'?'🟤':seg.status==='ISTICHADLOH'?'🟡':'⚪'} ${meta.label.toUpperCase()}</p>
-      <p class="desc">${T('ringkesanDinaKe')}${dayKe} · ${T('ringkesanWiwit')} ${fmtD(seg.start)}</p>
-      <p class="desc">${seg.note||''}</p>
+      <p class="big">${headline}</p>
+      <p class="desc">${T('lblStatusFiqh')} <b>${meta.label.toUpperCase()}</b> · ${T('ringkesanDinaKe')}${dayKe} · ${T('ringkesanWiwit')} ${fmtD(seg.start)}</p>
+      ${dowhatHtml(doText)}
+      ${seg.note?`<details style="margin-top:8px"><summary style="cursor:pointer;font-weight:700;font-size:12px">${T('lblKenapa')}</summary><p style="font-size:11.5px;line-height:1.6;margin-top:6px;opacity:.92">${seg.note}</p></details>`:''}
       ${(seg.status==='HAIDL'||seg.status==='NIFAS')? HAIDL_GUIDE_HTML() : ''}
       ${seg.ihtiyat? IHTIYAT_GUIDE_HTML() : ''}
       ${qadhaMiniHtml}
