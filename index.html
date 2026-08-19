@@ -1107,10 +1107,20 @@ function deriveQadha(segments){
     // wates mung kanggo dinten sing during yakin. Ditashih Gus Fi 17 Agu 2026 (dipercaya marang
     // asil priksa kitab langsung, dudu tebakan).
     if(s.status==='HAIDL' || s.status==='ISTICHADLOH'){
-      // Jumlahake ms mentahan dhisik, buleti sepisan wae ing pungkasan — supaya segmen cendhak
-      // sing dibuletake kuwalik-kuwalik ora numpuk (mis. telu segmen 12 jam = 1.5 dina bisa
-      // kebacut dadi 3 utawa 0 yen dibuletake siji-siji sadurunge dijumlah).
-      puasaQadhaMs += (s.end-s.start);
+      // Puasa fardhu mung wajib ing sasi Ramadhan — dadi mung dinten sing bertepatan Ramadhan
+      // (miturut Hijriyah, dipeksa nganggo calOffset padha karo tanggalan sing katon ing app)
+      // sing diétung, dudu kabeh dinten haidl/istichadloh sak-taun. Diétung per-dinten kalender
+      // (dudu ms mentahan sak-segmen) amarga siji segmen bisa nyabrang wates Ramadhan mlebu/metu
+      // ing tengah dinten. Jumlahake ms mentahan dhisik saben dinten Ramadhan, buleti sepisan wae
+      // ing pungkasan (pola padha karo sadurunge, supaya ora kebacut/ilang amarga dibuletake
+      // bola-bali). Dijaluk Gus Fi 19 Agu 2026: "langsung dihitung pas ramadhan mulai, dudu sasi liya".
+      for(let t=dayStart(s.start); t<s.end; t+=DAY){
+        const dd = new Date(t);
+        const hd = hijriOfLocal(dd.getFullYear(), dd.getMonth()+1, dd.getDate());
+        if(hd[1]===9){
+          puasaQadhaMs += (Math.min(t+DAY,s.end) - Math.max(t,s.start));
+        }
+      }
     }
   });
   const puasaQadhaDays = Math.round(puasaQadhaMs/DAY);
@@ -1225,7 +1235,7 @@ const I18N = {
     btnSignIn:'🔐 Mlebu nganggo Google', btnSyncUp:'☁️⬆️ Simpen', btnSyncDown:'☁️⬇️ Jupuk', btnSignOut:'Metu',
     autoSyncLbl:'Otomatis simpen ing Google saben owah',
     btnExport:'💾 Ekspor .json', btnImport:'📂 Muat .json', btnReset:'🗑️ Hapus sedaya data (reset)',
-    footerText:'Adhedhasar <em>Risalatul Mahaidl 2025</em> · Mazhab Syafi\'i · prototipe mandiri<br>⚠️ Bagean istichadloh kategori tartamtu taksih draf, dèrèng ditashih lengkap.',
+    footerText:'Disusun déning Divisi Keputrian Pondok Pesantren Al-Ittihad.<br>Adhedhasar <em>Risalatul Mahaidl 2025</em> · Mazhab Syafi\'i · prototipe mandiri<br>⚠️ Bagean istichadloh kategori tartamtu taksih draf, dèrèng ditashih lengkap.',
     sheetTitleDefault:'Cathet Dinten', lblTanggal:'Tanggal',
     sheetHint:'Cathet mawon jam pinten kahananipun owah. Kagem mandheg, tambah cathetan enggal kanthi status "Suci" ing jam mandhegipun — mboten prelu ngisi jam mandheg piyambak.',
     btnAddCp:'+ Tambah cathetan', chkLahir:'Dinten niki babaran (miwiti nifas)',
@@ -1262,7 +1272,7 @@ const I18N = {
     qadhaSholatIntro:'MENAWI during dipun-lampahi',
     qadhaSholatTail:'ing masa ISTICHADLOH ing ngandhap (amargi haidl/nifas gugur, nanging ISTICHADLOH tetep wajib sholat):',
     lblPerkiraanQadhaPuasa:'Perkiraan qadha puasa',
-    qadhaPuasaNote:'MENAWI puasa ing dinten kasebut during katindakaken — total dinten haidl/istichadloh (yakin+ihtiyat) sing dihukumi, kedah dipun-filter manual sing bertepatan wulan Ramadhan.',
+    qadhaPuasaNote:'MENAWI puasa ing dinten kasebut during katindakaken — namung dinten haidl/istichadloh (yakin+ihtiyat) sing bertepatan sasi Ramadhan (miturut Hijriyah) sing diétung otomatis; sanjabane Ramadhan mboten diétung amargi mboten wonten puasa fardhu.',
     gpsNoSupport:'⚠️ HP/browser mboten ndhukung GPS.', gpsSearching:'Nggoleki lokasi…',
     gpsFound:'✅ Lokasi kepanggih (akurasi ±ACCm).',
     gpsFail:'⚠️ Gagal njupuk lokasi: REASON Mangga ketik jeneng kutha mawon ing ngandhap.',
@@ -1337,7 +1347,7 @@ const I18N = {
     btnSignIn:'🔐 Masuk dengan Google', btnSyncUp:'☁️⬆️ Simpan', btnSyncDown:'☁️⬇️ Ambil', btnSignOut:'Keluar',
     autoSyncLbl:'Otomatis simpan ke Google setiap ada perubahan',
     btnExport:'💾 Ekspor .json', btnImport:'📂 Muat .json', btnReset:'🗑️ Hapus semua data (reset)',
-    footerText:'Berdasarkan <em>Risalatul Mahaidl 2025</em> · Mazhab Syafi\'i · prototipe mandiri<br>⚠️ Bagian istichadloh kategori tertentu masih draf, belum ditashih lengkap.',
+    footerText:'Disusun oleh Divisi Keputrian Pondok Pesantren Al-Ittihad.<br>Berdasarkan <em>Risalatul Mahaidl 2025</em> · Mazhab Syafi\'i · prototipe mandiri<br>⚠️ Bagian istichadloh kategori tertentu masih draf, belum ditashih lengkap.',
     sheetTitleDefault:'Catat Tanggal', lblTanggal:'Tanggal',
     sheetHint:'Catat saja jam berapa keadaannya berubah. Untuk berhenti, tambah catatan baru dengan status "Suci" pada jam berhentinya — tidak perlu mengisi jam berhenti sendiri.',
     btnAddCp:'+ Tambah catatan', chkLahir:'Hari ini melahirkan (mulai nifas)',
@@ -1374,7 +1384,7 @@ const I18N = {
     qadhaSholatIntro:'JIKA belum dilaksanakan',
     qadhaSholatTail:'pada masa ISTICHADLOH di bawah ini (karena haidl/nifas gugur, tetapi ISTICHADLOH tetap wajib sholat):',
     lblPerkiraanQadhaPuasa:'Perkiraan qadha puasa',
-    qadhaPuasaNote:'JIKA puasa pada hari tersebut belum dilaksanakan — total hari haidl/istichadloh (yakin+ihtiyat) yang dihukumi, perlu difilter manual yang bertepatan bulan Ramadhan.',
+    qadhaPuasaNote:'JIKA puasa pada hari tersebut belum dilaksanakan — hanya hari haidl/istichadloh (yakin+ihtiyat) yang bertepatan bulan Ramadhan (menurut Hijriyah) yang dihitung otomatis; di luar Ramadhan tidak dihitung karena tidak ada puasa fardhu.',
     gpsNoSupport:'⚠️ HP/browser tidak mendukung GPS.', gpsSearching:'Mencari lokasi…',
     gpsFound:'✅ Lokasi ditemukan (akurasi ±ACCm).',
     gpsFail:'⚠️ Gagal mengambil lokasi: REASON Silakan ketik nama kota saja di bawah.',
