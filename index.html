@@ -834,6 +834,18 @@ function classifyIstihadhohHaidlCore(events, blockStartIdx, blockEndIdxExcl, ada
       const flagged = slidingWindowQodronSaja(start, endAll, adat.haidl, adat.suci);
       return {segments:flagged, nextIndex:blockEndIdxExcl, adatHaidl:adat.haidl, adatSuci:adat.suci, needsInput:[]};
     }
+    if(!rem){
+      // rememberType durung dijawab (mis. mumayyizah gagal sawise user milih "Bisa mbedakaken" —
+      // pitakenan iki mauné didhelikake ing kasus kasebut, dadi rem tetep null. Bug nyata,
+      // dikonfirmasi 21 Aug 2026: tanpa jaring pengaman iki, kode kepleset dadi 'beberapa'
+      // senadyan user during milih apa-apa. Saiki kudu takon eksplisit, ora nebak.
+      return {segments:[{start, end:endAll, status:'ISTICHADLOH', pending:true, key,
+        note: state.lang==='id'
+          ? 'Darah kuat/lemah di sini TIDAK memenuhi syarat mumayyizah (lihat catatan di atas), sehingga perlu diketahui kebiasaan (adat) Anda untuk menentukan hari mana yang haidl. Silakan jawab pertanyaan "Apa yang diingat?" di bawah.'
+          : 'Getih kuat/lemah wonten mriki MBOTEN nyekapi syarat mumayyizah (mriksani cathetan ing nginggil), pramila kedah dipun-mangertosi adat panjenengan kagem mesthèkaken dinten pundi ingkang haidl. Mangga wangsuli pitakenan "Menapa ingkang dipun-emut?" ing ngandhap.'}],
+        nextIndex: blockEndIdxExcl, adatHaidl:adat.haidl, adatSuci:adat.suci,
+        needsInput:[{key, type:'haidl', start}]};
+    }
     // 'beberapa' (ingat beberapa kemungkinan lama, lupa mana yg terakhir) -> §6.4 poin 5-6, mandi tiap akhir angka.
     // Ditashih Gus Fi 10 Agu 2026: cekap dipun-arahaken rujuk kitab langsung (mboten prelu itungan rinci per-dinten kagem versi sakniki).
     return {segments:[{start, end:endAll, status:'ISTICHADLOH', manual:true,
@@ -1310,6 +1322,7 @@ const I18N = {
     getihLangkung:'⚠️ Getih >', watesMaksimal:'Sampun langkung wates maksimal', pleaseAnswer:'Mangga wangsuli:',
     lblNifas:'nifas', lblHaidl:'haidl',
     qBisaBedakan:'Saged mbedakaken getih kuat & lemah?', ansSaged:'Saged', ansMboten:'Mboten',
+    hintAdatMeskiBisa:'Mangga isi ugi adat ing ngandhap punika kanggo jaga-jaga — menawi getih kuat/lemah wau boten nyekapi 3 syarat mumayyizah miturut kitab, etungan bakal mundur nganggo adat punika.',
     qDiemut:'Menapa ingkang dipun-emut?',
     rtQodronWaqtan:'Lami & wekdal mulai', rtQodronSaja:'Lami mawon', rtWaqtanSaja:'Wekdal mulai mawon',
     rtBeberapa:'Sawetara kemungkinan', rtTidakIngat:'Mboten emut',
@@ -1422,6 +1435,7 @@ const I18N = {
     getihLangkung:'⚠️ Darah >', watesMaksimal:'Sudah melebihi batas maksimal', pleaseAnswer:'Silakan jawab:',
     lblNifas:'nifas', lblHaidl:'haidl',
     qBisaBedakan:'Bisa membedakan darah kuat & lemah?', ansSaged:'Bisa', ansMboten:'Tidak',
+    hintAdatMeskiBisa:'Mohon isi juga kebiasaan (adat) di bawah ini untuk jaga-jaga — jika darah kuat/lemah tadi ternyata tidak memenuhi 3 syarat mumayyizah menurut kitab, perhitungan akan mundur memakai adat ini.',
     qDiemut:'Apa yang diingat?',
     rtQodronWaqtan:'Lama & waktu mulai', rtQodronSaja:'Lama saja', rtWaqtanSaja:'Waktu mulai saja',
     rtBeberapa:'Beberapa kemungkinan', rtTidakIngat:'Tidak ingat',
@@ -1909,7 +1923,8 @@ function renderIstihadhohPrompts(list){
             <button class="pill ${ans.bisaBedakan===false?'active':''}" data-v="false" type="button">${T('ansMboten')}</button>
           </div>
         </label>
-        <div data-show style="display:${ans.bisaBedakan===false?'block':'none'}">
+        <div data-show style="display:${ans.bisaBedakan===null?'none':'block'}">
+          ${ans.bisaBedakan===true ? `<p class="tiny muted" style="margin:0 0 6px">${T('hintAdatMeskiBisa')}</p>` : ''}
           ${item.type==='haidl' ? `
           <label class="field"><span>${T('qDiemut')}</span>
             <div class="pill-group" data-q="rememberType" style="flex-wrap:wrap">
